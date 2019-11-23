@@ -1,13 +1,12 @@
-// @import "pTech.less";
-@import "general.less";
 
 /*.select_drop[dropper-id="contentFilter"]{
-    p{
-        //font-weight: bold;
-    }
+	p{
+		//font-weight: bold;
+	}
 }*/
+@import (reference) "general.less";
 
-#pageContent{
+#pageContent[data-page="signin"]{
 	position: absolute;
 	height: 100%;
 	display: flex;
@@ -129,6 +128,7 @@
 					margin: 0;
 					width: 100%;
 					font-family: inherit;
+					font-weight: 600;
 					text-transform: capitalize;
 
 					&.disabled{

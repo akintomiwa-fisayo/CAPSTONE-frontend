@@ -1,0 +1,60 @@
+#pageContent[data-page="application"] #mainContentBlock .container,
+#pageContent[data-page="application"] #mainContentBlock #contentHeader {
+  width: 100%;
+  padding-left: calc(19vw + 2em);
+  padding-right: calc(24vw + 2em);
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ebe7f8;
+  padding-top: 1em;
+  padding-bottom: 0.4em;
+  border-bottom: solid 1px #1c123a;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .page {
+  margin: 0px;
+  text-transform: capitalize;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .icon {
+  font-size: 1.6em;
+  color: #beb1e7;
+  color: #c7c7c7;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info {
+  display: flex;
+  align-items: center;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .name {
+  margin-right: 1em;
+  text-transform: capitalize;
+  color: #6e6e6e;
+  color: #1c123a;
+  font-weight: 600;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .passport {
+  overflow: hidden;
+  display: flex;
+  width: 2.8em;
+  height: 2.8em;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  padding: 2px;
+  border: solid 2px #1c123a;
+  margin: 0;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .passport img {
+  width: 100%;
+  height: 100%;
+  object-position: center;
+  object-fit: cover;
+  border-radius: 100%;
+}
+#pageContent[data-page="application"] #mainContentBlock .container {
+  padding-top: 1.5em;
+}
