@@ -1,0 +1,13 @@
+#pageContent[data-page="application"] #updatesBlock {
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  left: auto;
+  right: 0;
+  background: #f5f3fb;
+  border-left: solid 1px #1c123a;
+  width: 24vw;
+  height: 100vh;
+  padding: 1.4em 3vw;
+  text-align: left;
+}

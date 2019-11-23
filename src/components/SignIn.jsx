@@ -58,10 +58,10 @@ class SignIn extends React.Component {
           if (res.status === 200) return res.json();
           throw new Error(res.status);
         }).then(({ data: user }) => {
-          // Save user and redirect to home page
-          const { startUserSession } = this.props;
           const { history } = this.props;
-          startUserSession(user, this.props);
+          // start user session and redirect to home page
+          localStorage.setItem('sessionUserToken', user.token);
+          localStorage.setItem('sessionUserId', user.userId);
           history.push('/');
         }).catch(({ message: err }) => {
           const error = parseInt(err, 10);
@@ -151,10 +151,10 @@ class SignIn extends React.Component {
 
   render() {
     return (
-      <div id="pageContent">
+      <div id="pageContent" data-page="signin">
         <img id="pageBK" src={pageBk} alt="" />
         <div id="siteLogoHolder">
-          <span id="siteLogo">ignite</span>
+          <span id="siteLogo" className="dark">ignite</span>
         </div>
         <div id="contentHolder">
           <div id="signInForm">
@@ -198,7 +198,6 @@ class SignIn extends React.Component {
   }
 }
 SignIn.propTypes = {
-  startUserSession: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 };
 export default SignIn;
