@@ -90,6 +90,13 @@
 .form-element:focus {
   border-color: #068fd5 !important;
 }
+.form-element::placeholder,
+.form-element.placeholder,
+.form-element option[disabled] {
+  font-style: italic !important;
+  font-weight: 100;
+  color: #b4b4b4 !important;
+}
 .btn {
   margin-bottom: 0;
   line-height: 1;
@@ -104,7 +111,7 @@
   border: 1px solid transparent;
   border-radius: 999999999px;
   background-color: #775bcd;
-  transition: all 0.2s linear;
+  transition: all 250ms linear;
 }
 .btn.btn-success {
   border-color: #35c48d;
@@ -169,7 +176,7 @@
   height: 100%;
   z-index: 0;
   background: none;
-  transition: height 0.3s ease-out, padding 0.3s ease-out;
+  transition: height 300ms ease-out, padding 300ms ease-out;
   overflow: hidden;
 }
 .hero-input .hero-input-label > :nth-child(1) {
@@ -179,7 +186,7 @@
   word-wrap: normal;
   text-overflow: ellipsis;
   font-size: 1em;
-  transition: font-size 0.3s ease-out;
+  transition: font-size 300ms ease-out;
   overflow: hidden;
 }
 .hero-input .hero-input-label::first-letter {
@@ -227,9 +234,6 @@
 .hero-input.mandatory .hero-input-field {
   border-bottom: solid 1px #ff516c;
 }
-* {
-  box-sizing: border-box;
-}
 #siteLogo {
   font-family: 'logo', sans-serif !important;
   font-size: 1.8vw;
@@ -253,22 +257,25 @@ body {
   /*scroll-behavior: smooth;*/
   scrollbar-face-color: red;
   scrollbar-shadow-color: aqua;
+  box-sizing: border-box;
 }
 body::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
 }
 body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
   border-radius: 0px;
-  background-color: #ddd;
+  background-color: #f5f3fb;
 }
 body::-webkit-scrollbar-thumb {
   border-radius: 9999999px;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4);
   background-color: #757575;
 }
 body * {
+  font-family: inherit;
+  box-sizing: border-box;
   /*scroll-behavior: smooth;*/
   scrollbar-face-color: red;
   scrollbar-shadow-color: aqua;
@@ -280,7 +287,7 @@ body *::-webkit-scrollbar {
 body *::-webkit-scrollbar-track {
   box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
   border-radius: 0px;
-  background-color: #ddd;
+  background-color: #f5f3fb;
 }
 body *::-webkit-scrollbar-thumb {
   border-radius: 9999999px;

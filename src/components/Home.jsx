@@ -11,6 +11,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       sessionUser: {},
+      loading: false,
     };
 
     // Fetch user's details
@@ -29,7 +30,7 @@ class Home extends React.Component {
           throw new Error(res.status);
         }).then(({ data: user }) => {
           // update user's details
-          this.setState(() => ({ sessionUser: user }));
+          this.setState(() => ({ sessionUser: user, loading: false }));
         }).catch(() => {
           // if (navigator.onLine){
           history.push('/signin');
@@ -37,14 +38,14 @@ class Home extends React.Component {
         });
       } else throw Error;
     } catch (error) {
-      history.push('/signin');
+      // history.push('/signin');
     }
   }
 
   render() {
     return (
-      <div id="pageContent" data-page="application">
-        <NavBlock sessionUser={this.state.sessionUser} />
+      <div id="pageContent" className={this.state.loading === true ? 'loading' : ''} data-page="application">
+        <NavBlock {...this.props} sessionUser={this.state.sessionUser} />
         <MainContentBlock {...this.props} sessionUser={this.state.sessionUser} />
         <UpdatesBlock />
       </div>

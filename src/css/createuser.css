@@ -1,9 +1,9 @@
-.container {
+#mainContentBlock[data-comp=createUser] .container {
   display: flex;
   justify-content: center;
   color: inherit;
 }
-.container #regForm {
+#mainContentBlock[data-comp=createUser] .container #regForm {
   width: 55%;
   font-weight: 600;
   display: flex;
@@ -12,14 +12,14 @@
   align-items: center;
   padding-bottom: 5em;
 }
-.container #regForm #regFormLabel {
+#mainContentBlock[data-comp=createUser] .container #regForm #regFormLabel {
   font-size: 1.8em;
   text-transform: capitalize;
   margin: 0 0 1.8em;
   text-align: center;
   white-space: nowrap;
 }
-.container #regForm #regDisplay {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay {
   position: relative;
   box-shadow: 0px 0px 20px #dbdbdb;
   background: #fafafa;
@@ -31,14 +31,14 @@
   cursor: pointer;
   margin-bottom: 3em;
 }
-.container #regForm #regDisplay #regPassport {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay #regPassport {
   position: relative;
   display: none;
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.container #regForm #regDisplay .overlay {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay .overlay {
   opacity: 0;
   position: absolute;
   top: 0px;
@@ -57,22 +57,22 @@
   transition: all 0.25s linear;
   border-radius: inherit;
 }
-.container #regForm #regDisplay .overlay > :nth-child(1) {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay .overlay > :nth-child(1) {
   font-size: 3.5vw;
 }
-.container #regForm #regDisplay .overlay p {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay .overlay p {
   margin: 0px;
   background: transparent;
 }
-.container #regForm #regDisplay input {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay input {
   position: absolute;
   z-index: -1;
   visibility: hidden;
 }
-.container #regForm #regDisplay.selected #regPassport {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay.selected #regPassport {
   display: flex;
 }
-.container #regForm #regDisplay:before {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay:before {
   position: absolute;
   z-index: 0;
   top: 0;
@@ -95,14 +95,14 @@
   line-height: 1;
   content: "\f007";
 }
-.container #regForm #regDisplay:hover .overlay {
+#mainContentBlock[data-comp=createUser] .container #regForm #regDisplay:hover .overlay {
   opacity: 1;
 }
-.container #regForm .input-group {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group {
   width: 100%;
   margin: 0 0 2em;
 }
-.container #regForm .input-group .form-label {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group .form-label {
   width: 100%;
   background: transparent;
   font-size: 100%;
@@ -111,8 +111,8 @@
   padding: 0 1.5em;
   margin: 0 0 0.55em;
 }
-.container #regForm .input-group input,
-.container #regForm .input-group select {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group input,
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group select {
   width: 100%;
   background-color: #f7f7f7;
   padding: 1.2em 1.5em;
@@ -120,23 +120,13 @@
   color: #1c123a !important;
   appearance: none;
 }
-.container #regForm .input-group input::placeholder,
-.container #regForm .input-group select::placeholder,
-.container #regForm .input-group input.placeholder,
-.container #regForm .input-group select.placeholder,
-.container #regForm .input-group input option[disabled],
-.container #regForm .input-group select option[disabled] {
-  font-style: italic !important;
-  font-weight: 100;
-  color: #b4b4b4 !important;
-}
-.container #regForm .input-group input.placeholder option:not([disabled]),
-.container #regForm .input-group select.placeholder option:not([disabled]) {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group input.placeholder option:not([disabled]),
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group select.placeholder option:not([disabled]) {
   font-style: normal;
   font-weight: inherit;
   color: #1c123a;
 }
-.container #regForm .input-group .error-msg {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group .error-msg {
   width: 100%;
   color: #ff516c;
   text-align: left;
@@ -145,13 +135,13 @@
   padding-bottom: 0;
   margin: 0.8em 0 0;
 }
-.container #regForm .input-group .error-msg::first-letter {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group .error-msg::first-letter {
   text-transform: capitalize;
 }
-.container #regForm .input-group .error-msg.hide {
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group .error-msg.hide {
   display: none;
 }
-.container #regForm button {
+#mainContentBlock[data-comp=createUser] .container #regForm button {
   width: 100%;
   font-size: 1.1em;
   padding: 0.8em 1.5em;
@@ -159,10 +149,10 @@
   font-weight: 600;
   margin: 1.2em 0;
 }
-.container #regForm button .icon {
+#mainContentBlock[data-comp=createUser] .container #regForm button .icon {
   margin-left: 1em;
 }
-.container #regForm button.disabled {
+#mainContentBlock[data-comp=createUser] .container #regForm button.disabled {
   cursor: not-allowed;
   filter: brightness(0.7);
 }
