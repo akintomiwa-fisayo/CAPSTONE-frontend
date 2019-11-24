@@ -1,7 +1,7 @@
 @import (reference) 'general.less';
 
 #pageContent[data-page="application"]{
-  
+  @paddingRight: 3vw;
   #navBlock{
     position: fixed;
     z-index: 2;
@@ -24,7 +24,7 @@
         display: block;
         color: white;
         text-decoration: none;
-        padding: .85em @pagePaddingLeft;
+        padding: .85em @paddingRight .85em @pagePaddingLeft;
         font-size: 1.1em;
         font-weight: 800;
         text-transform: capitalize;
@@ -38,7 +38,7 @@
           margin-right: 1em;
         }
         
-        &:hover{
+        &:hover, &.active{
           border-left-color: white;
           background: darken(@siteColor, 20%);
         }
@@ -49,11 +49,11 @@
       border: none;
       margin: 0 auto;
       border-bottom: solid 1px darken(@siteColor, 30%);
-      width: 80%;
+      width: 90%;
     }
 
     #accountPreference{
-      padding: 1.3em @pagePaddingLeft;
+      padding: 1.3em @paddingRight 1.3em @pagePaddingLeft;
 
       .label{
         display: block;
@@ -84,6 +84,7 @@
 
         button{
           width: 100%;
+          font-weight: 600;
 
           &.disabled{
 						cursor: not-allowed;

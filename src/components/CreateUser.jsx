@@ -66,7 +66,7 @@ class CreateUser extends React.Component {
         fileReader.readAsDataURL(passport);
 
         fileReader.onerror = () => {
-          lib.popMessage('Oops!, we could attach the file picked please try again or try another one');
+          lib.popMessage('Oops!, we couldn\'t attach the file picked please try again or try another one');
         };
 
         fileReader.onload = (frEvent) => {
@@ -78,7 +78,7 @@ class CreateUser extends React.Component {
         };
       }
     } else {
-      lib.popMessage('Image as to be a JPEG (.jpg or jpeg) file');
+      lib.popMessage('Image as to be a JPEG (.jpg or .jpeg) file');
     }
   }
 
@@ -265,7 +265,7 @@ class CreateUser extends React.Component {
       <div id="regForm">
         <h2 id="regFormLabel">Create a new user account</h2>
         <div id="regDisplay" onClick={() => { $('#regPassportPicker').click(); }}>
-          <img src="images/ay.jpg" id="regPassport" alt="" />
+          <img id="regPassport" alt="" />
           <div className="overlay">
             <p className="far fa-image" />
             <p>pick passport</p>

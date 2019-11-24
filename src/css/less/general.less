@@ -5,13 +5,15 @@
 @color: darken(@siteColor, 38%);
 
 @pagePaddingTop: 1em; 
-@pagePaddingLeft: 3vw;
+@pagePaddingLeft: 5vw;
 @pageBKColor: lighten(@siteColor, 44%);
 
 @blockSeperator: solid 1px @color;
 
-@navBlockWidth: 19vw;
-@updatesBlockWidth: 24vw;
+@navBlockWidth: 21vw;
+@updatesBlockWidth: 28vw;
+
+@mainContentHeaderBk: darken(@pageBKColor, 3%);
 
 @color-warning: #f0ad4e;
 @color-danger: #d9534f;
@@ -132,6 +134,12 @@
 		//box-shadow: 0px 0px 3px 0px #6ca3fe;
 	}
 
+	&::placeholder, &.placeholder, option[disabled]{
+		font-style: italic !important;
+		font-weight: 100;
+		color: rgb(180, 180, 180) !important;
+	}
+
 }
 
 .btn{	
@@ -148,7 +156,7 @@
 	border: 1px solid transparent;
 	border-radius: 999999999px;
 	background-color: @siteColorLight;
-	transition: all .2s linear;
+	transition: all 250ms linear;
 
 	&.btn-success{
 		@btnSuccessBorderBk : #35c48d;
@@ -227,7 +235,7 @@
 		height: 100%;
 		z-index: 0;
 		background: none;
-		transition: height .3s ease-out, padding .3s ease-out;
+		transition: height 300ms ease-out, padding 300ms ease-out;
 		overflow: hidden;
 
 		>:nth-child(1){
@@ -237,7 +245,7 @@
 			word-wrap: normal;
 			text-overflow: ellipsis;
 			font-size: 1em;
-			transition: font-size .3s ease-out;
+			transition: font-size 300ms ease-out;
 			// filter: brightness(2.8);
 			overflow: hidden;
 
@@ -299,10 +307,6 @@
 	}
 }
 
-*{
-	box-sizing: border-box;	
-}
-
 #siteLogo{
 	font-family: 'logo', sans-serif !important;
 	font-size: 1.8vw;
@@ -320,7 +324,7 @@
 	}
 }
 
-#customScrollBar(@scrollbarWidth : 12px){
+#customScrollBar(@scrollbarWidth : 10px){
 	/*scroll-behavior: smooth;*/
 	scrollbar-face-color: red;
 	scrollbar-shadow-color: aqua;
@@ -334,7 +338,7 @@
 	&::-webkit-scrollbar-track{
 			box-shadow: inset 0 0 0px rgba(0,0,0,0);
 			border-radius: 0px;
-			background-color: #ddd;
+			background-color: @pageBKColor;
 	}
 
 	&::-webkit-scrollbar-thumb{
@@ -350,9 +354,13 @@ body{
 	color: @color;
 	overflow-y: scroll;
 	#customScrollBar();
-    *{
-        #customScrollBar(6px);
+	box-sizing: border-box;	
+
+	*{
+		font-family: inherit;
+		box-sizing: border-box;	
+		#customScrollBar(6px);
         
-		}
+	}
 	
 }

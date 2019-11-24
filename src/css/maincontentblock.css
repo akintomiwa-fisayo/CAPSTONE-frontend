@@ -1,8 +1,8 @@
 #pageContent[data-page="application"] #mainContentBlock .container,
 #pageContent[data-page="application"] #mainContentBlock #contentHeader {
   width: 100%;
-  padding-left: calc(19vw + 2em);
-  padding-right: calc(24vw + 2em);
+  padding-left: calc(21vw + 3em);
+  padding-right: calc(28vw + 3em);
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader {
   position: sticky;

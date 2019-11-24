@@ -71,6 +71,56 @@ const lib = {
       }, animationTime);
     }, timeout);
   },
+  deleteIndex: (value, ...indexes) => {
+    // can input as much parameter as possible but first parameter much be an array obj or string
+    const newArray = [];
+    const argumentsLength = indexes.length;
+    let save = true;
+    for (let j = 0; j < value.length; j += 1) {
+      save = true;
+      for (let i = 0; i < argumentsLength; i += 1) {
+        const currentIndex = indexes[i];
+        if (j === currentIndex) {
+          save = false;
+          break;
+        }
+      }
+      if (save) newArray.push(value[j]);
+    }
+    return typeof (value) === 'string' ? newArray.join('') : newArray;
+  },
+
+  parseURI(_URI, _Uri) {
+    // uri are expected to  come in this format => "/api/one/param/two/param?query=value&query=value"
+    // where _URI is dominate and will be calling the shots (typically a route path)
+    // where _Uri has to abide by _URI ruled (typically a full location path)
+    const breakUri = (u) => {
+      const uri = u.split('?')[0]; // <== to remove query string from the uri
+      const uriArr = uri.split('/');
+      if (uriArr[uriArr.length - 1] === '') uriArr.pop();
+      return uriArr;
+    };
+
+    console.log('broken URI : ', lib.deleteIndex(['f', 'i', 'r', 's', 'a', 'y', 'o'], 0, 1, 5));
+
+    const URI = breakUri(_URI);
+    const Uri = breakUri(_Uri);
+    const URILen = URI.length;
+    if (URILen === Uri.length) {
+      const params = {};
+      let param = '';
+      let value = '';
+      for (let i = 0; i < URILen; i += 1) {
+        if (URI[i][0] === ':') {
+          param = lib.deleteIndex(URI[i], 0);
+          value = Uri[i];
+          params[param] = value;
+        } else if (URI[i] !== Uri[i]) return false;
+      }
+
+      return params;
+    } return false;
+  },
 
 };
 

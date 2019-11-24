@@ -8,6 +8,9 @@ class NavBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      pages: {
+
+      },
       submitting: false,
       conPassword: {
         state: 'empty',
@@ -89,7 +92,7 @@ class NavBlock extends React.Component {
             <span className="icon fa fa-user-plus" />
             create user
           </NavLink>
-          <NavLink className="link" to="/">
+          <NavLink className="link" to="/reports">
             <span className="icon fa fa-bug" />
             reports
           </NavLink>
@@ -97,11 +100,11 @@ class NavBlock extends React.Component {
             <span className="icon fa fa-spinner" />
             feed
           </NavLink>
-          <NavLink className="link" to="/">
+          <NavLink className="link" to="/profile">
             <span className="icon fa fa-user-circle" />
             profile
           </NavLink>
-          <NavLink className="link" to="/">
+          <NavLink className="link" to="/" exact>
             <span className="icon fa fa-sign-out-alt" />
             sign out
           </NavLink>
