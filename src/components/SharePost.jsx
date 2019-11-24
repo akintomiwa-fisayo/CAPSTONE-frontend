@@ -21,16 +21,54 @@ class SharePost extends React.Component {
     super(props);
     this.state = {
       submitting: false,
+      focused: false,
       post: gifPost,
     };
 
-    this.onDisplayChange = this.onDisplayChange.bind(this);
-    this.onTitleChange = this.onTitleChange.bind(this);
+    this.onInputFocus = this.onInputFocus.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onInputBlur = this.onInputBlur.bind(this);
+    this.onGifChange = this.onGifChange.bind(this);
     this.submitPost = this.submitPost.bind(this);
     this.onGifDrop = this.onGifDrop.bind(this);
+    this.changePostType = this.changePostType.bind(this);
+    this.onArticleChange = this.onArticleChange.bind(this);
   }
 
-  onDisplayChange(event) {
+
+  onInputFocus() {
+    this.setState(() => ({
+      focused: true,
+    }));
+  }
+
+  onInputChange(event) {
+    // eslint-disable-next-line dot-notation
+    const input = event.target.name;
+    if (Object.keys(this.state.post).indexOf(input) !== -1) {
+      const { value } = event.target;
+      this.setState((prevState) => {
+        const n = {};
+        n[input] = value;
+        return {
+          post: {
+            ...prevState.post,
+            ...n,
+          },
+        };
+      });
+
+      if (!lib.isEmpty(value)) event.target.classList.remove('Error');
+    }
+  }
+
+  onInputBlur() {
+    this.setState(() => ({
+      focused: false,
+    }));
+  }
+
+  onGifChange(event) {
     const el = event.target;
     const postGifBlock = $('#postGifBlock');
     const gif = el.files[0];
@@ -85,7 +123,7 @@ class SharePost extends React.Component {
             files: [pickedFile.getAsFile()],
           },
         };
-        this.onDisplayChange(file);
+        this.onGifChange(file);
       }
     };
 
@@ -98,11 +136,16 @@ class SharePost extends React.Component {
     }
   }
 
-  onTitleChange(event) {
-    const title = event.target.value;
-    this.setState((prevState) => ({ post: { ...prevState.post, title } }));
+  onArticleChange(event) {
+    const article = event.target.value;
+    this.setState((prevState) => ({ post: { ...prevState.post, article } }));
 
-    if (!lib.isEmpty(title)) event.target.classList.remove('Error');
+    if (!lib.isEmpty(article)) event.target.classList.remove('Error');
+  }
+
+  changePostType(event, type) {
+    const post = type === 'gif' ? gifPost : articlePost;
+    this.setState(() => ({ post }));
   }
 
   resetForm() {
@@ -122,9 +165,9 @@ class SharePost extends React.Component {
         let err = false;
 
         if (lib.isEmpty(post.title)) {
-          $('#postGifContainer .form-element[name=title]').classList.add('Error');
+          $('#sharePost .content .form-element[name=title]').classList.add('Error');
           err = true;
-        } else $('#postGifContainer .form-element[name=title]').classList.remove('Error');
+        } else $('#sharePost .content .form-element[name=title]').classList.remove('Error');
 
         if (post.type === 'gif') {
           if (post.image === null) {
@@ -132,9 +175,9 @@ class SharePost extends React.Component {
             err = true;
           } else $('#postGifBlock').classList.remove('Error');
         } else if (lib.isEmpty(post.article)) {
-          $('#postGifContainer .form-element[name=article]').classList.add('Error');
+          $('#sharePost .content .form-element[name=article]').classList.add('Error');
           err = true;
-        } else $('#postGifContainer .form-element[name=article]').classList.remove('Error');
+        } else $('#sharePost .content .form-element[name=article]').classList.remove('Error');
 
         return !err;
       };
@@ -142,34 +185,45 @@ class SharePost extends React.Component {
       if (validate()) {
         this.setState(() => ({ submitting: true }));
 
-        const form = new FormData();
-        form.append('title', post.title);
+        let form = null;
+        let endpoint = '';
+        let contentType = false;
         if (post.type === 'gif') {
+          form = new FormData();
+          form.append('title', post.title);
           form.append('image', post.image);
+          endpoint = 'https://akintomiwa-capstone-backend.herokuapp.com/gifs';
         } else {
           // If post type is article
-          form.append('article', post.article);
+          form = `{
+            "title":"${post.title}",
+            "article":"${post.article}"
+          }`;
+          endpoint = 'https://akintomiwa-capstone-backend.herokuapp.com/articles';
+          contentType = 'application/json';
         }
 
-        fetch('https://akintomiwa-capstone-backend.herokuapp.com/gifs', {
+        const headers = {
+          Authorization: `Bearer ${localStorage.getItem('sessionUserToken')}`,
+        };
+        if (contentType !== false)headers['Content-Type'] = contentType;
+
+        fetch(endpoint, {
           method: 'POST',
           body: form,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('sessionUserToken')}`,
-          },
+          headers,
         }).then((res) => {
           if (res.status === 201 || res.status === 400) return res.json();
           throw new Error();
         }).then((res) => {
-          if (res.status === 'error') {
+          if (res.status === 'error' && post.type === 'gif') {
             $('#postGifBlock').classList.add('Error');
             lib.popMessage('invalid image uploaded please retry with a .gif file');
           } else {
             this.resetForm();
             lib.popMessage('post created successfully');
           }
-        }).catch((error) => {
-          console.log(error);
+        }).catch(() => {
           lib.popMessage('Oops!, there was a server error, please try again');
         })
           .finally(() => {
@@ -187,7 +241,16 @@ class SharePost extends React.Component {
     if (post.type === 'gif') {
       content = (
         <div id="postGifContainer">
-          <input type="text" className="form-element title" name="title" value={post.title} placeholder="gif title" onChange={this.onTitleChange} />
+          <input
+            type="text"
+            className="form-element"
+            name="title"
+            value={post.title}
+            placeholder="gif title"
+            onFocus={this.onInputFocus}
+            onChange={this.onInputChange}
+            onBlur={this.onInputBlur}
+          />
           <div id="postGifBlock" className={post.image !== null ? 'selected' : ''} onClick={() => { $('#gifPicker').click(); }}>
             <img id="postGif" alt="post gif" src={sample} />
             <div className="bk">
@@ -203,27 +266,51 @@ class SharePost extends React.Component {
                 onDragLeave={this.onGifDragLeave}
               />
             </div>
-            <input type="file" className="form-element" name="postGif" id="gifPicker" accept="image/gif" onChange={this.onDisplayChange} />
+            <input type="file" className="form-element" name="postGif" id="gifPicker" accept="image/gif" onChange={this.onGifChange} />
           </div>
         </div>
       );
     } else {
       // If its article
+      content = (
+        <div id="postArticleContainer">
+          <input
+            type="text"
+            className="form-element"
+            name="title"
+            value={post.title}
+            placeholder="article title"
+            onFocus={this.onInputFocus}
+            onChange={this.onInputChange}
+            onBlur={this.onInputBlur}
+          />
+          <textarea
+            id="postArticleBlock"
+            className="form-element"
+            name="article"
+            value={post.article}
+            placeholder="article"
+            onFocus={this.onInputFocus}
+            onChange={this.onInputChange}
+            onBlur={this.onInputBlur}
+          />
+        </div>
+      );
     }
 
     return (
-      <div id="sharePost">
+      <div id="sharePost" className={this.state.focused ? 'focused' : ''}>
         <div className="head">
           <h2 className="label">share a post</h2>
-          <span className={`icon ${post.type === 'gif' ? 'fa fa-image' : 'fa newspaper'}`} />
+          <span className={`icon ${post.type === 'gif' ? 'fa fa-image' : 'fa fa-newspaper'}`} />
         </div>
         <div className="content">
           {content}
         </div>
         <div className="bottom">
           <div className="post-types">
-            <button type="button" className={`post-type ${post.type === 'article' ? 'active' : ''}`}>article</button>
-            <button type="button" className={`post-type ${post.type === 'gif' ? 'active' : ''}`}>gif</button>
+            <button type="button" className={`post-type ${post.type === 'article' ? 'active' : ''}`} onClick={(e) => { this.changePostType(e, 'article'); }}>article</button>
+            <button type="button" className={`post-type ${post.type === 'gif' ? 'active' : ''}`} onClick={(e) => { this.changePostType(e, 'gif'); }}>gif</button>
           </div>
           <button type="submit" className={this.state.submitting ? 'disabled' : ''} onClick={this.submitPost}>
             <span>

@@ -11,7 +11,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       sessionUser: {},
-      loading: false,
+      loading: true,
     };
 
     // Fetch user's details
