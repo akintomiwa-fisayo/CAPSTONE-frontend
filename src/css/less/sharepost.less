@@ -8,8 +8,9 @@
   background: white;
   width: 100%;
   border: @border;
-  border-radius: .7vw;
+  border-radius: .8vw;
   overflow: hidden;
+  transition: box-shadow 300ms ease-in;
 
   .head{
     display: flex;
@@ -39,7 +40,7 @@
     margin: 0;
 
     @contentHeight: 12em; 
-    .title{
+    .form-element[name=title]{
       // background: blue;
       box-shadow: none;
       border: none;
@@ -50,7 +51,7 @@
       border-bottom: dashed 2px lighten(@borderColor, 17%);
       // border-bottom: da @borderWidth red;
       
-      &:focus, {
+      &:focus{
         border-top: @border !important;
         border-bottom: dashed 2px lighten(@borderColor, 17%) !important;
       }
@@ -61,10 +62,6 @@
     } 
 
     #postGifContainer{
-
-      .title{
-        .title;
-      }
 
       #postGifBlock{
         position: relative;
@@ -197,13 +194,32 @@
         }
       }
     }
+
+    #postArticleContainer{
+      #postArticleBlock{
+        display: block;
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+        padding: 1em @padding;
+        height: @contentHeight;
+        border: none;
+        border-bottom: @border;
+        border-radius: 0;
+        box-shadow: none;
+
+        &:focus{
+          border-bottom: @border !important;
+        }
+      }
+    }
   } 
  
   .bottom{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: .5em @padding;
+    padding: .6em @padding;
     margin: 0;
     
     
@@ -295,5 +311,9 @@
         }
       }
     }
+  }
+
+  &.focused:extend(.form-element:focus){
+    box-shadow: 0px 0px 1.3em rgba(0, 0, 0, .15);
   }
 }

@@ -1,9 +1,13 @@
+#sharePost.focused {
+  border-color: #068fd5 !important;
+}
 #sharePost {
   background: white;
   width: 100%;
   border: solid 1px #cccccc;
-  border-radius: 0.7vw;
+  border-radius: 0.8vw;
   overflow: hidden;
+  transition: box-shadow 300ms ease-in;
 }
 #sharePost .head {
   display: flex;
@@ -26,7 +30,7 @@
   width: 100%;
   margin: 0;
 }
-#sharePost .content .title {
+#sharePost .content .form-element[name=title] {
   box-shadow: none;
   border: none;
   border-radius: 0;
@@ -35,27 +39,11 @@
   border-top: solid 1px #cccccc;
   border-bottom: dashed 2px #f7f7f7;
 }
-#sharePost .content .title:focus {
+#sharePost .content .form-element[name=title]:focus {
   border-top: solid 1px #cccccc !important;
   border-bottom: dashed 2px #f7f7f7 !important;
 }
-#sharePost .content .title::first-letter {
-  text-transform: capitalize;
-}
-#sharePost .content #postGifContainer .title {
-  box-shadow: none;
-  border: none;
-  border-radius: 0;
-  padding-left: 2em;
-  padding-right: 2em;
-  border-top: solid 1px #cccccc;
-  border-bottom: dashed 2px #f7f7f7;
-}
-#sharePost .content #postGifContainer .title:focus {
-  border-top: solid 1px #cccccc !important;
-  border-bottom: dashed 2px #f7f7f7 !important;
-}
-#sharePost .content #postGifContainer .title::first-letter {
+#sharePost .content .form-element[name=title]::first-letter {
   text-transform: capitalize;
 }
 #sharePost .content #postGifContainer #postGifBlock {
@@ -168,11 +156,26 @@
 #sharePost .content #postGifContainer #postGifBlock.drag-over .overlay p {
   display: inline;
 }
+#sharePost .content #postArticleContainer #postArticleBlock {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+  padding: 1em 2em;
+  height: 12em;
+  border: none;
+  border-bottom: solid 1px #cccccc;
+  border-radius: 0;
+  box-shadow: none;
+}
+#sharePost .content #postArticleContainer #postArticleBlock:focus {
+  border-bottom: solid 1px #cccccc !important;
+}
 #sharePost .bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5em 2em;
+  padding: 0.6em 2em;
   margin: 0;
 }
 #sharePost .bottom .button {
@@ -464,4 +467,7 @@
   margin-left: 0.5em;
   background: linear-gradient(145deg, #6747c7, #1c123a);
   background-clip: text;
+}
+#sharePost.focused {
+  box-shadow: 0px 0px 1.3em rgba(0, 0, 0, 0.15);
 }
