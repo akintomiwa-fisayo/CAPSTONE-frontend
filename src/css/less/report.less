@@ -1,0 +1,193 @@
+@import (reference) './general.less';
+@import (reference) './feed.less';
+
+.report{
+  background: white;
+  padding: @contentPadding 0;
+  padding-bottom: 0px;
+  border: @contentBorder;
+  border-radius: @contentBorderRadius;
+  margin-top: 2em;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: box-shadow 500ms ease-in;
+
+  .head{
+    display: inline-flex;
+    width: 100%;
+    text-align: left;
+    //background: yellow;
+    padding: 0 @contentPadding;
+    padding-bottom: .8em;
+    //border-bottom: solid 1px @userActivityBorderColor;
+
+
+    .user-image{
+      position: relative;
+      width: 10%;
+      height: min-content;
+      border-radius: 100px;
+      overflow: hidden;
+      transition: all .3s;
+
+      a{  
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        position: absolute;
+
+        img{
+          border-radius: inherit;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+        
+      }
+
+      &:hover{
+        border-color: @color;
+      }
+
+      &:after{
+        display: block;
+        content:  "";
+        padding-top: 100%;
+      }
+    }
+
+    >:nth-child(2){
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      //background: blue;
+      padding: 0px 1em;
+      width: 100%;
+
+      *{
+        margin: 0px;
+      }
+
+      .user-name{
+        //background: red;
+        display: inline;
+        font-size: 100%;
+        font-weight: 700;
+        text-decoration: underline white;
+        text-transform: capitalize;
+        color: inherit;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all .3s;
+
+        &:hover{
+          text-decoration: underline #555;
+        }
+      }
+
+      .date-time{
+        font-size: 90%;
+      }
+
+    }
+
+    .report-id{
+      font-weight: 600;
+      white-space: nowrap;
+      color: @color-error;
+      
+      &::before{
+        content: "#";
+      }
+
+    }
+      
+  }
+
+  .body{
+    display: block;
+    padding: 0 @contentPadding;
+
+    .report-details{
+      margin-bottom : 1em;
+
+      .detail{
+        font-weight: 600;
+        display: flex;
+
+        .value{
+          @padding: .5em;
+          margin-left: @padding;
+          
+          &::before{
+            content: ":";
+            padding-right: @padding;
+          }
+        }
+      }
+    }
+
+    .report-content{
+      padding: .5em;
+      border: @contentBorder;
+      border-radius: @contentBorderRadius;
+
+      .title{
+        width: 100%;
+        padding: 0px;
+        text-transform: capitalize;
+        margin: 0px;
+        margin-bottom: .8em;
+
+        /*align stuffs at center*/
+                  
+        display: -webkit-flex;
+        -webkit-flex-wrap: wrap;
+        -webkit-flex-direction: row;
+        -webkit-align-items: center;
+
+        display: flex;          
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+
+        &::first-letter{
+          text-transform: capitalize;
+        }
+      }
+        
+      .content{
+        display: flex;
+        width: 100%;
+        border-radius: 1%;
+        overflow: hidden;
+
+        .item{
+          height: 100%;
+          width: 100%;
+          object-fit: contain; 
+          border-color: red;
+          margin: 0;
+
+          &::first-letter{
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+
+  }
+
+  .bottom{
+    padding: 1.2em @contentPadding;
+    display: flex;
+    justify-content: space-between;
+
+    .action{
+      width: 45%;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+  }
+
+}

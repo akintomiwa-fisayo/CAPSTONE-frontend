@@ -13,43 +13,71 @@ class Home extends React.Component {
       sessionUser: {},
       loading: true,
     };
+    this.getUser = this.getUser.bind(this);
+    this.getSessionUser = this.getSessionUser.bind(this);
+    this.getSessionUser();
+  }
 
-    // Fetch user's details
-    const sessionUserToken = localStorage.getItem('sessionUserToken');
+  getSessionUser() {
     const sessionUserId = localStorage.getItem('sessionUserId');
-    const { history } = this.props;
-    try {
-      if (!lib.isEmpty(sessionUserId) && !lib.isEmpty(sessionUserToken)) {
-        fetch(`https://akintomiwa-capstone-backend.herokuapp.com/users/${sessionUserId}`, {
+    this.getUser(sessionUserId).then((user) => {
+      this.setState(() => ({ sessionUser: user, loading: false }));
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  getUser(userId) {
+    // Fetch user's details
+    const errorHandler = ({ message: error }) => {
+      if (error === 'Unauthorized') {
+        const { history } = this.props;
+        history.push('/signin');
+      } else {
+        lib.popMessage(
+          navigator.onLine
+            ? 'oops! there was a server error'
+            : "can't connect to serve because you are offline, will retry in 5 seconds",
+        );
+        setTimeout(() => {
+          lib.popMessage('retrying to connect to server');
+          this.getUser(userId);
+        }, 5000);
+      }
+    };
+
+    return new Promise((resolve) => {
+      const sessionUserToken = localStorage.getItem('sessionUserToken');
+      if (!lib.isEmpty(userId) && !lib.isEmpty(sessionUserToken)) {
+        fetch(`https://akintomiwa-capstone-backend.herokuapp.com/users/${userId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${sessionUserToken}`,
           },
-        }).then((res) => {
-          if (res.status === 200) return res.json();
-          throw new Error(res.status);
-        }).then(({ data: user }) => {
-          // update user's details
-          this.setState(() => ({ sessionUser: user, loading: false }));
-        }).catch(() => {
-          // if (navigator.onLine){
-          history.push('/signin');
-          // }
-        });
-      } else throw Error;
-    } catch (error) {
-      // history.push('/signin');
-    }
+        }).then((res) => res.json()).then((res) => {
+          if (res.status === 'success') {
+            const { data: user } = res;
+            resolve(user);
+          } else errorHandler(res.error);
+        }).catch(({ error }) => { errorHandler(error); });
+      } else errorHandler(new Error('Unauthorized'));
+    });
   }
 
   render() {
-    return (
-      <div id="pageContent" className={this.state.loading === true ? 'loading' : ''} data-page="application">
-        <NavBlock {...this.props} sessionUser={this.state.sessionUser} />
-        <MainContentBlock {...this.props} sessionUser={this.state.sessionUser} />
-        <UpdatesBlock />
-      </div>
-    );
+    if (this.state.loading === false) {
+      return (
+        <div id="pageContent" data-page="application">
+          <NavBlock {...this.props} sessionUser={this.state.sessionUser} />
+          <MainContentBlock
+            {...this.props}
+            sessionUser={this.state.sessionUser}
+            getUser={this.getUser}
+          />
+          <UpdatesBlock />
+        </div>
+      );
+    }
+    return (<div id="pageContent" className="loading" data-page="application" />);
   }
 }
 Home.propTypes = {

@@ -4,8 +4,8 @@
 #sharePost {
   background: white;
   width: 100%;
-  border: solid 1px #cccccc;
-  border-radius: 0.8vw;
+  border: solid 1px #ccc;
+  border-radius: 0.5vw;
   overflow: hidden;
   transition: box-shadow 300ms ease-in;
 }
@@ -36,11 +36,11 @@
   border-radius: 0;
   padding-left: 2em;
   padding-right: 2em;
-  border-top: solid 1px #cccccc;
+  border-top: solid 1px #ccc;
   border-bottom: dashed 2px #f7f7f7;
 }
 #sharePost .content .form-element[name=title]:focus {
-  border-top: solid 1px #cccccc !important;
+  border-top: solid 1px #ccc !important;
   border-bottom: dashed 2px #f7f7f7 !important;
 }
 #sharePost .content .form-element[name=title]::first-letter {
@@ -52,7 +52,7 @@
   cursor: pointer;
   margin: 0;
   height: 12em;
-  border-bottom: solid 1px #cccccc;
+  border-bottom: solid 1px #ccc;
 }
 #sharePost .content #postGifContainer #postGifBlock .bk {
   position: absolute;
@@ -164,12 +164,12 @@
   padding: 1em 2em;
   height: 12em;
   border: none;
-  border-bottom: solid 1px #cccccc;
+  border-bottom: solid 1px #ccc;
   border-radius: 0;
   box-shadow: none;
 }
 #sharePost .content #postArticleContainer #postArticleBlock:focus {
-  border-bottom: solid 1px #cccccc !important;
+  border-bottom: solid 1px #ccc !important;
 }
 #sharePost .bottom {
   display: flex;

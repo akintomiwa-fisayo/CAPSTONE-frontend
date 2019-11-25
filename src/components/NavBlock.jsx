@@ -8,9 +8,6 @@ class NavBlock extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pages: {
-
-      },
       submitting: false,
       conPassword: {
         state: 'empty',

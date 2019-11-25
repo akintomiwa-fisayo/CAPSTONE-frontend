@@ -5,6 +5,7 @@ import CreateUser from './CreateUser';
 import Feed from './Feed';
 import lib from '../js/lib';
 import '../css/maincontentblock.css';
+import Reports from './Reports';
 
 class MainContentBlock extends React.Component {
   constructor(props) {
@@ -37,16 +38,20 @@ class MainContentBlock extends React.Component {
         <div className="container">
           <Route
             path="/create-user"
-            render={(props) => (<CreateUser {...props} pageSwitch={this.pageSwitch} />)}
+            render={() => (<CreateUser {...this.props} pageSwitch={this.pageSwitch} />)}
           />
           <Route
             path="/feed"
-            render={(props) => <Feed {...props} pageSwitch={this.pageSwitch} />}
+            render={() => <Feed {...this.props} pageSwitch={this.pageSwitch} />}
+          />
+          <Route
+            path="/reports"
+            render={() => <Reports {...this.props} pageSwitch={this.pageSwitch} />}
           />
           <Route
             path="/"
             exact
-            render={(props) => <Feed {...props} pageSwitch={this.pageSwitch} />}
+            render={() => <Feed {...this.props} pageSwitch={this.pageSwitch} />}
           />
         </div>
       </main>
@@ -57,5 +62,6 @@ class MainContentBlock extends React.Component {
 MainContentBlock.propTypes = {
   history: PropTypes.object.isRequired,
   sessionUser: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired,
 };
 export default MainContentBlock;

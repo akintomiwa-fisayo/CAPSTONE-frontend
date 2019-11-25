@@ -1,14 +1,11 @@
 @import (reference) './general.less';
+@import (reference) './feed.less';
 
 #sharePost{
-  @padding: 2em;
-  @borderColor: #cccccc;
-  @borderWidth: 1px;
-  @border: solid @borderWidth @borderColor;
   background: white;
   width: 100%;
-  border: @border;
-  border-radius: .8vw;
+  border: @contentBorder;
+  border-radius: @contentBorderRadius;
   overflow: hidden;
   transition: box-shadow 300ms ease-in;
 
@@ -16,8 +13,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: .8em @padding;
-    // border-bottom: @border;
+    padding: .8em @contentPadding;
+    // border-bottom: @contentBorder;
 
     .label{
       margin: 0;
@@ -45,15 +42,15 @@
       box-shadow: none;
       border: none;
       border-radius: 0;
-      padding-left: @padding;
-      padding-right: @padding;
-      border-top: @border;
-      border-bottom: dashed 2px lighten(@borderColor, 17%);
-      // border-bottom: da @borderWidth red;
+      padding-left: @contentPadding;
+      padding-right: @contentPadding;
+      border-top: @contentBorder;
+      border-bottom: dashed 2px lighten(@contentBorderColor, 17%);
+      // border-bottom: da @contentBorderWidth red;
       
       &:focus{
-        border-top: @border !important;
-        border-bottom: dashed 2px lighten(@borderColor, 17%) !important;
+        border-top: @contentBorder !important;
+        border-bottom: dashed 2px lighten(@contentBorderColor, 17%) !important;
       }
 
       &::first-letter{
@@ -69,7 +66,7 @@
         cursor: pointer;
         margin: 0;
         height: @contentHeight;
-        border-bottom: @border;
+        border-bottom: @contentBorder;
         
         .bk{
           position: absolute;
@@ -81,7 +78,7 @@
           display: flex;
           flex-direction: column;
           justify-content: center;
-          padding: @padding;
+          padding: @contentPadding;
           align-items: center;
           border-radius: inherit;
           text-shadow: 0px 0px 3px white;
@@ -121,7 +118,7 @@
           height: 100%;
           background: rgba(0, 0, 0, .2);
           color: rgb(117, 117, 117);
-          padding: @padding;
+          padding: @contentPadding;
           transition: all .25s linear;
           border: dashed 2px transparent;
           border-radius: 2px;
@@ -201,15 +198,15 @@
         position: relative;
         overflow: hidden;
         margin: 0;
-        padding: 1em @padding;
+        padding: 1em @contentPadding;
         height: @contentHeight;
         border: none;
-        border-bottom: @border;
+        border-bottom: @contentBorder;
         border-radius: 0;
         box-shadow: none;
 
         &:focus{
-          border-bottom: @border !important;
+          border-bottom: @contentBorder !important;
         }
       }
     }
@@ -219,7 +216,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: .6em @padding;
+    padding: .6em @contentPadding;
     margin: 0;
     
     

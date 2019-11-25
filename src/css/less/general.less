@@ -5,13 +5,14 @@
 @color: darken(@siteColor, 38%);
 
 @pagePaddingTop: 1em; 
-@pagePaddingLeft: 5vw;
+@pagePaddingLeft: 7vw;
 @pageBKColor: lighten(@siteColor, 44%);
 
-@blockSeperator: solid 1px @color;
+@blockSeperatorColor: #ccc;
+@blockSeperator: solid 1px @blockSeperatorColor;
 
-@navBlockWidth: 21vw;
-@updatesBlockWidth: 28vw;
+@navBlockWidth: 26vw;
+@updatesBlockWidth: 33vw;
 
 @mainContentHeaderBk: darken(@pageBKColor, 3%);
 
@@ -66,8 +67,8 @@
 #popMessage{
 	position: fixed; 
 	z-index: 999999999;
-	min-width: 20vw; 
-	max-width: 30vw; 
+	min-width: 15vw; 
+	max-width: 22vw; 
 	height: auto; 
 	top: auto; 
 	bottom: 0px; 
@@ -106,7 +107,6 @@
 	}
 
 }
-
 
 .form-element, .btn{
 	display: inline-block;
@@ -158,20 +158,33 @@
 	background-color: @siteColorLight;
 	transition: all 250ms linear;
 
-	&.btn-success{
+	.btn-type(@bk, @color: white, @hoverColor: white){
 		@btnSuccessBorderBk : #35c48d;
-		@btnSuccessBkHover : #2dc188;
+		@btnBorder : darken(@bk, 10%);
 		@btnSuccessBorderBkHover : #35c48d;
 	
-		border-color: @btnSuccessBorderBk;
-		background: @color-success;
+		border-color: @btnBorder;
+		background: @bk;
+		color: @color;
 	
 		&:hover, &:active, &:focus{
-			border-color: @btnSuccessBorderBkHover !important;
-			background-color: @btnSuccessBkHover !important; 
-			color: white !important;
+			border-color: darken(@btnBorder, 5%) !important;
+			background-color: @btnBorder !important; 
+			color: @hoverColor !important;
 		}
 	
+	}	
+
+	&.btn-success{
+		.btn-type(@color-success);
+	}	
+
+	&.btn-danger{
+		.btn-type(@color-danger);
+	}	
+
+	&.btn-warning{
+		.btn-type(@color-warning);
 	}	
 	
 	&.btn-negative{
