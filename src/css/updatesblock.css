@@ -5,9 +5,9 @@
   left: auto;
   right: 0;
   background: #f5f3fb;
-  border-left: solid 1px #1c123a;
-  width: 28vw;
+  border-left: solid 1px #ccc;
+  width: 33vw;
   height: 100vh;
-  padding: 1em 5vw;
+  padding: 1em 7vw;
   text-align: left;
 }

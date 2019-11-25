@@ -1,8 +1,9 @@
 #pageContent[data-page="application"] #mainContentBlock .container,
 #pageContent[data-page="application"] #mainContentBlock #contentHeader {
   width: 100%;
-  padding-left: calc(21vw + 3em);
-  padding-right: calc(28vw + 3em);
+  padding-bottom: 3em;
+  padding-left: calc(26vw + 3em);
+  padding-right: calc(33vw + 3em);
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader {
   position: sticky;
@@ -14,7 +15,7 @@
   background: #ebe7f8;
   padding-top: 1em;
   padding-bottom: 0.4em;
-  border-bottom: solid 1px #1c123a;
+  border-bottom: solid 1px #ccc;
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .page {
   margin: 0px;

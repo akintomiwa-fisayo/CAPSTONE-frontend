@@ -36,8 +36,8 @@
 #popMessage {
   position: fixed;
   z-index: 999999999;
-  min-width: 20vw;
-  max-width: 30vw;
+  min-width: 15vw;
+  max-width: 22vw;
   height: auto;
   top: auto;
   bottom: 0px;
@@ -114,14 +114,39 @@
   transition: all 250ms linear;
 }
 .btn.btn-success {
-  border-color: #35c48d;
+  border-color: #2a9c70;
   background: #35c48d;
+  color: white;
 }
 .btn.btn-success:hover,
 .btn.btn-success:active,
 .btn.btn-success:focus {
-  border-color: #35c48d !important;
-  background-color: #2dc188 !important;
+  border-color: #258862 !important;
+  background-color: #2a9c70 !important;
+  color: white !important;
+}
+.btn.btn-danger {
+  border-color: #c9302c;
+  background: #d9534f;
+  color: white;
+}
+.btn.btn-danger:hover,
+.btn.btn-danger:active,
+.btn.btn-danger:focus {
+  border-color: #b52b27 !important;
+  background-color: #c9302c !important;
+  color: white !important;
+}
+.btn.btn-warning {
+  border-color: #ec971f;
+  background: #f0ad4e;
+  color: white;
+}
+.btn.btn-warning:hover,
+.btn.btn-warning:active,
+.btn.btn-warning:focus {
+  border-color: #df8a13 !important;
+  background-color: #ec971f !important;
   color: white !important;
 }
 .btn.btn-negative {

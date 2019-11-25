@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/sharepost.css';
+import PropTypes from 'prop-types';
 import lib from '../js/lib';
-import sample from '../images/lion.jpg';
 
 const gifPost = {
   type: 'gif',
@@ -22,7 +22,7 @@ class SharePost extends React.Component {
     this.state = {
       submitting: false,
       focused: false,
-      post: gifPost,
+      post: articlePost,
     };
 
     this.onInputFocus = this.onInputFocus.bind(this);
@@ -34,7 +34,6 @@ class SharePost extends React.Component {
     this.changePostType = this.changePostType.bind(this);
     this.onArticleChange = this.onArticleChange.bind(this);
   }
-
 
   onInputFocus() {
     this.setState(() => ({
@@ -222,6 +221,8 @@ class SharePost extends React.Component {
           } else {
             this.resetForm();
             lib.popMessage('post created successfully');
+
+            this.props.registerPost({ ...res.data, type: post.type });
           }
         }).catch(() => {
           lib.popMessage('Oops!, there was a server error, please try again');
@@ -252,7 +253,7 @@ class SharePost extends React.Component {
             onBlur={this.onInputBlur}
           />
           <div id="postGifBlock" className={post.image !== null ? 'selected' : ''} onClick={() => { $('#gifPicker').click(); }}>
-            <img id="postGif" alt="post gif" src={sample} />
+            <img id="postGif" alt="post gif" src="" />
             <div className="bk">
               <span className="fa fa-image icon" />
               <p>click to pick a gif image or drag and drop it here</p>
@@ -325,5 +326,7 @@ class SharePost extends React.Component {
     );
   }
 }
-
+SharePost.propTypes = {
+  registerPost: PropTypes.func.isRequired,
+};
 export default SharePost;

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 const lib = {
   isEmpty: (str) => (str ? !str.trim() : true),
 
@@ -37,6 +38,7 @@ const lib = {
     for (i; i >= 0; i -= 1) newStr = lib.isUpperCase(str[i]) ? ` ${str[i].toLowerCase()}${newStr}` : `${str[i]}${newStr}`;
     return newStr;
   },
+
   popMessage: (m, timeout = 4500) => {
     const animationTime = 300; // <== value must be the same here and in general.less
     const showMsg = (msg) => {
@@ -54,7 +56,7 @@ const lib = {
       popMessage = document.createElement('DIV');
       popMessage.id = 'popMessage';
       popMessage.appendChild(msg);
-      document.querySelector('#root .App').appendChild(popMessage);
+      document.querySelector('#root').appendChild(popMessage);
       showMsg(msg);
     } else {
       popMessage.appendChild(msg);
@@ -66,11 +68,12 @@ const lib = {
       setTimeout(() => {
         popMessage.removeChild(msg);
         if (!popMessage.children[0]) {
-          document.querySelector('#root .App').removeChild(popMessage);
+          document.querySelector('#root').removeChild(popMessage);
         }
       }, animationTime);
     }, timeout);
   },
+
   deleteIndex: (value, ...indexes) => {
     // can input as much parameter as possible but first parameter much be an array obj or string
     const newArray = [];
@@ -90,8 +93,79 @@ const lib = {
     return typeof (value) === 'string' ? newArray.join('') : newArray;
   },
 
+  getWeekDay: (day) => {
+    const weekdays = [
+      'sunday',
+      'monday',
+      'tuesday',
+      'wednesday',
+      'thursday',
+      'friday',
+      'saturday',
+    ];
+    return isNaN(day) ? false : weekdays[day];
+  },
+
+  getMonth: (month) => {
+    const months = [
+      'january',
+      'february',
+      'march',
+      'april',
+      'may',
+      'june',
+      'july',
+      'august',
+      'september',
+      'october',
+      'november',
+      'december',
+    ];
+    return isNaN(month) ? false : months[month];
+  },
+
+  getRelativeTime: (timestamp, relative = true) => {
+    const d1 = new Date();
+    const d2 = new Date(timestamp);
+    let relativeTime = '';
+
+    let year = d2.getFullYear();
+    year = d1.getFullYear() > year ? year : '';
+    const month = lib.getMonth(d2.getMonth());
+    let hour = d2.getHours();
+    const hourPref = hour >= 12 ? 'pm' : 'am';
+    hour = hour > 12 ? hour - 12 : hour;
+    const date = d2.getDate() + 1;
+    const minutes = d2.getMinutes();
+    const day = lib.getWeekDay(d2.getDay());
+    if (relative) {
+      const diffInMilliseconds = d1 - d2;
+      const diffInSec = Math.floor(diffInMilliseconds / 1000);
+      if (diffInSec >= 60) { // 60 seconds make a minute
+        const diffInMinutes = Math.floor(diffInSec / 60);
+        if (diffInMinutes >= 60) { // 60 minutes make in an hour
+          const diffInHours = Math.floor(diffInMinutes / 60);
+          if (diffInHours >= 24) { // 24 hours make in a day
+            const diffInDays = Math.floor(diffInHours / 24);
+            if (diffInDays >= 7) { // 7 day make in a week
+              relativeTime = `${day} ${month} ${date} ${year} at ${hour}:${minutes} ${hourPref}`;
+            } else if (diffInDays === 1) {
+              relativeTime = `yesterday at ${hour}:${minutes} ${hourPref}`;
+            } else {
+              relativeTime = `last ${day} at ${hour}:${minutes} ${hourPref}`;
+            }
+          } else relativeTime = `${diffInHours}hr${diffInHours > 1 ? 's' : ''} ago`;
+        } else relativeTime = `${diffInMinutes}min${diffInMinutes > 1 ? 's' : ''} ago`;
+      } else relativeTime = 'just now';
+    } else {
+      relativeTime = `${day} ${month} ${date} ${year} at ${hour}:${minutes} ${hourPref}`;
+    }
+
+    return relativeTime;
+  },
+
   parseURI(_URI, _Uri) {
-    // uri are expected to  come in this format => "/api/one/param/two/param?query=value&query=value"
+    // uri are expected to  come in this format => "/api/one/two/param?query=value&query=value"
     // where _URI is dominate and will be calling the shots (typically a route path)
     // where _Uri has to abide by _URI ruled (typically a full location path)
     const breakUri = (u) => {
@@ -100,8 +174,6 @@ const lib = {
       if (uriArr[uriArr.length - 1] === '') uriArr.pop();
       return uriArr;
     };
-
-    console.log('broken URI : ', lib.deleteIndex(['f', 'i', 'r', 's', 'a', 'y', 'o'], 0, 1, 5));
 
     const URI = breakUri(_URI);
     const Uri = breakUri(_Uri);

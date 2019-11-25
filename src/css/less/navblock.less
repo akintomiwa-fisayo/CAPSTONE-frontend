@@ -2,6 +2,7 @@
 
 #pageContent[data-page="application"]{
   @paddingRight: 3vw;
+  @contentPadding: 1.2em;
   #navBlock{
     position: fixed;
     z-index: 2;
@@ -18,24 +19,25 @@
 
     .links{
       display: block;
-      padding : 2em 0 1em;
+      padding : 2em @paddingRight 1em @pagePaddingLeft;
       
       .link{
         display: block;
+        padding: .8em @contentPadding;
         color: white;
         text-decoration: none;
-        padding: .85em @paddingRight .85em @pagePaddingLeft;
         font-size: 1.1em;
         font-weight: 800;
         text-transform: capitalize;
         text-align: left;
-        border-left: solid .2em transparent;
+        border-radius: 9999px;
+        margin-bottom: .6em;
         transition: background .2s linear, border-left-color .2s linear;
         
         .icon{
           font-size: 1.3em;
           font-weight: 600;
-          margin-right: 1em;
+          margin-right: .8em;
         }
         
         &:hover, &.active{
@@ -50,6 +52,7 @@
       margin: 0 auto;
       border-bottom: solid 1px darken(@siteColor, 30%);
       width: 90%;
+      margin: 0 @contentPadding;
     }
 
     #accountPreference{
@@ -72,7 +75,7 @@
         // display: none;
         background: darken(@siteColor, 20%);
         border-radius: .5em;
-        padding: 1em;
+        padding: @contentPadding;
 
         .form-element{
           color: white;
