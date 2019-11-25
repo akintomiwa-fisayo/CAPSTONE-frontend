@@ -4,6 +4,7 @@ import Post from './Post';
 import lib from '../js/lib';
 import '../css/posts.css';
 import '../css/post.css';
+import '../css/addcomment.css';
 
 class Posts extends React.Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class Posts extends React.Component {
             const { data: posts } = res;
             this.props.setPosts(posts);
             this.setState(() => ({ loading: false }));
-          } else errorHandler(res.error);
+          } else errorHandler(new Error(res.error));
         }).catch((error) => { errorHandler(error); });
       } else errorHandler(new Error('Unauthorized'));
     };
@@ -58,9 +59,9 @@ class Posts extends React.Component {
     const postsArr = this.props.getPosts();
     for (let i = 0; i < postsArr.length; i += 1) {
       posts.push(<Post
+        {...this.props}
         post={postsArr[i]}
         key={postsArr[i].id}
-        getUser={this.props.getUser}
       />);
     }
 

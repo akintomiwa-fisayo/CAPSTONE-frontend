@@ -57,7 +57,7 @@ class Home extends React.Component {
           if (res.status === 'success') {
             const { data: user } = res;
             resolve(user);
-          } else errorHandler(res.error);
+          } else errorHandler(new Error(res.error));
         }).catch(({ error }) => { errorHandler(error); });
       } else errorHandler(new Error('Unauthorized'));
     });

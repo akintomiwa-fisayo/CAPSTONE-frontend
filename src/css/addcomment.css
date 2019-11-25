@@ -1,0 +1,82 @@
+.add-comment .comment-input.focused {
+  border-color: #068fd5 !important;
+}
+.add-comment {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 2em;
+  overflow: hidden;
+  border-top: solid 1px #ccc;
+  transition: box-shadow 500ms ease-in;
+}
+.add-comment .user-image {
+  position: relative;
+  width: 8%;
+  height: min-content;
+  border-radius: 100px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.add-comment .user-image a {
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  position: absolute;
+}
+.add-comment .user-image a img {
+  border-radius: inherit;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.add-comment .user-image:hover {
+  border-color: #1c123a;
+}
+.add-comment .user-image:after {
+  display: block;
+  content: "";
+  padding-top: 100%;
+}
+.add-comment .comment-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 88%;
+  padding: 0 1.3em;
+  border-radius: 9999px;
+  border: solid 1px #cccccc;
+}
+.add-comment .comment-input input {
+  width: 100%;
+  padding: 0.6em 0;
+  border: none;
+  border-radius: 0;
+  font-size: inherit;
+  background: none;
+  box-shadow: none;
+}
+.add-comment .comment-input input:focus,
+.add-comment .comment-input input:active {
+  outline: none;
+  border: none;
+}
+.add-comment .comment-input .submit-comment {
+  left: auto;
+  top: 0;
+  right: 1em;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #ccc;
+  transition: color 150ms linear;
+}
+.add-comment .comment-input .submit-comment:hover {
+  color: #1c123a;
+}
+.add-comment .comment-input.focused {
+  top: 0;
+}
+.add-comment.disabled {
+  opacity: 0.5;
+}

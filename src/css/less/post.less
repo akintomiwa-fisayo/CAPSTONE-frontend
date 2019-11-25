@@ -12,6 +12,40 @@
   overflow: hidden;
   transition: box-shadow 500ms ease-in;
 
+  .user-image{
+    position: relative;
+    width: 10%;
+    height: min-content;
+    border-radius: 100px;
+    overflow: hidden;
+    transition: all .3s;
+
+    a{  
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      position: absolute;
+
+      img{
+        border-radius: inherit;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+    }
+
+    &:hover{
+      border-color: @color;
+    }
+
+    &:after{
+      display: block;
+      content:  "";
+      padding-top: 100%;
+    }
+  }
+
   .head{
     display: inline-flex;
     width: 100%;
@@ -20,41 +54,6 @@
     padding: 0 @contentPadding;
     padding-bottom: .8em;
     //border-bottom: solid 1px @userActivityBorderColor;
-
-
-    .user-image{
-      position: relative;
-      width: 10%;
-      height: min-content;
-      border-radius: 100px;
-      overflow: hidden;
-      transition: all .3s;
-
-      a{  
-        width: 100%;
-        height: 100%;
-        border-radius: inherit;
-        position: absolute;
-
-        img{
-          border-radius: inherit;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-        
-      }
-
-      &:hover{
-        border-color: @color;
-      }
-
-      &:after{
-        display: block;
-        content:  "";
-        padding-top: 100%;
-      }
-    }
 
     >:nth-child(2){
       display: flex;
@@ -70,11 +69,12 @@
 
       .user-name{
         //background: red;
-        display: inline;
+        display: block;
         font-size: 100%;
         font-weight: 700;
         text-decoration: underline white;
         text-transform: capitalize;
+        width: max-content;
         color: inherit;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -191,30 +191,32 @@
 
   }
 
-  .add-comment{
-    margin-top: 1em;
-    padding: .8em @contentPadding;
-    width: 100%;
-    text-align: center;
-    border: none;
-    border-top: @contentBorder;
-    outline: none;
-    cursor: pointer;
-    background: none;
-    transition: background 300ms ease-in, color 300ms ease-in;
-    font-size: 1em;
-    font-weight: 600;
-    color: #666;
-    
-    .icon{
-      margin-right: .5em;
-      font-weight: 500;
-      font-size: 1.2em;
-    }
-    
-    &:hover{
-      background: @pageBKColor;
-      color: #444;
+  .bottom{
+    .view-comment{
+      margin-top: 1em;
+      padding: .8em @contentPadding;
+      width: 100%;
+      text-align: center;
+      border: none;
+      border-top: @contentBorder;
+      outline: none;
+      cursor: pointer;
+      background: none;
+      transition: background 300ms ease-in, color 300ms ease-in;
+      font-size: 1em;
+      font-weight: 600;
+      color: #666;
+      
+      .icon{
+        margin-right: 1em;
+        font-weight: 500;
+        font-size: 1.2em;
+      }
+      
+      &:hover{
+        background: @pageBKColor;
+        color: #444;
+      }
     }
   }
 
