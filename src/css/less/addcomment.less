@@ -1,0 +1,100 @@
+@import (reference) './general.less';
+@import (reference) './feed.less';
+
+.add-comment{
+  display: flex;
+  justify-content: space-between;
+  padding: 1em @contentPadding;
+  overflow: hidden;
+  border-top: @contentBorder;
+  transition: box-shadow 500ms ease-in;
+
+  @userImageWidth: 8%;
+  @gap: 4%;
+
+  .user-image{
+    position: relative;
+    width: @userImageWidth;
+    height: min-content;
+    border-radius: 100px;
+    overflow: hidden;
+    transition: all .3s;
+
+    a{  
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      position: absolute;
+
+      img{
+        border-radius: inherit;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+    }
+
+    &:hover{
+      border-color: @color;
+    }
+
+    &:after{
+      display: block;
+      content:  "";
+      padding-top: 100%;
+    }
+  }
+
+  .comment-input{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100% - (@userImageWidth + @gap);
+    padding: 0 1.3em;
+    border-radius: 9999px;
+    border: .form-element[border];
+    @padding: 1em;
+    
+    input{
+      width: 100%;
+      padding: .6em 0;
+      border: none;
+      border-radius: 0;
+      font-size: inherit;
+      background: none;
+      box-shadow: none;
+      
+      &:focus , &:active  {
+        outline: none;
+        border: none;
+      }
+    }
+
+    .submit-comment{
+      // position: absolute;
+      left: auto;
+      top: 0;
+      right: @padding;
+      height: max-content;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      color: @contentBorderColor;
+      transition: color 150ms linear;
+
+      &:hover{
+        color: @color
+      }
+      
+    }
+
+    &.focused:extend(.form-element:focus){
+     top:0; 
+    }
+  }
+
+  &.disabled{
+    opacity: .5;
+  }
+}

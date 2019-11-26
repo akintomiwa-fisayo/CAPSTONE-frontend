@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import lib from '../js/lib';
+import AddComment from './AddComment';
 
 /*  const articlePost = {
   id: 112,
@@ -28,10 +29,13 @@ class Post extends React.Component {
         ...this.props.post,
         author: null,
         dateTimeRef: '',
+        userComment: '',
       },
     };
 
+
     this.getAuthor = this.getAuthor.bind(this);
+    this.onCommentInput = this.onCommentInput.bind(this);
     this.getAuthor();
   }
 
@@ -59,6 +63,16 @@ class Post extends React.Component {
     }
   }
 
+  onCommentInput(event) {
+    const { target } = event;
+    const { value } = target;
+    this.setState((prevState) => ({
+      post: {
+        ...prevState.post,
+        userComment: value,
+      },
+    }));
+  }
 
   getAuthor() {
     this.props.getUser(`${this.state.post.authorId}`).then((user) => {
@@ -118,10 +132,15 @@ class Post extends React.Component {
               {content}
             </div>
           </div>
-          <button type="button" className="add-comment">
-            <span className="far fa-comment-dots icon" />
-          comments
-          </button>
+          <div className="bottom">
+            <button type="button" className="view-comment" onClick={this.fetchComments} title="view comments">
+              <span className="far fa-comment-dots icon" />
+              comments
+            </button>
+
+            <AddComment {...this.props} />
+          </div>
+
         </div>
       );
     }
@@ -132,7 +151,6 @@ class Post extends React.Component {
 Post.propTypes = {
   post: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
-  // history: PropTypes.object.isRequired,
 };
 
 export default Post;

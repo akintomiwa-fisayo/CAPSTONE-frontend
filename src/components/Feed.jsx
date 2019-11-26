@@ -57,7 +57,7 @@ class Feed extends React.Component {
           if (res.status === 'success') {
             const { data: Post } = res;
             resolve(Post);
-          } else errorHandler(res.error);
+          } else errorHandler(new Error(res.error));
         }).catch(({ error }) => { errorHandler(error); });
       } else errorHandler(new Error('Unauthorized'));
     });
@@ -115,7 +115,7 @@ class Feed extends React.Component {
   render() {
     return (
       <div id="feedPosts">
-        <SharePost registerPost={this.registerPost} />
+        <SharePost history={this.props.history} registerPost={this.registerPost} />
         <Posts
           {...this.props}
           setPosts={this.setPosts}
@@ -129,6 +129,7 @@ Feed.propTypes = {
   pageSwitch: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
+  sessionUser: PropTypes.object.isRequired,
 };
 
 export default Feed;
