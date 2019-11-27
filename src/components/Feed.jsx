@@ -67,7 +67,7 @@ class Feed extends React.Component {
   render() {
     return (
       <div id="feedPosts">
-        <SharePost history={this.props.history} registerPost={this.registerPost} />
+        <SharePost {...this.props} registerPost={this.registerPost} />
         <Posts
           {...this.props}
           setPosts={this.setPosts}

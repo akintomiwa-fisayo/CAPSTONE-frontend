@@ -1,10 +1,16 @@
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group input.placeholder,
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group input.placeholder,
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group select.placeholder,
+#mainContentBlock[data-comp=createUser] .container #regForm .input-group select.placeholder {
+  font-style: italic !important;font-weight: 100;color: #b4b4b4 !important;
+}
 #mainContentBlock[data-comp=createUser] .container {
   display: flex;
   justify-content: center;
   color: inherit;
 }
 #mainContentBlock[data-comp=createUser] .container #regForm {
-  width: 55%;
+  width: 60%;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -117,7 +123,7 @@
   background-color: #f7f7f7;
   padding: 1.2em 1.5em;
   font-weight: inherit;
-  color: #1c123a !important;
+  color: #1c123a;
   appearance: none;
 }
 #mainContentBlock[data-comp=createUser] .container #regForm .input-group input.placeholder option:not([disabled]),

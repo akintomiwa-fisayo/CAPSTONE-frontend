@@ -192,22 +192,6 @@ class SharePost extends React.Component {
 
         return !err;
       };
-      const errorHandler = ({ message: error }) => {
-        if (error === 'Unauthorized') {
-          const { history } = this.props;
-          history.push('/signin');
-        } else {
-          lib.popMessage(
-            navigator.onLine
-              ? 'oops! there was a server error'
-              : "can't connect to serve because you are offline, will retry in 5 seconds",
-          );
-          setTimeout(() => {
-            lib.popMessage('retrying to connect to server');
-            this.submitPost();
-          }, 5000);
-        }
-      };
 
       if (validate()) {
         this.setState(() => ({ submitting: true }));
@@ -234,22 +218,23 @@ class SharePost extends React.Component {
           Authorization: `Bearer ${localStorage.getItem('sessionUserToken')}`,
         };
         if (contentType !== false)headers['Content-Type'] = contentType;
-
-        fetch(endpoint, {
+        const { fetchRequest } = this.props;
+        fetchRequest({
+          endpoint,
           method: 'POST',
           body: form,
           headers,
-        }).then((res) => res.json()).then((res) => {
-          if (res.status === 'success') {
-            // save post
-            this.resetForm();
-            lib.popMessage('post created successfully');
-            this.props.registerPost({ ...res.data, type: post.type });
-          } else if (res.status === 'error' && post.type === 'gif') {
+        }).then((data) => {
+          // save post
+          this.resetForm();
+          lib.popMessage('post created successfully');
+          this.props.registerPost({ ...data, type: post.type });
+        }).catch((res) => {
+          if (res.status === 'error' && post.type === 'gif') {
             $('#postGifBlock').classList.add('Error');
             lib.popMessage('invalid image uploaded please retry with a .gif file');
-          } else errorHandler(new Error(res.error));
-        }).catch((error) => { errorHandler(error); })
+          }
+        })
           .finally(() => {
             if (this._isMounted) {
               this.setState(() => ({ submitting: false }));
@@ -353,6 +338,6 @@ class SharePost extends React.Component {
 }
 SharePost.propTypes = {
   registerPost: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
+  fetchRequest: PropTypes.func.isRequired,
 };
 export default SharePost;

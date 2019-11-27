@@ -17,7 +17,6 @@ class ViewPost extends React.Component {
     this._isMounted = true;
 
     this.props.pageSwitch('post', true);
-    console.log('params are :', this.props.match.params);
     let pst = {
       type: this.props.match.params.type,
     };
@@ -32,9 +31,7 @@ class ViewPost extends React.Component {
 
     if (pst) {
       this.props.getPost(pst).then((postInfo) => {
-        console.log('the gotten post is ', postInfo);
         if (this._isMounted) {
-          console.log('view post and mounted is ', this._isMounted);
           this.setState(() => ({
             post: postInfo,
           }));
@@ -42,7 +39,6 @@ class ViewPost extends React.Component {
       }).catch((error) => {
         if (error.status === 404) {
         // Call Error handler for when post is not foud
-          console.log('we caughting the wewyrey', error.status);
           lib.popMessage('remember to put error handler here', 20000);
         } else {
           this.props.history.push('/');
@@ -57,9 +53,8 @@ class ViewPost extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.state.post === false) {
-      return (<div style={{ textAlign: 'center', fontSize: '1.6em' }}><span className="fa fa-spinner fa-spin" /></div>
+      return (<div><span className="fa fa-spinner fa-spin loader" /></div>
       );
     }
     return (

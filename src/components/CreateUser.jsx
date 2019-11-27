@@ -4,36 +4,18 @@ import lib from '../js/lib';
 import '../css/createuser.css';
 
 const $ = (query) => document.querySelector(query);
-const JobRoles = {
-  j1001: {
-    name: 'administrator',
-    departments: ['d1002'],
-  },
-  j1002: {
-    name: 'director',
-    departments: ['d1001', 'd1002', 'd1003', 'd1004', 'd1005'],
-  },
-};
-
-const Departments = {
-  d1001: 'sales',
-  d1002: 'administration',
-  d1003: 'finance',
-  d1004: 'marketing',
-  d1005: 'production',
-};
-
 const defaultStates = {
   submitting: false,
   passport: null,
   firstName: '',
   lastName: '',
   email: '',
+  department: '',
+  jobRole: '',
   password: '',
   gender: '',
-  jobRole: '',
-  department: '',
   address: '',
+  departments: {},
   emailError: '',
   passwordError: '',
 };
@@ -41,9 +23,10 @@ const defaultStates = {
 class CreateUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = defaultStates;
+    this.state = { ...defaultStates, loading: true };
 
     this._isMounted = false;
+    this.fetchRequest = this.props.fetchRequest;
     this.onJobRoleChange = this.onJobRoleChange.bind(this);
     this.onDepartmentChange = this.onDepartmentChange.bind(this);
     this.onGenderChange = this.onGenderChange.bind(this);
@@ -56,6 +39,18 @@ class CreateUser extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.props.pageSwitch('createUser');
+
+    // Get departments and jobRoles in the company
+    this.fetchRequest({
+      endpoint: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
+    }).then((data) => {
+      if (this._isMounted) {
+        this.setState(() => ({
+          departments: data,
+          loading: false,
+        }));
+      }
+    });
   }
 
   componentWillUnmount() {
@@ -99,7 +94,7 @@ class CreateUser extends React.Component {
 
   onDepartmentChange(event) {
     const department = event.target.value;
-    this.setState(() => ({ department }));
+    this.setState(() => ({ department, jobRole: '' }));
   }
 
   onGenderChange(event) {
@@ -185,22 +180,29 @@ class CreateUser extends React.Component {
           err = true;
         } else $('#regForm .form-element[name=gender]').classList.remove('Error');
 
-        if (Object.keys(JobRoles).indexOf(state.jobRole) === -1) {
-          $('#regForm .form-element[name=jobRole]').classList.add('Error');
-          err = true;
-        } else $('#regForm .form-element[name=jobRole]').classList.remove('Error');
-
-        if (Object.keys(JobRoles).indexOf(state.jobRole) === -1) {
-          $('#regForm .form-element[name=jobRole]').classList.add('Error');
+        const { departments } = this.state;
+        const { department } = this.state;
+        if (Object.keys(departments).indexOf(department) === -1) {
           $('#regForm .form-element[name=department]').classList.add('Error');
+          $('#regForm .form-element[name=jobRole]').classList.add('Error');
           err = true;
         } else {
-          $('#regForm .form-element[name=jobRole]').classList.remove('Error');
+          $('#regForm .form-element[name=department]').classList.remove('Error');
+          const deptJobRoles = departments[department].jobRoles;
+          let jobRoleValid = false;
+          for (let i = 0; i < deptJobRoles.length; i += 1) {
+            if (deptJobRoles[i].id === this.state.jobRole) {
+              jobRoleValid = true;
+              break;
+            }
+          }
 
-          if (JobRoles[state.jobRole].departments.indexOf(state.department) === -1) {
-            $('#regForm .form-element[name=department]').classList.add('Error');
+          if (jobRoleValid) {
+            $('#regForm .form-element[name=jobRole]').classList.remove('Error');
+          } else {
             err = true;
-          } else $('#regForm .form-element[name=department]').classList.remove('Error');
+            $('#regForm .form-element[name=jobRole]').classList.add('Error');
+          }
         }
 
         if (lib.isEmpty(state.address)) {
@@ -208,12 +210,11 @@ class CreateUser extends React.Component {
           err = true;
         } else $('#regForm .form-element[name=address]').classList.remove('Error');
 
-
         return !err;
       };
 
+
       if (validate()) {
-        const { fetchRequest } = this.props;
         this.setState(() => ({ submitting: true }));
 
         const form = new FormData();
@@ -227,20 +228,21 @@ class CreateUser extends React.Component {
         form.append('department', state.department);
         form.append('address', state.address);
 
-        fetchRequest({
+        this.fetchRequest({
           endpoint: 'https://akintomiwa-capstone-backend.herokuapp.com/auth/create-user',
           method: 'POST',
           body: form,
-        }).then((res) => {
+        }).then(() => {
           if (this._isMounted) {
-            if (res.status === 'error') {
-              $('#regForm .form-element[name=email]').classList.add('Error');
-              this.setState(() => ({ emailError: 'not a valid email address' }));
-            } else {
-              this.resetForm();
-              lib.popMessage('user account created successfully');
-            }
+            this.resetForm();
+            lib.popMessage('user account created successfully');
           }
+        }).catch((error) => {
+          if (error.body.email) {
+            $('#regForm .form-element[name=email]').classList.add('Error');
+            this.setState(() => ({ emailError: 'email invalid or already exist' }));
+            lib.popMessage('Opps!, couldn\'t create user account ');
+          } else lib.popMessage('Opps!, couldn\'t complete your request please try again');
         }).finally(() => {
           if (this._isMounted) this.setState(() => ({ submitting: false }));
         });
@@ -251,20 +253,26 @@ class CreateUser extends React.Component {
   }
 
   render() {
-    const jobRolesKeys = Object.keys(JobRoles);
-    const jobRoleDepartments = [];
-    const jobRoleDepts = jobRolesKeys.indexOf(this.state.jobRole) !== -1
-      ? JobRoles[this.state.jobRole].departments : [];
-    jobRoleDepts.forEach((department) => {
-      jobRoleDepartments.push(
-        <option value={department} key={department}>{Departments[department]}</option>,
-      );
+    if (this.state.loading) {
+      return (<div><span className="fa fa-spinner fa-spin loader" /></div>);
+    }
+
+    const departmentsArr = [];
+    const { departments } = this.state;
+    const deptsKeys = Object.keys(departments);
+    deptsKeys.forEach((key) => {
+      departmentsArr.push(<option value={key} key={key}>{departments[key].name}</option>);
     });
 
-    const jobRoles = [];
-    Object.keys(JobRoles).forEach((jobRole) => {
-      jobRoles.push(<option value={jobRole} key={jobRole}>{JobRoles[jobRole].name}</option>);
-    });
+    const jobRolesArr = [];
+    const { department } = this.state;
+    if (deptsKeys.indexOf(department) !== -1) {
+      const deptJobRoles = departments[department].jobRoles;
+      deptJobRoles.forEach((jobRole) => {
+        jobRolesArr.push(<option value={jobRole.id} key={jobRole.id}>{jobRole.title}</option>);
+      });
+    }
+
 
     return (
       <div id="regForm">
@@ -310,18 +318,18 @@ class CreateUser extends React.Component {
         </div>
 
         <div className="input-group">
-          <p className="form-label">job role</p>
-          <select className={`form-element ${lib.isEmpty(this.state.jobRole) ? 'placeholder' : ''}`} value={lib.isEmpty(this.state.jobRole) ? '-placeholder-' : this.state.department} name="jobRole" onChange={this.onJobRoleChange}>
-            <option value="-placeholder-" disabled>user job role</option>
-            {jobRoles}
+          <p className="form-label">department</p>
+          <select className={`form-element ${lib.isEmpty(this.state.department) ? 'placeholder' : ''}`} value={lib.isEmpty(this.state.department) ? '-placeholder-' : this.state.department} name="department" onChange={this.onDepartmentChange}>
+            <option value="-placeholder-" disabled>user department</option>
+            {departmentsArr}
           </select>
         </div>
 
         <div className="input-group">
-          <p className="form-label">department</p>
-          <select className={`form-element ${lib.isEmpty(this.state.department) ? 'placeholder' : ''}`} value={lib.isEmpty(this.state.department) ? '-placeholder-' : this.state.department} name="department" onChange={this.onDepartmentChange}>
-            <option value="-placeholder-" disabled>user department</option>
-            {jobRoleDepartments}
+          <p className="form-label">job role</p>
+          <select className={`form-element ${lib.isEmpty(this.state.jobRole) ? 'placeholder' : ''}`} value={lib.isEmpty(this.state.jobRole) ? '-placeholder-' : this.state.jobRole} name="jobRole" onChange={this.onJobRoleChange}>
+            <option value="-placeholder-" disabled>user job role</option>
+            {jobRolesArr}
           </select>
         </div>
 

@@ -57,12 +57,11 @@ class AddComment extends React.Component {
         },
       }).then((response) => {
         // save this.state
-        console.log('response from comment post', response);
 
         this.setState(() => (defaultState));
 
         if (this.props.post.comments) {
-          this.props.registeComment({
+          this.props.registerComment({
             authorId: this.props.sessionUser.id,
             comment: response.comment,
             commentId: response.commentId,
@@ -71,7 +70,6 @@ class AddComment extends React.Component {
         }
         lib.popMessage('Comment created successfully');
       }).catch((error) => {
-        console.log('bug in between', error);
         if (error.status === 404) {
           this.props.history.push('/');
           lib.popMessage('Post not found!');
@@ -119,7 +117,7 @@ AddComment.propTypes = {
   sessionUser: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   fetchRequest: PropTypes.func.isRequired,
-  registeComment: PropTypes.func.isRequired,
+  registerComment: PropTypes.func.isRequired,
 };
 
 export default AddComment;

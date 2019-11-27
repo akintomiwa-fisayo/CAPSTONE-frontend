@@ -105,7 +105,6 @@ class Home extends React.Component {
           lib.popMessage("can't connect to serve because you are offline, will retry in 5 seconds");
           retry();
         } else {
-          console.log('OMOALE FOR LIFE OK THIS GUY IS DEFINETLY AN OMOALE', error);
           reject(error);
         }
       };
@@ -129,10 +128,10 @@ class Home extends React.Component {
           } else {
             const error = new Error(fetchResponse.statusText);
             error.status = fetchResponse.status;
+            error.body = res.error;
             errorHandler(error);
           }
         }).catch((error) => {
-          console.log('Erroring from taye');
           errorHandler(error);
         });
       } else {
@@ -144,8 +143,6 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log('rendering Home.js');
-
     if (this.state.loading === false) {
       return (
         <div id="pageContent" data-page="application">

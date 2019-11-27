@@ -18,6 +18,7 @@ class MainContentBlock extends React.Component {
     };
     this.pageSwitch = this.pageSwitch.bind(this);
     this.getPost = this.getPost.bind(this);
+    this.getCurrentPage = this.getCurrentPage.bind(this);
   }
 
   getPost(pst) {
@@ -34,10 +35,13 @@ class MainContentBlock extends React.Component {
       }).then((Post) => {
         resolve(Post);
       }).catch((error) => {
-        console.log('also got the error here too', error);
         reject(error);
       });
     });
+  }
+
+  getCurrentPage() {
+    return this.state.pageComp;
   }
 
   pageSwitch(page, backBtn = false) {
@@ -80,6 +84,7 @@ class MainContentBlock extends React.Component {
                   {...props}
                   pageSwitch={this.pageSwitch}
                   getPost={this.getPost}
+                  getCurrentPage={this.getCurrentPage}
                 />
               )}
             />
@@ -91,6 +96,7 @@ class MainContentBlock extends React.Component {
                   {...props}
                   pageSwitch={this.pageSwitch}
                   getPost={this.getPost}
+                  getCurrentPage={this.getCurrentPage}
                 />
               )}
             />
@@ -102,6 +108,7 @@ class MainContentBlock extends React.Component {
                   {...props}
                   pageSwitch={this.pageSwitch}
                   getPost={this.getPost}
+                  getCurrentPage={this.getCurrentPage}
                 />
               )}
             />
@@ -113,7 +120,7 @@ class MainContentBlock extends React.Component {
                   {...props}
                   pageSwitch={this.pageSwitch}
                   getPost={this.getPost}
-
+                  getCurrentPage={this.getCurrentPage}
                 />
               )}
             />
@@ -126,7 +133,7 @@ class MainContentBlock extends React.Component {
                   {...props}
                   pageSwitch={this.pageSwitch}
                   getPost={this.getPost}
-
+                  getCurrentPage={this.getCurrentPage}
                 />
               )}
             />
@@ -137,7 +144,7 @@ class MainContentBlock extends React.Component {
                   {...props}
                   pageSwitch={this.pageSwitch}
                   getPost={this.getPost}
-
+                  getCurrentPage={this.getCurrentPage}
                 />
               )}
             />

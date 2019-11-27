@@ -40,7 +40,7 @@ class Post extends React.Component {
     this.updatePostDateTimeRef = null;
     this.getAuthor = this.getAuthor.bind(this);
     this.viewPost = this.viewPost.bind(this);
-    this.registeComment = this.registeComment.bind(this);
+    this.registerComment = this.registerComment.bind(this);
   }
 
 
@@ -49,7 +49,6 @@ class Post extends React.Component {
     // Update post's reference time
     this.getAuthor().then(() => {
       this.updatePostDateTimeRef = setInterval(() => {
-        console.log('in post interval', this._isMounted);
         if (this._isMounted) {
           this.setState((prevState) => ({
             post: {
@@ -63,7 +62,6 @@ class Post extends React.Component {
       // unfocus new post
       if (this.state.post.isNew && this.state.post.isNew === true) {
         setTimeout(() => {
-          console.log('in post', this._isMounted);
           if (this._isMounted) {
             this.setState((prevState) => ({
               post: {
@@ -78,7 +76,6 @@ class Post extends React.Component {
   }
 
   componentWillUnmount() {
-    console.log('about to unmount');
     this._isMounted = false;
     clearInterval(this.updatePostDateTimeRef);
   }
@@ -86,7 +83,6 @@ class Post extends React.Component {
   getAuthor() {
     return new Promise((resolve) => {
       this.props.getUser(`${this.state.post.authorId}`).then((user) => {
-        console.log('in post get Authpt', this._isMounted);
         if (this._isMounted) {
           this.setState((prevState) => ({
             post: {
@@ -101,7 +97,7 @@ class Post extends React.Component {
     });
   }
 
-  registeComment(comment) {
+  registerComment(comment) {
     this.setState((prevState) => ({
       post: {
         ...prevState.post,
@@ -114,13 +110,16 @@ class Post extends React.Component {
   }
 
   viewPost() {
+    const { getCurrentPage } = this.props;
     const { post } = this.state;
-    if (!post.comments) this.props.history.push(`/post/${post.type}/${post.id}`);
+    if (getCurrentPage() !== 'post') this.props.history.push(`/post/${post.type}/${post.id}`);
   }
 
   render() {
+    const currentPage = this.props.getCurrentPage();
+
     let comments = null;
-    if (this.state.post.comments) {
+    if (currentPage === 'post') {
       const commentsArr = this.state.post.comments;
       comments = [];
 
@@ -133,7 +132,7 @@ class Post extends React.Component {
       }
     } else {
       comments = (
-        <button type="button" className="view-comment" onClick={this.fetchComments} title="view comments">
+        <button type="button" className="view-comment" title="view comments">
           <span className="far fa-comment-dots icon" />
           comments
         </button>
@@ -144,7 +143,7 @@ class Post extends React.Component {
       const content = post.type === 'gif' ? <img className="item" src={post.url} alt="" /> : <div className="item">{post.article}</div>;
       return (
         <div
-          className={`post ${post.isNew && post.isNew === true ? 'new' : ''} ${this.state.post.comments ? 'view' : ''}`}
+          className={`post ${post.isNew && post.isNew === true ? 'new' : ''} ${currentPage === 'post' ? 'view' : ''}`}
           id={post.id}
           data-type={post.type}
         >
@@ -186,7 +185,7 @@ class Post extends React.Component {
             </div>
             {comments}
           </div>
-          <AddComment {...this.props} registeComment={this.registeComment} />
+          <AddComment {...this.props} registerComment={this.registerComment} />
         </div>
       );
     }
@@ -198,6 +197,8 @@ Post.propTypes = {
   post: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
+  getCurrentPage: PropTypes.func.isRequired,
+
 };
 
 export default Post;
