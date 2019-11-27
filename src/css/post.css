@@ -4,7 +4,6 @@
   border: solid 1px #ccc;
   border-radius: 0.5vw;
   margin-top: 2em;
-  overflow: hidden;
   transition: box-shadow 500ms ease-in;
   cursor: pointer;
 }
@@ -37,6 +36,7 @@
   padding-top: 100%;
 }
 .post .head {
+  position: relative;
   display: inline-flex;
   width: 100%;
   text-align: left;
@@ -76,6 +76,9 @@
   white-space: nowrap;
   height: max-content;
   cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
 }
 .post .head .more-action span {
   color: #888;
@@ -103,6 +106,41 @@
 }
 .post .head .more-action.fa-trash-alt:hover {
   color: inherit;
+}
+.post .head .more-actions-dialog {
+  background: white;
+  position: absolute;
+  z-index: 3;
+  left: 100%;
+  font-size: 1em;
+  margin-left: -1.5em;
+  padding: 0;
+  border-radius: 1em;
+  border: solid 1px #ccc;
+  overflow: hidden;
+  text-align: left;
+  outline: none;
+  box-shadow: 0px 0.3em 0.8em rgba(0, 0, 0, 0.1);
+}
+.post .head .more-actions-dialog .action {
+  padding: 0.6em 1em;
+  background: white;
+  width: max-content;
+  display: block;
+  min-width: 8em;
+  text-transform: capitalize;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.post .head .more-actions-dialog .action .icon {
+  margin-right: 0.6em;
+}
+.post .head .more-actions-dialog .action:hover {
+  background: #f7f7f7;
+  opacity: 1;
+}
+.post .head .more-actions-dialog.hide {
+  z-index: -3;
 }
 .post .body {
   display: block;

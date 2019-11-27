@@ -8,6 +8,7 @@ import ViewPost from './ViewPost';
 import Error from './Error';
 import lib from '../js/lib';
 import '../css/maincontentblock.css';
+import UserProfile from './UserProfile';
 
 class MainContentBlock extends React.Component {
   constructor(props) {
@@ -89,6 +90,18 @@ class MainContentBlock extends React.Component {
               )}
             />
             <Route
+              path="/reports"
+              render={(props) => (
+                <Reports
+                  {...this.props}
+                  {...props}
+                  pageSwitch={this.pageSwitch}
+                  getPost={this.getPost}
+                  getCurrentPage={this.getCurrentPage}
+                />
+              )}
+            />
+            <Route
               path="/feed"
               render={(props) => (
                 <Feed
@@ -113,9 +126,9 @@ class MainContentBlock extends React.Component {
               )}
             />
             <Route
-              path="/reports"
+              path="/profile"
               render={(props) => (
-                <Reports
+                <UserProfile
                   {...this.props}
                   {...props}
                   pageSwitch={this.pageSwitch}

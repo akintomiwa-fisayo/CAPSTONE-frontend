@@ -1,7 +1,9 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import lib from '../js/lib';
 import Post from './Post';
+import PostEdit from './PostEdit';
 
 class ViewPost extends React.Component {
   constructor(props) {
@@ -16,7 +18,6 @@ class ViewPost extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    this.props.pageSwitch('post', true);
     let pst = {
       type: this.props.match.params.type,
     };
@@ -53,13 +54,35 @@ class ViewPost extends React.Component {
   }
 
   render() {
+    const url = this.props.match.path;
     if (this.state.post === false) {
       return (<div><span className="fa fa-spinner fa-spin loader" /></div>
       );
     }
     return (
       <div>
-        <Post {...this.props} post={{ ...this.state.post, type: this.props.match.params.type }} />
+        <Switch>
+          <Route
+            path={`${url}/edit`}
+            render={(props) => (
+              <PostEdit
+                {...this.props}
+                {...props}
+                post={{ ...this.state.post, type: this.props.match.params.type }}
+              />
+            )}
+          />
+          <Route
+            path={`${url}/`}
+            render={(props) => (
+              <Post
+                {...this.props}
+                {...props}
+                post={{ ...this.state.post, type: this.props.match.params.type }}
+              />
+            )}
+          />
+        </Switch>
       </div>
     );
   }
@@ -69,5 +92,6 @@ ViewPost.propTypes = {
   getPost: PropTypes.func.isRequired,
   match: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
 };
 export default ViewPost;
