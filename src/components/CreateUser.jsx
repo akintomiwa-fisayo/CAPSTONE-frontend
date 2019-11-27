@@ -43,6 +43,7 @@ class CreateUser extends React.Component {
     super(props);
     this.state = defaultStates;
 
+    this._isMounted = false;
     this.onJobRoleChange = this.onJobRoleChange.bind(this);
     this.onDepartmentChange = this.onDepartmentChange.bind(this);
     this.onGenderChange = this.onGenderChange.bind(this);
@@ -50,8 +51,15 @@ class CreateUser extends React.Component {
     this.onDisplayChange = this.onDisplayChange.bind(this);
     this.createUser = this.createUser.bind(this);
     this.resetForm = this.resetForm.bind(this);
+  }
 
-    props.pageSwitch('createUser');
+  componentDidMount() {
+    this._isMounted = true;
+    this.props.pageSwitch('createUser');
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   onDisplayChange(event) {
@@ -74,7 +82,9 @@ class CreateUser extends React.Component {
           $('#regPassport').src = fileSrc;
           regDisplay.classList.add('selected');
           regDisplay.classList.remove('Error');
-          this.setState(() => ({ passport }));
+          if (this._isMounted) {
+            this.setState(() => ({ passport }));
+          }
         };
       }
     } else {
@@ -113,7 +123,7 @@ class CreateUser extends React.Component {
   }
 
   resetForm() {
-    this.setState(() => (defaultStates));
+    if (this._isMounted) this.setState(() => (defaultStates));
 
     $('#regPassport').src = '';
     $('#regPassportPicker').value = null;
@@ -203,6 +213,7 @@ class CreateUser extends React.Component {
       };
 
       if (validate()) {
+        const { fetchRequest } = this.props;
         this.setState(() => ({ submitting: true }));
 
         const form = new FormData();
@@ -216,29 +227,23 @@ class CreateUser extends React.Component {
         form.append('department', state.department);
         form.append('address', state.address);
 
-        fetch('https://akintomiwa-capstone-backend.herokuapp.com/auth/create-user', {
+        fetchRequest({
+          endpoint: 'https://akintomiwa-capstone-backend.herokuapp.com/auth/create-user',
           method: 'POST',
           body: form,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('sessionUserToken')}`,
-          },
         }).then((res) => {
-          if (res.status === 201 || res.status === 400) return res.json();
-          throw new Error();
-        }).then((res) => {
-          if (res.status === 'error') {
-            $('#regForm .form-element[name=email]').classList.add('Error');
-            this.setState(() => ({ emailError: 'not a valid email address' }));
-          } else {
-            this.resetForm();
-            lib.popMessage('user account created successfully');
+          if (this._isMounted) {
+            if (res.status === 'error') {
+              $('#regForm .form-element[name=email]').classList.add('Error');
+              this.setState(() => ({ emailError: 'not a valid email address' }));
+            } else {
+              this.resetForm();
+              lib.popMessage('user account created successfully');
+            }
           }
-        }).catch(() => {
-          lib.popMessage('Oops!, there was a server error, please try again');
-        })
-          .finally(() => {
-            this.setState(() => ({ submitting: false }));
-          });
+        }).finally(() => {
+          if (this._isMounted) this.setState(() => ({ submitting: false }));
+        });
       } else {
         lib.popMessage('Please complete the form before submitting');
       }
@@ -337,6 +342,7 @@ class CreateUser extends React.Component {
 
 CreateUser.propTypes = {
   pageSwitch: PropTypes.func.isRequired,
+  fetchRequest: PropTypes.func.isRequired,
 };
 
 export default CreateUser;

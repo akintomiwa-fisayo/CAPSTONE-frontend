@@ -28,12 +28,22 @@ class SignIn extends React.Component {
       },
     };
 
+    this._isMounted = false;
     this.submitForm = this.submitForm.bind(this);
     this.regFieldInput = this.regFieldInput.bind(this);
     this.blurField = this.blurField.bind(this);
     this.focusField = this.focusField.bind(this);
     this.clickTofocusField = this.clickTofocusField.bind(this);
   }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
 
   submitForm() {
     const { submitting } = this.state;
@@ -65,18 +75,20 @@ class SignIn extends React.Component {
           history.push('/');
         }).catch(({ message: err }) => {
           const error = parseInt(err, 10);
-          if (error === 500) {
-            this.setState(() => ({
-              isValidForm: false,
-              error: 'Oops!, there was a server error, please try again',
-            }));
-          } else if (error === 400) {
-            this.setState(() => ({
-              isValidForm: false,
-              error: 'The email or password you entered is not correct, please try again.',
-            }));
+          if (this._isMounted) {
+            if (error === 500) {
+              this.setState(() => ({
+                isValidForm: false,
+                error: 'Oops!, there was a server error, please try again',
+              }));
+            } else if (error === 400) {
+              this.setState(() => ({
+                isValidForm: false,
+                error: 'The email or password you entered is not correct, please try again.',
+              }));
+            }
+            this.setState(() => ({ submitting: false }));
           }
-          this.setState(() => ({ submitting: false }));
         });
       } else {
         if (email.state !== 'filled') {

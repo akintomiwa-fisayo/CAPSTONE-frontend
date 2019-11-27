@@ -9,7 +9,9 @@ class Reports extends React.Component {
     this.state = {
       reports: [],
     };
+  }
 
+  componentDidMount() {
     this.props.pageSwitch('reports');
   }
 

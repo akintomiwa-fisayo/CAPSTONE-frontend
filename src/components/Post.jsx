@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import lib from '../js/lib';
 import AddComment from './AddComment';
+import Comment from './Comment';
+import '../css/post.css';
+
 
 /*  const articlePost = {
   id: 112,
@@ -33,114 +36,157 @@ class Post extends React.Component {
       },
     };
 
-
+    this._isMounted = false;
+    this.updatePostDateTimeRef = null;
     this.getAuthor = this.getAuthor.bind(this);
-    this.onCommentInput = this.onCommentInput.bind(this);
-    this.getAuthor();
+    this.viewPost = this.viewPost.bind(this);
+    this.registeComment = this.registeComment.bind(this);
   }
 
-  componentDidUpdate() {
+
+  componentDidMount() {
+    this._isMounted = true;
     // Update post's reference time
-    setInterval(() => {
-      this.setState((prevState) => ({
-        post: {
-          ...prevState.post,
-          dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
-        },
-      }));
-    }, 60000); // 60 seconds (1 min)
+    this.getAuthor().then(() => {
+      this.updatePostDateTimeRef = setInterval(() => {
+        console.log('in post interval', this._isMounted);
+        if (this._isMounted) {
+          this.setState((prevState) => ({
+            post: {
+              ...prevState.post,
+              dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
+            },
+          }));
+        }
+      }, 60000); // 60 seconds (1 min)
 
-    // unfocus new post
-    if (this.state.post.isNew && this.state.post.isNew === true) {
-      setTimeout(() => {
-        this.setState((prevState) => ({
-          post: {
-            ...prevState.post,
-            isNew: false,
-          },
-        }));
-      }, 5000);
-    }
+      // unfocus new post
+      if (this.state.post.isNew && this.state.post.isNew === true) {
+        setTimeout(() => {
+          console.log('in post', this._isMounted);
+          if (this._isMounted) {
+            this.setState((prevState) => ({
+              post: {
+                ...prevState.post,
+                isNew: false,
+              },
+            }));
+          }
+        }, 5000);
+      }
+    });
   }
 
-  onCommentInput(event) {
-    const { target } = event;
-    const { value } = target;
+  componentWillUnmount() {
+    console.log('about to unmount');
+    this._isMounted = false;
+    clearInterval(this.updatePostDateTimeRef);
+  }
+
+  getAuthor() {
+    return new Promise((resolve) => {
+      this.props.getUser(`${this.state.post.authorId}`).then((user) => {
+        console.log('in post get Authpt', this._isMounted);
+        if (this._isMounted) {
+          this.setState((prevState) => ({
+            post: {
+              ...prevState.post,
+              author: user,
+              dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
+            },
+          }));
+          resolve();
+        }
+      });
+    });
+  }
+
+  registeComment(comment) {
     this.setState((prevState) => ({
       post: {
         ...prevState.post,
-        userComment: value,
+        comments: [
+          ...prevState.post.comments,
+          comment,
+        ],
       },
     }));
   }
 
-  getAuthor() {
-    this.props.getUser(`${this.state.post.authorId}`).then((user) => {
-      this.setState((prevState) => ({
-        post: {
-          ...prevState.post,
-          author: user,
-          dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
-        },
-      }));
-    });
+  viewPost() {
+    const { post } = this.state;
+    if (!post.comments) this.props.history.push(`/post/${post.type}/${post.id}`);
   }
 
   render() {
+    let comments = null;
+    if (this.state.post.comments) {
+      const commentsArr = this.state.post.comments;
+      comments = [];
+
+      for (let i = 0; i < commentsArr.length; i += 1) {
+        comments.push(<Comment
+          {...this.props}
+          comment={commentsArr[i]}
+          key={commentsArr[i].commentId}
+        />);
+      }
+    } else {
+      comments = (
+        <button type="button" className="view-comment" onClick={this.fetchComments} title="view comments">
+          <span className="far fa-comment-dots icon" />
+          comments
+        </button>
+      );
+    }
     const { post } = this.state;
     if (post.author !== null) {
       const content = post.type === 'gif' ? <img className="item" src={post.url} alt="" /> : <div className="item">{post.article}</div>;
       return (
         <div
-          className={`post ${post.isNew && post.isNew === true ? 'new' : ''}`}
+          className={`post ${post.isNew && post.isNew === true ? 'new' : ''} ${this.state.post.comments ? 'view' : ''}`}
           id={post.id}
           data-type={post.type}
         >
-          <div className="head">
-            <div className="user-image">
-              <a href="/">
-                <img
-                  src={post.author.passportUrl}
-                  alt={`${post.author.firstName} ${post.author.lastName}`}
-                />
-              </a>
+          <div onClick={this.viewPost}>
+            <div className="head">
+              <div className="user-image">
+                <a href="/">
+                  <img
+                    src={post.author.passportUrl}
+                    alt={`${post.author.firstName} ${post.author.lastName}`}
+                  />
+                </a>
+              </div>
+              <div>
+                <a
+                  href="/"
+                  className="user-name"
+                  title=""
+                >{`${post.author.firstName} ${post.author.lastName}`}
+                </a>
+                <p
+                  className="date-time"
+                  data-timestamp={post.createdOn}
+                  title={lib.getRelativeTime(post.createdOn, false)}
+                >{post.dateTimeRef}
+                </p>
+              </div>
+              <span className="more-action">
+                <span>•</span>
+                <span>•</span>
+                <span>•</span>
+              </span>
             </div>
-            <div>
-              <a
-                href="/"
-                className="user-name"
-                title=""
-              >{`${post.author.firstName} ${post.author.lastName}`}
-              </a>
-              <p
-                className="date-time"
-                data-timestamp={post.createdOn}
-                title={lib.getRelativeTime(post.createdOn, false)}
-              >{post.dateTimeRef}
-              </p>
+            <div className="body">
+              <div className="title">{post.title}</div>
+              <div className="content">
+                {content}
+              </div>
             </div>
-            <span className="more-action">
-              <span>•</span>
-              <span>•</span>
-              <span>•</span>
-            </span>
+            {comments}
           </div>
-
-          <div className="body">
-            <div className="title">{post.title}</div>
-            <div className="content">
-              {content}
-            </div>
-          </div>
-          <div className="bottom">
-            <button type="button" className="view-comment" onClick={this.fetchComments} title="view comments">
-              <span className="far fa-comment-dots icon" />
-              comments
-            </button>
-
-            <AddComment {...this.props} />
-          </div>
-
+          <AddComment {...this.props} registeComment={this.registeComment} />
         </div>
       );
     }
@@ -150,6 +196,7 @@ class Post extends React.Component {
 
 Post.propTypes = {
   post: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
 };
 

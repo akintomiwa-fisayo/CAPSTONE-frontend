@@ -12,88 +12,40 @@ class Feed extends React.Component {
     this.state = {
       posts: [],
     };
+
+    this._isMounted = false;
     this.setPosts = this.setPosts.bind(this);
     this.registerPost = this.registerPost.bind(this);
-    this.Posts = this.Posts.bind(this);
-    this.getPost = this.getPost.bind(this);
+    this.getPosts = this.getPosts.bind(this);
+  }
 
+  componentDidMount() {
+    this._isMounted = true;
     this.props.pageSwitch('feed');
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  getPost(pst) {
-    // Get a specific post
-    const sessionUserToken = localStorage.getItem('sessionUserToken');
-    const post = {
-      id: pst.type === 'gif' ? pst.gifId : pst.articleId,
-      endpoint: pst.type === 'gif' ? 'gifs' : 'articles',
-    };
-
-    const errorHandler = ({ message: error }) => {
-      if (error === 'Unauthorized') {
-        const { history } = this.props;
-        history.push('/signin');
-      } else {
-        lib.popMessage(
-          navigator.onLine
-            ? 'oops! there was a server error'
-            : "can't connect to serve because you are offline, will retry in 5 seconds",
-        );
-        setTimeout(() => {
-          lib.popMessage('retrying to connect to server');
-          this.getPost(pst);
-        }, 5000);
-      }
-    };
-
-    return new Promise((resolve) => {
-      if (!lib.isEmpty(sessionUserToken)) {
-        fetch(`https://akintomiwa-capstone-backend.herokuapp.com/${post.endpoint}/${post.id}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${sessionUserToken}`,
-          },
-        }).then((res) => res.json()).then((res) => {
-          if (res.status === 'success') {
-            const { data: Post } = res;
-            resolve(Post);
-          } else errorHandler(new Error(res.error));
-        }).catch(({ error }) => { errorHandler(error); });
-      } else errorHandler(new Error('Unauthorized'));
-    });
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   setPosts(posts) {
     this.setState(() => ({ posts }));
   }
 
-  Posts() {
-    const This = this;
-    return ({
-      getById: (id) => {
-        let post = null;
-        for (let i = 0; i < This.state.posts.length; i += 1) {
-          post = This.state.posts[i];
-          if (post.id === id) {
-            return { post, index: i };
-          }
-        }
-        return false;
-      },
-      getAll() {
-        return This.state.posts;
-      },
-    });
+  getPosts() {
+    return this.state.posts;
   }
 
   registerPost(pst) {
-    this.getPost(pst).then((Post) => {
-      this.setState((prevState) => {
-        const post = { ...Post, type: pst.type, isNew: true };
-        const { posts } = prevState;
-        posts.unshift(post);
-        return { posts };
-      });
+    this.props.getPost(pst).then((Post) => {
+      if (this._isMounted) {
+        this.setState((prevState) => {
+          const post = { ...Post, type: pst.type, isNew: true };
+          const { posts } = prevState;
+          posts.unshift(post);
+          return { posts };
+        });
+      }
     }).catch((error) => {
       if (error === 'Unauthorized') {
         const { history } = this.props;
@@ -106,7 +58,7 @@ class Feed extends React.Component {
         );
         setTimeout(() => {
           lib.popMessage('retrying to connect to server');
-          this.registerPost();
+          if (this._isMounted) this.registerPost();
         }, 5000);
       }
     });
@@ -119,7 +71,7 @@ class Feed extends React.Component {
         <Posts
           {...this.props}
           setPosts={this.setPosts}
-          getPosts={() => this.Posts().getAll()}
+          getPosts={this.getPosts}
         />
       </div>
     );
@@ -128,6 +80,7 @@ class Feed extends React.Component {
 Feed.propTypes = {
   pageSwitch: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
+  getPost: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
   sessionUser: PropTypes.object.isRequired,
 };

@@ -25,6 +25,7 @@ class SharePost extends React.Component {
       post: articlePost,
     };
 
+    this._isMounted = false;
     this.onInputFocus = this.onInputFocus.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onInputBlur = this.onInputBlur.bind(this);
@@ -34,6 +35,15 @@ class SharePost extends React.Component {
     this.changePostType = this.changePostType.bind(this);
     this.onArticleChange = this.onArticleChange.bind(this);
   }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
 
   onInputFocus() {
     this.setState(() => ({
@@ -86,12 +96,14 @@ class SharePost extends React.Component {
           const fileSrc = frEvent.target.result;
           $('#postGif').src = fileSrc;
           postGifBlock.classList.remove('Error');
-          this.setState((prevState) => ({
-            post: {
-              ...prevState.post,
-              image: gif,
-            },
-          }));
+          if (this._isMounted) {
+            this.setState((prevState) => ({
+              post: {
+                ...prevState.post,
+                image: gif,
+              },
+            }));
+          }
         };
       }
     } else {
@@ -239,7 +251,9 @@ class SharePost extends React.Component {
           } else errorHandler(new Error(res.error));
         }).catch((error) => { errorHandler(error); })
           .finally(() => {
-            this.setState(() => ({ submitting: false }));
+            if (this._isMounted) {
+              this.setState(() => ({ submitting: false }));
+            }
           });
       } else {
         lib.popMessage('Please complete the form before submitting');

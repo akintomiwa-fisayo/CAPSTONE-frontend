@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import Post from './Post';
 import lib from '../js/lib';
 import '../css/posts.css';
-import '../css/post.css';
-import '../css/addcomment.css';
+
 
 class Posts extends React.Component {
   constructor(props) {
@@ -12,8 +11,14 @@ class Posts extends React.Component {
     this.state = {
       loading: true,
     };
+    this._isMounted = false;
+  }
 
-    const getPosts = () => {
+  componentDidMount() {
+    this._isMounted = true;
+
+    console.log('    this._isMounted is     ', this._isMounted);
+    const fetchPosts = () => {
       // Get all posts
       const sessionUserToken = localStorage.getItem('sessionUserToken');
       const sessionUserId = localStorage.getItem('sessionUserId');
@@ -29,7 +34,7 @@ class Posts extends React.Component {
           );
           setTimeout(() => {
             lib.popMessage('retrying to connect to server');
-            getPosts();
+            fetchPosts();
           }, 5000);
         }
       };
@@ -41,35 +46,43 @@ class Posts extends React.Component {
             Authorization: `Bearer ${sessionUserToken}`,
           },
         }).then((res) => res.json()).then((res) => {
-          if (res.status === 'success') {
+          if (this._isMounted === true) {
+            if (res.status === 'success') {
             // save posts
-            const { data: posts } = res;
-            this.props.setPosts(posts);
-            this.setState(() => ({ loading: false }));
-          } else errorHandler(new Error(res.error));
+              const { data: posts } = res;
+              this.props.setPosts(posts);
+              this.setState(() => ({ loading: false }));
+            } else errorHandler(new Error(res.error));
+          }
         }).catch((error) => { errorHandler(error); });
       } else errorHandler(new Error('Unauthorized'));
     };
 
-    getPosts();
+    fetchPosts();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
     const posts = [];
-    const postsArr = this.props.getPosts();
-    for (let i = 0; i < postsArr.length; i += 1) {
-      posts.push(<Post
-        {...this.props}
-        post={postsArr[i]}
-        key={postsArr[i].id}
-      />);
+    if (this._isMounted === true) {
+      const postsArr = this.props.getPosts();
+      for (let i = 0; i < postsArr.length; i += 1) {
+        posts.push(<Post
+          {...this.props}
+          post={postsArr[i]}
+          key={postsArr[i].id}
+        />);
+      }
+      return (
+        <div id="posts" className={this.state.loading ? 'loading' : ''}>
+          {posts}
+        </div>
+      );
     }
-
-    return (
-      <div id="posts" className={this.state.loading ? 'loading' : ''}>
-        {posts}
-      </div>
-    );
+    return (<div />);
   }
 }
 

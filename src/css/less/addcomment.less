@@ -1,69 +1,42 @@
 @import (reference) './general.less';
 @import (reference) './feed.less';
+@import (reference) './post.less';
 
+@commentContentGap: 5%;
 .add-comment{
-  display: flex;
+  display: grid;
+  grid-auto-flow: column;
   justify-content: space-between;
+  align-items: center;
   padding: 1em @contentPadding;
   overflow: hidden;
   border-top: @contentBorder;
   transition: box-shadow 500ms ease-in;
-
-  @userImageWidth: 8%;
-  @gap: 4%;
+  grid-auto-columns: @userImageWidth (100% - @userImageWidth);
 
   .user-image{
-    position: relative;
-    width: @userImageWidth;
-    height: min-content;
-    border-radius: 100px;
-    overflow: hidden;
-    transition: all .3s;
-
-    a{  
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      position: absolute;
-
-      img{
-        border-radius: inherit;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      
-    }
-
-    &:hover{
-      border-color: @color;
-    }
-
-    &:after{
-      display: block;
-      content:  "";
-      padding-top: 100%;
-    }
+    width: 100% !important;
   }
-
   .comment-input{
     position: relative;
     display: flex;
     align-items: center;
-    width: 100% - (@userImageWidth + @gap);
-    padding: 0 1.3em;
+    justify-content: flex-end;
+    width: 100% - @commentContentGap;
+    margin-left: @commentContentGap;
+    padding: 0 1.5em;
     border-radius: 9999px;
     border: .form-element[border];
-    @padding: 1em;
     
     input{
       width: 100%;
-      padding: .6em 0;
+      padding: 1em 0;
       border: none;
       border-radius: 0;
       font-size: inherit;
       background: none;
       box-shadow: none;
+      height: 100%;
       
       &:focus , &:active  {
         outline: none;
@@ -73,13 +46,11 @@
 
     .submit-comment{
       // position: absolute;
-      left: auto;
-      top: 0;
-      right: @padding;
       height: max-content;
       display: flex;
       align-items: center;
       cursor: pointer;
+      font-size: 1.5em;
       color: @contentBorderColor;
       transition: color 150ms linear;
 

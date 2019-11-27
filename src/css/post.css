@@ -1,13 +1,12 @@
 .post {
   background: white;
-  padding: 2em 0;
-  padding-bottom: 0px;
+  padding: 0px;
   border: solid 1px #ccc;
   border-radius: 0.5vw;
   margin-top: 2em;
-  margin-bottom: 15px;
   overflow: hidden;
   transition: box-shadow 500ms ease-in;
+  cursor: pointer;
 }
 .post .user-image {
   position: relative;
@@ -41,7 +40,7 @@
   display: inline-flex;
   width: 100%;
   text-align: left;
-  padding: 0 2em;
+  padding: 1.5em;
   padding-bottom: 0.8em;
 }
 .post .head > :nth-child(2) {
@@ -107,14 +106,15 @@
 }
 .post .body {
   display: block;
-  padding: 0 2em;
+  padding: 0 1.5em;
 }
 .post .body .title {
   width: 100%;
   padding: 0px;
   text-transform: capitalize;
-  margin: 0px;
-  margin-bottom: 0.8em;
+  margin: 0.4em 0 0.8em;
+  color: #787878;
+  font-weight: 600;
   /*align stuffs at center*/
   display: -webkit-flex;
   -webkit-flex-wrap: wrap;
@@ -144,9 +144,9 @@
 .post .body .content .item::first-letter {
   text-transform: capitalize;
 }
-.post .bottom .view-comment {
+.post .view-comment {
   margin-top: 1em;
-  padding: 0.8em 2em;
+  padding: 0.8em 1.5em;
   width: 100%;
   text-align: center;
   border: none;
@@ -159,12 +159,12 @@
   font-weight: 600;
   color: #666;
 }
-.post .bottom .view-comment .icon {
+.post .view-comment .icon {
   margin-right: 1em;
   font-weight: 500;
   font-size: 1.2em;
 }
-.post .bottom .view-comment:hover {
+.post .view-comment:hover {
   background: #f5f3fb;
   color: #444;
 }

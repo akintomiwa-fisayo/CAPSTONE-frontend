@@ -13,16 +13,24 @@ class Home extends React.Component {
       sessionUser: {},
       loading: true,
     };
+
+    this._isMounted = false;
     this.getUser = this.getUser.bind(this);
-    this.getSessionUser = this.getSessionUser.bind(this);
-    this.getSessionUser();
+    this.fetchRequest = this.fetchRequest.bind(this);
   }
 
-  getSessionUser() {
+  componentDidMount() {
+    this._isMounted = true;
     const sessionUserId = localStorage.getItem('sessionUserId');
     this.getUser(sessionUserId).then((user) => {
-      this.setState(() => ({ sessionUser: user, loading: false }));
+      if (this._isMounted) {
+        this.setState(() => ({ sessionUser: user, loading: false }));
+      }
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -58,12 +66,86 @@ class Home extends React.Component {
             const { data: user } = res;
             resolve(user);
           } else errorHandler(new Error(res.error));
-        }).catch(({ error }) => { errorHandler(error); });
+        }).catch((error) => {
+          errorHandler(error);
+        });
       } else errorHandler(new Error('Unauthorized'));
     });
   }
 
+  fetchRequest(params = {
+    method: 'GET',
+    body: {},
+    headers: {},
+  }) {
+    return new Promise((resolve, reject) => {
+      // make custom fetch request
+      /* params{
+            endpoint : String,
+            method: String,
+            headers : Object
+          }
+           */
+      const sessionUserToken = localStorage.getItem('sessionUserToken');
+      const retry = () => {
+        setTimeout(() => {
+          lib.popMessage('retrying to connect to server');
+          this.fetchRequest(params).then(resolve).catch(reject);
+        }, 5000);
+      };
+      const errorHandler = (error) => {
+        const { message: errorText, status } = error;
+        if (errorText === 'Unauthorized') {
+          const { history } = this.props;
+          history.push('/signin');
+        } else if (status === 500) {
+          lib.popMessage('oops! there was a server error');
+          retry();
+        } else if (!navigator.onLine) {
+          lib.popMessage("can't connect to serve because you are offline, will retry in 5 seconds");
+          retry();
+        } else {
+          console.log('OMOALE FOR LIFE OK THIS GUY IS DEFINETLY AN OMOALE', error);
+          reject(error);
+        }
+      };
+
+      if (!lib.isEmpty(sessionUserToken)) {
+        let fetchResponse = null;
+        fetch(params.endpoint, {
+          method: params.method,
+          body: params.body,
+          headers: {
+            ...params.headers,
+            Authorization: `Bearer ${sessionUserToken}`,
+          },
+        }).then((res) => {
+          fetchResponse = res;
+          return res.json();
+        }).then((res) => {
+          if (res.status === 'success') {
+            const { data } = res;
+            resolve(data);
+          } else {
+            const error = new Error(fetchResponse.statusText);
+            error.status = fetchResponse.status;
+            errorHandler(error);
+          }
+        }).catch((error) => {
+          console.log('Erroring from taye');
+          errorHandler(error);
+        });
+      } else {
+        const error = new Error('Unauthorized');
+        error.status = 401;
+        errorHandler(error);
+      }
+    });
+  }
+
   render() {
+    console.log('rendering Home.js');
+
     if (this.state.loading === false) {
       return (
         <div id="pageContent" data-page="application">
@@ -72,6 +154,7 @@ class Home extends React.Component {
             {...this.props}
             sessionUser={this.state.sessionUser}
             getUser={this.getUser}
+            fetchRequest={this.fetchRequest}
           />
           <UpdatesBlock />
         </div>
