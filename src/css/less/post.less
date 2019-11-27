@@ -8,7 +8,7 @@
   border: @contentBorder;
   border-radius: @contentBorderRadius;
   margin-top: 2em;
-  overflow: hidden;
+  // overflow: hidden;
   transition: box-shadow 500ms ease-in;
   cursor: pointer;
 
@@ -47,6 +47,7 @@
   }
 
   .head{
+    position: relative;
     display: inline-flex;
     width: 100%;
     text-align: left;
@@ -96,6 +97,9 @@
       white-space: nowrap;
       height: max-content;
       cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
       
       @spread: .33em;
       @gap: .28em;
@@ -137,6 +141,46 @@
         }
       }
 
+    }
+
+    .more-actions-dialog{
+      background: white;
+      position: absolute;
+      z-index: 3;
+      left: 100%;
+      font-size: 1em;
+      margin-left: -@contentPadding;
+      padding: 0;
+      border-radius: 1em;
+      border: @contentBorder;
+      overflow: hidden;
+      text-align: left;
+      outline: none;
+      box-shadow: 0px .3em .8em rgba(0,0,0,.1) ;
+      
+      .action{
+        padding: .6em 1em;
+        background: white;
+        width: max-content;
+        display: block;
+        min-width: 8em;
+        text-transform: capitalize;
+        opacity: .8;
+        cursor: pointer;
+
+        .icon{
+          margin-right: .6em;
+        }
+
+        &:hover{
+          background: #f7f7f7;
+          opacity: 1;
+        }
+      }
+
+      &.hide{
+        z-index: -3;
+      }
     }
       
   }

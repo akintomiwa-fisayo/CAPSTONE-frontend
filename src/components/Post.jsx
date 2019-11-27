@@ -4,6 +4,7 @@ import lib from '../js/lib';
 import AddComment from './AddComment';
 import Comment from './Comment';
 import '../css/post.css';
+import MoreActions from './PostMoreAction';
 
 
 /*  const articlePost = {
@@ -31,9 +32,9 @@ class Post extends React.Component {
       post: {
         ...this.props.post,
         author: null,
-        dateTimeRef: '',
-        userComment: '',
       },
+      dateTimeRef: '',
+      showMoreActions: false,
     };
 
     this._isMounted = false;
@@ -41,8 +42,9 @@ class Post extends React.Component {
     this.getAuthor = this.getAuthor.bind(this);
     this.viewPost = this.viewPost.bind(this);
     this.registerComment = this.registerComment.bind(this);
+    this.showMoreActions = this.showMoreActions.bind(this);
+    this.hideMoreActions = this.hideMoreActions.bind(this);
   }
-
 
   componentDidMount() {
     this._isMounted = true;
@@ -51,10 +53,7 @@ class Post extends React.Component {
       this.updatePostDateTimeRef = setInterval(() => {
         if (this._isMounted) {
           this.setState((prevState) => ({
-            post: {
-              ...prevState.post,
-              dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
-            },
+            dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
           }));
         }
       }, 60000); // 60 seconds (1 min)
@@ -88,8 +87,8 @@ class Post extends React.Component {
             post: {
               ...prevState.post,
               author: user,
-              dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
             },
+            dateTimeRef: lib.getRelativeTime(prevState.post.createdOn),
           }));
           resolve();
         }
@@ -113,6 +112,19 @@ class Post extends React.Component {
     const { getCurrentPage } = this.props;
     const { post } = this.state;
     if (getCurrentPage() !== 'post') this.props.history.push(`/post/${post.type}/${post.id}`);
+  }
+
+  showMoreActions(event) {
+    event.stopPropagation();
+    this.setState(() => ({
+      showMoreActions: true,
+    }));
+  }
+
+  hideMoreActions() {
+    this.setState(() => ({
+      showMoreActions: false,
+    }));
   }
 
   render() {
@@ -168,14 +180,19 @@ class Post extends React.Component {
                   className="date-time"
                   data-timestamp={post.createdOn}
                   title={lib.getRelativeTime(post.createdOn, false)}
-                >{post.dateTimeRef}
+                >{this.state.dateTimeRef}
                 </p>
               </div>
-              <span className="more-action">
+              <button type="button" className="more-action" onClick={this.showMoreActions}>
                 <span>•</span>
                 <span>•</span>
                 <span>•</span>
-              </span>
+              </button>
+              <MoreActions
+                {...this.props}
+                showMoreActions={this.state.showMoreActions}
+                hideMoreActions={this.hideMoreActions}
+              />
             </div>
             <div className="body">
               <div className="title">{post.title}</div>

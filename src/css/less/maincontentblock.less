@@ -1,15 +1,15 @@
 @import (reference) 'general.less';
 
+@mainContentPadding: 3em;
 #pageContent[data-page="application"]{
   
   #mainContentBlock{
     
     .container, #contentHeader{
-      @padding: 3em;
       width: 100%;
-      padding-bottom: @padding;
-      padding-left: calc(@navBlockWidth + @padding);
-      padding-right: calc(@updatesBlockWidth + @padding);
+      padding-bottom: @mainContentPadding;
+      padding-left: calc(@navBlockWidth + @mainContentPadding);
+      padding-right: calc(@updatesBlockWidth + @mainContentPadding);
     }
 
     #contentHeader{
@@ -28,6 +28,7 @@
         display: inline-flex;
         align-items: center;
         margin: 0px;
+        font-size: 1.6em;
         line-height: 1;
         text-transform: capitalize;
 

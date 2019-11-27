@@ -1,4 +1,6 @@
 /* eslint-disable no-restricted-globals */
+const $ = (q) => (document.querySelector(q));
+
 const lib = {
   isEmpty: (str) => (str ? !str.trim() : true),
 
@@ -162,6 +164,17 @@ const lib = {
     }
 
     return relativeTime;
+  },
+
+  getCordinates: (el, scrollContainer = $('html')) => {
+    const elem = lib.isElement(el) ? el : $(el);
+    const xPos = elem.offsetLeft - scrollContainer.scrollLeft;
+    const yPos = elem.offsetTop - scrollContainer.scrollTop;
+
+    return {
+      left: xPos,
+      top: yPos,
+    };
   },
 
   parseURI(_URI, _Uri) {

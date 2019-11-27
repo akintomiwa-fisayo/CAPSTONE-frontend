@@ -21,6 +21,7 @@
   display: inline-flex;
   align-items: center;
   margin: 0px;
+  font-size: 1.6em;
   line-height: 1;
   text-transform: capitalize;
 }
