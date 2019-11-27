@@ -101,7 +101,7 @@ class NavBlock extends React.Component {
             <span className="icon fa fa-user-circle" />
             profile
           </NavLink>
-          <NavLink className="link" to="/" exact>
+          <NavLink className="link" to="/signin" exact>
             <span className="icon fa fa-sign-out-alt" />
             sign out
           </NavLink>

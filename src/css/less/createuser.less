@@ -10,7 +10,7 @@
     color: inherit;
 
     #regForm{
-      width: 55%;
+      width: 60%;
       font-weight: 600;
       display: flex;
       justify-content: center;
@@ -141,10 +141,10 @@
           background-color: #f7f7f7;
           padding: 1.2em @paddingLeft;
           font-weight: inherit;
-          color: @color !important;
+          color: @color;
           appearance: none;
           
-          &.placeholder{
+          &.placeholder:extend(.form-element::placeholder, .form-element.placeholder){
             option:not([disabled]){
               font-style: normal;
               font-weight: inherit;

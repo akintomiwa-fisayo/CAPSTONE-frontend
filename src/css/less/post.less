@@ -1,20 +1,20 @@
 @import (reference) './general.less';
 @import (reference) './feed.less';
 
+@userImageWidth: 10%;
 .post{
   background: white;
-  padding: @contentPadding 0;
-  padding-bottom: 0px;
+  padding: 0px;
   border: @contentBorder;
   border-radius: @contentBorderRadius;
   margin-top: 2em;
-  margin-bottom: 15px;
   overflow: hidden;
   transition: box-shadow 500ms ease-in;
+  cursor: pointer;
 
   .user-image{
     position: relative;
-    width: 10%;
+    width: @userImageWidth;
     height: min-content;
     border-radius: 100px;
     overflow: hidden;
@@ -51,7 +51,7 @@
     width: 100%;
     text-align: left;
     //background: yellow;
-    padding: 0 @contentPadding;
+    padding: @contentPadding;
     padding-bottom: .8em;
     //border-bottom: solid 1px @userActivityBorderColor;
 
@@ -150,8 +150,9 @@
       width: 100%;
       padding: 0px;
       text-transform: capitalize;
-      margin: 0px;
-      margin-bottom: .8em;
+      margin: .4em 0 .8em;
+      color: #787878;
+      font-weight: 600;
 
       /*align stuffs at center*/
                 
@@ -190,33 +191,31 @@
     }
 
   }
-
-  .bottom{
-    .view-comment{
-      margin-top: 1em;
-      padding: .8em @contentPadding;
-      width: 100%;
-      text-align: center;
-      border: none;
-      border-top: @contentBorder;
-      outline: none;
-      cursor: pointer;
-      background: none;
-      transition: background 300ms ease-in, color 300ms ease-in;
-      font-size: 1em;
-      font-weight: 600;
-      color: #666;
-      
-      .icon{
-        margin-right: 1em;
-        font-weight: 500;
-        font-size: 1.2em;
-      }
-      
-      &:hover{
-        background: @pageBKColor;
-        color: #444;
-      }
+  
+  .view-comment{
+    margin-top: 1em;
+    padding: .8em @contentPadding;
+    width: 100%;
+    text-align: center;
+    border: none;
+    border-top: @contentBorder;
+    outline: none;
+    cursor: pointer;
+    background: none;
+    transition: background 300ms ease-in, color 300ms ease-in;
+    font-size: 1em;
+    font-weight: 600;
+    color: #666;
+    
+    .icon{
+      margin-right: 1em;
+      font-weight: 500;
+      font-size: 1.2em;
+    }
+    
+    &:hover{
+      background: @pageBKColor;
+      color: #444;
     }
   }
 

@@ -18,8 +18,38 @@
   border-bottom: solid 1px #ccc;
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .page {
+  display: inline-flex;
+  align-items: center;
   margin: 0px;
+  line-height: 1;
   text-transform: capitalize;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back {
+  width: 1.8em;
+  position: relative;
+  font-size: 68%;
+  margin-right: 0.6em;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 300ms ease-out;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back > :nth-child(1) {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back:after {
+  display: block;
+  content: "";
+  padding-top: 100%;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back:hover {
+  background: #dbd4f2;
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .icon {
   font-size: 1.6em;

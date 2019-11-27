@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import lib from '../js/lib';
+import '../css/addcomment.css';
 
 
 const defaultState = {
@@ -39,44 +40,43 @@ class AddComment extends React.Component {
   }
 
   submitComment() {
-    const errorHandler = ({ message: error }) => {
-      if (error === 'Unauthorized') {
-        const { history } = this.props;
-        history.push('/signin');
-      } else {
-        lib.popMessage(
-          navigator.onLine
-            ? 'oops! there was a server error'
-            : "can't connect to serve because you are offline, will retry in 5 seconds",
-        );
-        setTimeout(() => {
-          lib.popMessage('retrying to connect to server');
-          this.submitComment();
-        }, 5000);
-      }
-    };
-
     if (!lib.isEmpty(this.state.comment)) {
       this.setState(() => ({ submitting: true }));
       const { post } = this.props;
+      const { fetchRequest } = this.props;
       const path = post.type === 'gif' ? 'gifs' : 'articles';
 
-      fetch(`https://akintomiwa-capstone-backend.herokuapp.com/${path}/${post.id}/comment`, {
+      fetchRequest({
+        endpoint: `https://akintomiwa-capstone-backend.herokuapp.com/${path}/${post.id}/comment`,
         method: 'POST',
         body: `{
           "comment":"${this.state.comment}"
         }`,
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('sessionUserToken')}`,
           'Content-Type': 'application/json',
         },
-      }).then((res) => res.json()).then((res) => {
-        if (res.status === 'success') {
-          // save this.state
-          this.setState(() => (defaultState));
-          lib.popMessage('Comment created successfully');
-        } else errorHandler(new Error(res.error));
-      }).catch((error) => { errorHandler(error); })
+      }).then((response) => {
+        // save this.state
+
+        this.setState(() => (defaultState));
+
+        if (this.props.post.comments) {
+          this.props.registerComment({
+            authorId: this.props.sessionUser.id,
+            comment: response.comment,
+            commentId: response.commentId,
+            createdOn: response.createdOn,
+          });
+        }
+        lib.popMessage('Comment created successfully');
+      }).catch((error) => {
+        if (error.status === 404) {
+          this.props.history.push('/');
+          lib.popMessage('Post not found!');
+        } else {
+          lib.popMessage('we were unable create your comment please try again');
+        }
+      })
         .finally(() => {
           this.setState(() => ({ submitting: false }));
         });
@@ -116,6 +116,8 @@ AddComment.propTypes = {
   post: PropTypes.object.isRequired,
   sessionUser: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
+  fetchRequest: PropTypes.func.isRequired,
+  registerComment: PropTypes.func.isRequired,
 };
 
 export default AddComment;
