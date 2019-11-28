@@ -79,6 +79,15 @@
     >:nth-child(2){
       padding-left: calc((@userImageWidth + @commentContentGap) + @commentContentPaddingLeft);
     }
+
+    &.report-focused{
+      background: @color-error;
+    }
+  }
+
+  .more-actions-dialog{
+    .post>.head>.more-actions-dialog;
+
   }
   
 }
