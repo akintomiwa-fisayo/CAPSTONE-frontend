@@ -10,7 +10,9 @@ class Posts extends React.Component {
     this.state = {
       loading: true,
     };
+
     this._isMounted = false;
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +38,10 @@ class Posts extends React.Component {
     this._isMounted = false;
   }
 
+  onDelete(post) {
+    this.props.deletePost(post);
+  }
+
   render() {
     const posts = [];
     const postsArr = this.props.getPosts();
@@ -44,6 +50,7 @@ class Posts extends React.Component {
         {...this.props}
         post={postsArr[i]}
         key={postsArr[i].id}
+        onDelete={this.onDelete}
       />);
     }
     return (
@@ -59,6 +66,7 @@ Posts.propTypes = {
   getUser: PropTypes.func.isRequired,
   setPosts: PropTypes.func.isRequired,
   getPosts: PropTypes.func.isRequired,
+  deletePost: PropTypes.func.isRequired,
   fetchRequest: PropTypes.func.isRequired,
 };
 

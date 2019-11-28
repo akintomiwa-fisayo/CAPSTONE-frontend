@@ -13,6 +13,7 @@ class ViewPost extends React.Component {
     };
 
     this._isMounted = false;
+    this.onDelete = this.onDelete.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +54,16 @@ class ViewPost extends React.Component {
     this._isMounted = false;
   }
 
+  onDelete() {
+    lib.popMessage(`${this.props.match.params.type} deleted successfully`);
+    const { history } = this.props;
+    if (history.length > 2) {
+      history.goBack();
+    } else {
+      history.push('/feed');
+    }
+  }
+
   render() {
     const url = this.props.match.path;
     if (this.state.post === false) {
@@ -79,6 +90,8 @@ class ViewPost extends React.Component {
                 {...this.props}
                 {...props}
                 post={{ ...this.state.post, type: this.props.match.params.type }}
+                onDelete={this.onDelete}
+                preview
               />
             )}
           />
