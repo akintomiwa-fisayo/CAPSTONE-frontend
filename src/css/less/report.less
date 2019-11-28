@@ -1,16 +1,10 @@
 @import (reference) './general.less';
 @import (reference) './feed.less';
+@import (reference) './post.less';
 
-.report{
-  background: white;
+.report:extend(.post){
   padding: @contentPadding 0;
   padding-bottom: 0px;
-  border: @contentBorder;
-  border-radius: @contentBorderRadius;
-  margin-top: 2em;
-  margin-bottom: 15px;
-  overflow: hidden;
-  transition: box-shadow 500ms ease-in;
 
   .head{
     display: inline-flex;
@@ -114,25 +108,45 @@
       .detail{
         font-weight: 600;
         display: flex;
-
-        .value{
+        
+        .info{
           @padding: .5em;
-          margin-left: @padding;
+          text-transform: capitalize;
+          margin-right: @padding;
           
-          &::before{
+          &::after{
             content: ":";
-            padding-right: @padding;
+            padding-left: @padding;
+          }
+        }
+        
+        .value{
+          &::first-letter{
+            text-transform: capitalize;
+
           }
         }
       }
     }
 
-    .report-content{
-      padding: .5em;
+    @padding: .6em;
+    .report-content:extend(.post){
       border: @contentBorder;
       border-radius: @contentBorderRadius;
+      padding: @padding;
+      
+      .head{
+        padding: 0;
+        margin-bottom: 1em;
 
-      .title{
+        .user-name:extend(.post .head >:nth-child(2) .user-name){
+          opacity: .4;
+          align-self: center;          
+        }
+        
+      }
+
+      .title:extend(.post .body .title){
         width: 100%;
         padding: 0px;
         text-transform: capitalize;
@@ -174,6 +188,15 @@
           }
         }
       }
+
+    }
+    
+    .trailer{
+      width: 0;
+      height: 4em;
+      margin-left: @padding;
+      margin-bottom: (1 - .post[margin-top]) - 1;
+      border-left: solid 2px @contentBorderColor;
     }
 
   }
@@ -187,7 +210,17 @@
       width: 45%;
       font-weight: 600;
       text-transform: capitalize;
+      
+      &.disabled{
+        opacity: .7;
+        cursor: not-allowed;
+      }
     }
+
+  }
+
+  &.remove{
+    opacity: 0;
   }
 
 }

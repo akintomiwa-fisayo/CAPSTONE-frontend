@@ -163,9 +163,6 @@ class Post extends React.Component {
       const { fetchRequest } = this.props;
 
       const deletePost = (delay) => {
-        this.setState(() => ({
-
-        }));
         setTimeout(() => {
           if (this._isMounted) {
             this.props.onDelete(post);
