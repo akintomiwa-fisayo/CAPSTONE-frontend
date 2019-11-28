@@ -1,68 +1,84 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import lib from '../js/lib';
-
-const reportArticle = {
-  reportId: 1991,
-  contentType: 'article',
-  flag: 'inappropriate',
-  reason: 'it is quit lame',
-  reporter: {
-    id: 1067,
-    firstName: 'name',
-    lastName: 'name',
-    passportUrl: 'https://res.cloudinary.com/capstone-backend/image/upload/v1573054820/gkascktgwbavuemvjy4v.jpg',
-  },
-  reportedOn: '2019-11-19T20:21:33.733Z',
-  article: {
-    id: 19991,
-    title: 'report sample title',
-    createdOn: '2019-11-19T20:21:33.130Z',
-    author: {
-      id: 1067,
-      firstName: 'name',
-      lastName: 'name',
-      passportUrl: 'https://res.cloudinary.com/capstone-backend/image/upload/v1573054820/gkascktgwbavuemvjy4v.jpg',
-    },
-    article: 'report sample lorem article',
-  },
-};
 
 class Report extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       report: {
-        ...reportArticle,
-        dateTimeRef: '',
+        ...props.report,
       },
+      willDelete: false,
+      dateTimeRef: '',
+      submitting: false,
     };
 
-    this.updateTimeRef = this.updateTimeRef.bind(this);
+    this._isMounted = false;
+    this.updatePostDateTimeRef = null;
+    this.attendTo = this.attendTo.bind(this);
   }
 
-  updateTimeRef() {
-    const update = () => {
-      this.setState((prevState) => ({
-        report: {
-          ...prevState.report,
+  componentDidMount() {
+    this._isMounted = true;
+    this.setState((prevState) => ({
+      dateTimeRef: lib.getRelativeTime(prevState.report.reportedOn),
+    }));
+    this.updatePostDateTimeRef = setInterval(() => {
+      if (this._isMounted) {
+        this.setState((prevState) => ({
           dateTimeRef: lib.getRelativeTime(prevState.report.reportedOn),
-        },
-      }));
-    };
+        }));
+      }
+    }, 60000); // 60 seconds (1 min)
+  }
 
-    update();
-    setInterval(update, 60000); // 60 seconds (1 min)
+  componentWillUnmount() {
+    this._isMounted = false;
+    clearInterval(this.updatePostDateTimeRef);
+  }
+
+
+  attendTo(action) {
+
   }
 
 
   render() {
-    const { report } = this.state;
-    const reportedContent = report.contentType === 'article' ? report.article : report.gif;
-    const content = report.contentType === 'gif' ? <img className="item" src={reportedContent.imageUrl} alt="" /> : <div className="item">{reportedContent.article}</div>;
+    const { state } = this;
+    const { report } = state;
+    let reportedPost = '';
+    let reportComment = '';
+    if (report.contentType === 'comment') {
+      const reportedComment = report.comment;
+      reportedPost = reportedComment.post;
+      reportComment = (
+        <div>
+          <div className="report-content">
+            <div className="head">
+              <div className="user-image">
+                <a href="man">
+                  <img src={reportedComment.author.passportUrl} alt={`${reportedComment.author.firstName} ${reportedComment.author.lastName}`} />
+                </a>
+              </div>
+              <a href="man" className="user-name">{`${reportedComment.author.firstName} ${reportedComment.author.lastName}`}</a>
+            </div>
+            <div className="">{reportedComment.comment}</div>
+          </div>
+          <div className="trailer" />
+        </div>
+      );
+    } else {
+      reportedPost = report.contentType === 'article'
+        ? { ...report.article, type: 'article' }
+        : { ...report.gif, type: 'gif' };
+    }
+    const content = reportedPost.type === 'gif' ? <img className="item" src={reportedPost.imageUrl} alt="" /> : <div className="item">{reportedPost.article}</div>;
+    const willDelete = state.willDelete ? 'remove' : '';
 
     return (
       <div
-        className={`report ${report.contentType}`}
+        className={`report ${report.contentType} ${willDelete}`}
         id={report.id}
         data-type={report.type}
       >
@@ -78,38 +94,66 @@ class Report extends React.Component {
               className="date-time"
               data-timestamp={report.reportedOn}
               title={lib.getRelativeTime(report.reportedOn, false)}
-              ref={this.updateTimeRef}
-            >{report.dateTimeRef}
+            >{state.dateTimeRef}
             </p>
           </div>
-          <span className="report-id">123456</span>
+          <span className="report-id">{report.reportId}</span>
         </div>
 
         <div className="body">
           <div className="report-details">
             <div className="detail">
+              <div className="info">content</div>
+              <div className="value">{report.contentType}</div>
+            </div>
+            <div className="detail">
               <div className="info">flag</div>
               <div className="value">{report.flag}</div>
             </div>
             <div className="detail">
-              <div className="info">content</div>
-              <div className="value">{report.contentType}</div>
+              <div className="info">reason</div>
+              <div className="value">{report.reason}</div>
             </div>
           </div>
+          {reportComment}
           <div className="report-content">
-            <div className="title">{reportedContent.title}</div>
+            <div className="head">
+              <div className="user-image">
+                <a href="man">
+                  <img src={reportedPost.author.passportUrl} alt={`${reportedPost.author.firstName} ${reportedPost.author.lastName}`} />
+                </a>
+              </div>
+              <a href="man" className="user-name">{`${reportedPost.author.firstName} ${reportedPost.author.lastName}`}</a>
+            </div>
+            <div className="title">{reportedPost.title}</div>
             <div className="content">
               {content}
             </div>
           </div>
         </div>
         <div className="bottom">
-          <button type="button" className="action btn btn-danger"> delete </button>
-          <button type="button" className="action btn btn-warning"> ignore </button>
+          <button
+            type="button"
+            className={`action btn btn-danger ${state.submitting ? 'disabled' : ''}`}
+            onClick={() => { this.attendTo('delete'); }}
+          > delete
+          </button>
+          <button
+            type="button"
+            className={`action btn btn-warning ${state.submitting ? 'disabled' : ''}`}
+            onClick={() => { this.attendTo('ignore'); }}
+          > ignore
+          </button>
         </div>
       </div>
     );
   }
 }
+
+Report.propTypes = {
+  report: PropTypes.object.isRequired,
+  fetchRequest: PropTypes.func.isRequired,
+  removeReport: PropTypes.func.isRequired,
+};
 
 export default Report;

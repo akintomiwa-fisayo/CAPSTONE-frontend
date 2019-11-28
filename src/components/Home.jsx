@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 import React from 'react';
 import PropTypes from 'prop-types';
 import NavBlock from './NavBlock';
@@ -11,6 +12,7 @@ class Home extends React.Component {
     super(props);
     this.state = {
       sessionUser: {},
+      companyDeptStruc: null,
       loading: true,
     };
 
@@ -24,8 +26,63 @@ class Home extends React.Component {
     const sessionUserId = localStorage.getItem('sessionUserId');
     this.getUser(sessionUserId).then((user) => {
       if (this._isMounted) {
-        this.setState(() => ({ sessionUser: user, loading: false }));
+        this.getCompanyDeptStruc().then((deptStruc) => {
+          if (this._isMounted) {
+            const isAdmin = deptStruc !== false;
+            this.setState(() => ({
+              companyDeptStruc: deptStruc,
+              sessionUser: {
+                ...user,
+                isAdmin,
+              },
+              loading: false,
+            }));
+          }
+        });
       }
+    });
+  }
+
+  getCompanyDeptStruc() {
+    return new Promise((resolve) => {
+      const sessionUserToken = localStorage.getItem('sessionUserToken');
+      const retry = () => {
+        setTimeout(() => {
+          lib.popMessage('retrying to connect to server');
+          this.getCompanyDeptStruc().then(resolve);
+        }, 5000);
+      };
+      // Get departments and jobRoles in the company
+      fetch('https://akintomiwa-capstone-backend.herokuapp.com/jobs', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${sessionUserToken}`,
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+
+        if (res.status !== 401) {
+          if (res.status === 500) {
+            lib.popMessage('oops! there was a server error');
+            retry();
+          } else if (!navigator.onLine) {
+            lib.popMessage("can't connect to serve because you are offline, will retry in 5 seconds");
+            retry();
+          } else {
+            lib.popMessage('something went terribly wrong, please try again');
+          }
+        }
+        return false;
+      }).then((res) => {
+        if (res !== false) {
+          const deptStruc = res.data;
+          resolve(deptStruc);
+        } else {
+          resolve(false);
+        }
+      });
     });
   }
 
@@ -154,6 +211,7 @@ class Home extends React.Component {
             sessionUser={this.state.sessionUser}
             getUser={this.getUser}
             fetchRequest={this.fetchRequest}
+            companyDeptStruc={this.state.companyDeptStruc}
           />
           <UpdatesBlock />
         </div>
