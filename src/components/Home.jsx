@@ -205,7 +205,11 @@ class Home extends React.Component {
     if (this.state.loading === false) {
       return (
         <div id="pageContent" data-page="application">
-          <NavBlock {...this.props} sessionUser={this.state.sessionUser} />
+          <NavBlock
+            {...this.props}
+            sessionUser={this.state.sessionUser}
+            fetchRequest={this.fetchRequest}
+          />
           <MainContentBlock
             {...this.props}
             sessionUser={this.state.sessionUser}

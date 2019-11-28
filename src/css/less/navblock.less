@@ -77,11 +77,26 @@
         border-radius: .5em;
         padding: @contentPadding;
 
+        .error{
+          color: @color-error;
+          font-weight: 600;
+          margin: 0 0 .8em;
+          
+          &.hide{
+            display: none;
+          }
+        }
+
         .form-element{
           color: white;
-          margin-bottom: 1.3em;
+          margin-bottom: 1.4em;
           input{
             color: inherit;
+          }
+          .error{
+            color: @color-error;
+            font-weight: 600;
+            margin: 0;
           }
         }
 
