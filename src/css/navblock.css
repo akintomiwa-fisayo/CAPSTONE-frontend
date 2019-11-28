@@ -63,12 +63,25 @@
   border-radius: 0.5em;
   padding: 1.2em;
 }
+#pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .error {
+  color: #ff516c;
+  font-weight: 600;
+  margin: 0 0 0.8em;
+}
+#pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .error.hide {
+  display: none;
+}
 #pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .form-element {
   color: white;
-  margin-bottom: 1.3em;
+  margin-bottom: 1.4em;
 }
 #pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .form-element input {
   color: inherit;
+}
+#pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .form-element .error {
+  color: #ff516c;
+  font-weight: 600;
+  margin: 0;
 }
 #pageContent[data-page="application"] #navBlock #accountPreference #changePassForm button {
   width: 100%;
