@@ -136,7 +136,11 @@ const lib = {
     const month = lib.getMonth(d2.getMonth());
     let hour = d2.getHours();
     const hourPref = hour >= 12 ? 'pm' : 'am';
-    hour = hour > 12 ? hour - 12 : hour;
+    if (hour === 0) {
+      hour = 12;
+    } else {
+      hour = hour > 12 ? hour - 12 : hour;
+    }
     const date = d2.getDate() + 1;
     const minutes = d2.getMinutes();
     const day = lib.getWeekDay(d2.getDay());

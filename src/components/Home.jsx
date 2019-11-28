@@ -74,7 +74,7 @@ class Home extends React.Component {
   }
 
   fetchRequest(params = {
-    endpoint: '',
+    url: '',
     method: 'GET',
     body: {},
     headers: {},
@@ -82,7 +82,7 @@ class Home extends React.Component {
     return new Promise((resolve, reject) => {
       // make custom fetch request
       /* params{
-            endpoint : String,
+            url : String,
             method: String,
             headers : Object
           }
@@ -113,7 +113,7 @@ class Home extends React.Component {
       if (!lib.isEmpty(sessionUserToken)) {
         let fetchResponse = null;
         const method = lib.isEmpty(params.method) ? 'GET' : params.method.toUpperCase();
-        fetch(params.endpoint, {
+        fetch(params.url, {
           method,
           body: params.body,
           headers: {

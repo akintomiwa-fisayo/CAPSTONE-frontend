@@ -1,10 +1,11 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import '../css/post.css';
 import lib from '../js/lib';
 import AddComment from './AddComment';
 import Comment from './Comment';
-import '../css/post.css';
 import MoreActions from './PostMoreAction';
+import ReportContent from './ReportContent';
 
 
 /*  const articlePost = {
@@ -37,6 +38,8 @@ class Post extends React.Component {
       showMoreActions: false,
       promptDelete: false,
       deleting: false,
+      showReportDialog: false,
+      reportFocused: false,
     };
 
     this._isMounted = false;
@@ -49,8 +52,9 @@ class Post extends React.Component {
     this.promptDelete = this.promptDelete.bind(this);
     this.removeDeleteDialog = this.removeDeleteDialog.bind(this);
     this.deletePost = this.deletePost.bind(this);
-
-    console.log('props', this);
+    this.showReportDialog = this.showReportDialog.bind(this);
+    this.hideReportDialog = this.hideReportDialog.bind(this);
+    this.focusForReport = this.focusForReport.bind(this);
   }
 
   componentDidMount() {
@@ -179,7 +183,7 @@ class Post extends React.Component {
       };
 
       fetchRequest({
-        endpoint: `https://akintomiwa-capstone-backend.herokuapp.com/${post.type}s/${post.id}`,
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/${post.type}s/${post.id}`,
         method: 'delete',
       }).then(() => {
         let delay = 0;
@@ -192,6 +196,25 @@ class Post extends React.Component {
         lib.popMessage("sorry, we couldn't comploete your request pleas try again");
       });
     }
+  }
+
+  showReportDialog() {
+    this.setState(() => ({
+      showReportDialog: true,
+    }));
+  }
+
+  hideReportDialog() {
+    this.setState(() => ({
+      showReportDialog: false,
+      reportFocused: false,
+    }));
+  }
+
+  focusForReport() {
+    this.setState(() => ({
+      reportFocused: true,
+    }));
   }
 
   render() {
@@ -219,11 +242,12 @@ class Post extends React.Component {
     }
     const { post } = this.state;
     if (post.author !== null) {
+      const { state } = this;
       const content = post.type === 'gif'
         ? <img className="item" src={post.url} alt="" />
         : <div className="item">{post.article}</div>;
 
-      const deleteDialog = this.state.promptDelete ? (
+      const deleteDialog = state.promptDelete ? (
         <div className="prompt">
           <div className="prompt-bk" />
           <div className="prompt-fk">
@@ -236,13 +260,22 @@ class Post extends React.Component {
         </div>
       ) : '';
 
+      const reportDialog = state.showReportDialog
+        ? (
+          <ReportContent
+            {...this.props}
+            content={this.props.post}
+            hideReportDialog={this.hideReportDialog}
+          />
+        ) : '';
 
       const isNew = post.isNew && post.isNew === true ? ' new' : '';
       const view = this.props.preview ? ' view' : '';
       const remove = post.willDelete ? ' remove' : '';
       const deleting = this.state.deleting ? ' deleting' : '';
+      const reportFocused = this.state.reportFocused ? ' report-focused' : '';
       return (
-        <div className={`post${isNew}${view}${remove}${deleting}`}>
+        <div className={`post${isNew}${view}${remove}${deleting}${reportFocused}`}>
           <div onClick={this.viewPost}>
             <div className="head">
               <div className="user-image">
@@ -277,6 +310,8 @@ class Post extends React.Component {
                 showMoreActions={this.state.showMoreActions}
                 hideMoreActions={this.hideMoreActions}
                 promptDelete={this.promptDelete}
+                showReportDialog={this.showReportDialog}
+                focusForReport={this.focusForReport}
               />
             </div>
             <div className="body">
@@ -289,6 +324,7 @@ class Post extends React.Component {
           </div>
           <AddComment {...this.props} registerComment={this.registerComment} />
           {deleteDialog}
+          {reportDialog}
         </div>
       );
     }

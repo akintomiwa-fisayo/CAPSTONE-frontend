@@ -32,7 +32,7 @@ class MainContentBlock extends React.Component {
         endpoint: pst.type === 'gif' ? 'gifs' : 'articles',
       };
       fetchRequest({
-        endpoint: `https://akintomiwa-capstone-backend.herokuapp.com/${post.endpoint}/${post.id}`,
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/${post.endpoint}/${post.id}`,
       }).then((Post) => {
         resolve(Post);
       }).catch((error) => {
