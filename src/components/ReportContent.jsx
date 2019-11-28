@@ -88,8 +88,17 @@ class ReportContent extends React.Component {
       }));
 
       const { content } = this.props;
+      let url = '';
+      if (['gif', 'article'].indexOf(content.type) !== -1) {
+        url = `https://akintomiwa-capstone-backend.herokuapp.com/${content.type}s/${content.id}/flag`;
+      } else {
+        // Content is definitely comment
+        const { post } = this.props;
+        url = `https://akintomiwa-capstone-backend.herokuapp.com/${post.type}s/${post.id}/comment/${content.commentId}/flag`;
+      }
+
       this.props.fetchRequest({
-        url: `https://akintomiwa-capstone-backend.herokuapp.com/${content.type}s/${content.id}/flag`,
+        url,
         method: 'post',
         body: `{
           "flag": "${state.flag}",
@@ -104,7 +113,12 @@ class ReportContent extends React.Component {
           this.hideReportDialog();
         }
       }).catch(() => {
-        lib.popMessage('sorry, we were unable to complete your request please try again');
+        if (this._isMounted) {
+          this.setState(() => ({
+            reporting: false,
+          }));
+          lib.popMessage('sorry, we were unable to complete your request please try again');
+        }
       });
     }
   }
@@ -112,7 +126,7 @@ class ReportContent extends React.Component {
   render() {
     const { content } = this.props;
     const flagError = this.state.flagError ? <p className="error">pick a flag</p> : '';
-    const reasonError = this.state.reasonError ? <p className="error">please state why are flagging this {content.type}</p> : '';
+    const reasonError = this.state.reasonError ? <p className="error">please state why you are flagging this {content.type}</p> : '';
     const reportflags = [];
     flags.forEach((flag) => {
       reportflags.push(<option value={flag} key={flag}>{flag}</option>);
@@ -151,6 +165,7 @@ class ReportContent extends React.Component {
 
 
 ReportContent.propTypes = {
+  post: PropTypes.object.isRequired,
   content: PropTypes.object.isRequired,
   hideReportDialog: PropTypes.func.isRequired,
   fetchRequest: PropTypes.func.isRequired,
