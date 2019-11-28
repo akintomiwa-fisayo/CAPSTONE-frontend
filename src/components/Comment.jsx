@@ -29,7 +29,6 @@ class Comment extends React.Component {
         this.updateCommentDatetimeRef = setInterval(() => {
           if (this._isMounted) {
             this.setState((prevState) => ({
-              ...prevState.post,
               dateTimeRef: lib.getRelativeTime(prevState.createdOn),
             }));
           }

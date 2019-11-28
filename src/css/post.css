@@ -273,3 +273,6 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+.post.report-focused {
+  border: solid 3px #ff516c;
+}

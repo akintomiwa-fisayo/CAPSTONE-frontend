@@ -9,6 +9,7 @@ class MoreActions extends React.Component {
     this.focusMoreActions = this.focusMoreActions.bind(this);
     this.blurMoreActions = this.blurMoreActions.bind(this);
     this.promptDelete = this.promptDelete.bind(this);
+    this.revealPostReportDialog = this.revealPostReportDialog.bind(this);
   }
 
   componentDidMount() {
@@ -39,6 +40,13 @@ class MoreActions extends React.Component {
     this.props.promptDelete();
     this.moreActions.blur();
     this.props.hideMoreActions();
+  }
+
+  revealPostReportDialog(event) {
+    event.stopPropagation();
+    this.moreActions.blur();
+    this.props.focusForReport();
+    this.props.showReportDialog();
   }
 
   render() {
@@ -73,7 +81,7 @@ class MoreActions extends React.Component {
         onBlur={this.blurMoreActions}
       >
         {editPost}
-        <span className="action">
+        <span className="action" onClick={this.revealPostReportDialog}>
           <span className="fas fa-flag-checkered icon" />
           report
         </span>
@@ -91,6 +99,8 @@ MoreActions.propTypes = {
   showMoreActions: PropTypes.bool.isRequired,
   hideMoreActions: PropTypes.func.isRequired,
   promptDelete: PropTypes.func.isRequired,
+  showReportDialog: PropTypes.func.isRequired,
+  focusForReport: PropTypes.func.isRequired,
 };
 
 export default MoreActions;

@@ -42,7 +42,7 @@ class CreateUser extends React.Component {
 
     // Get departments and jobRoles in the company
     this.fetchRequest({
-      endpoint: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
+      url: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
     }).then((data) => {
       if (this._isMounted) {
         this.setState(() => ({
@@ -229,7 +229,7 @@ class CreateUser extends React.Component {
         form.append('address', state.address);
 
         this.fetchRequest({
-          endpoint: 'https://akintomiwa-capstone-backend.herokuapp.com/auth/create-user',
+          url: 'https://akintomiwa-capstone-backend.herokuapp.com/auth/create-user',
           method: 'POST',
           body: form,
         }).then(() => {

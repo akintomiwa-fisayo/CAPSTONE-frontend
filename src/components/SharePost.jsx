@@ -197,20 +197,20 @@ class SharePost extends React.Component {
         this.setState(() => ({ submitting: true }));
 
         let form = null;
-        let endpoint = '';
+        let url = '';
         let contentType = false;
         if (post.type === 'gif') {
           form = new FormData();
           form.append('title', post.title);
           form.append('image', post.image);
-          endpoint = 'https://akintomiwa-capstone-backend.herokuapp.com/gifs';
+          url = 'https://akintomiwa-capstone-backend.herokuapp.com/gifs';
         } else {
           // If post type is article
           form = `{
             "title":"${post.title}",
             "article":"${post.article}"
           }`;
-          endpoint = 'https://akintomiwa-capstone-backend.herokuapp.com/articles';
+          url = 'https://akintomiwa-capstone-backend.herokuapp.com/articles';
           contentType = 'application/json';
         }
 
@@ -220,7 +220,7 @@ class SharePost extends React.Component {
         if (contentType !== false)headers['Content-Type'] = contentType;
         const { fetchRequest } = this.props;
         fetchRequest({
-          endpoint,
+          url,
           method: 'POST',
           body: form,
           headers,

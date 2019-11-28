@@ -30,7 +30,7 @@ class UserProfile extends React.Component {
 
     // Get departments with jobroles
     this.fetchRequest({
-      endpoint: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
+      url: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
     }).then((data) => {
       if (this._isMounted) {
         this.setState(() => ({

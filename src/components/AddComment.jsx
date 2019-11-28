@@ -47,7 +47,7 @@ class AddComment extends React.Component {
       const path = post.type === 'gif' ? 'gifs' : 'articles';
 
       fetchRequest({
-        endpoint: `https://akintomiwa-capstone-backend.herokuapp.com/${path}/${post.id}/comment`,
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/${path}/${post.id}/comment`,
         method: 'POST',
         body: `{
           "comment":"${this.state.comment}"
