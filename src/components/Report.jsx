@@ -40,7 +40,37 @@ class Report extends React.Component {
 
 
   attendTo(action) {
+    if (!this.state.submitting) {
+      this.setState(() => ({ submitting: true }));
 
+      const deleteReport = () => {
+        setTimeout(() => {
+          if (this._isMounted) {
+            this.props.removeReport(this.state.report.reportId);
+          }
+        }, 500);
+      };
+
+      const prepDelete = () => {
+        this.setState(() => ({
+          willDelete: true,
+        }));
+      };
+
+      this.props.fetchRequest({
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/reports/${this.state.report.reportId}`,
+        method: 'patch',
+        body: `{
+        "action": "${action}"
+      }`,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(() => {
+        prepDelete();
+        deleteReport();
+      });
+    }
   }
 
 
