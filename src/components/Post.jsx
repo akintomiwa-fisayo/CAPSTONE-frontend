@@ -35,6 +35,8 @@ class Post extends React.Component {
       },
       dateTimeRef: '',
       showMoreActions: false,
+      promptDelete: false,
+      deleting: false,
     };
 
     this._isMounted = false;
@@ -44,11 +46,20 @@ class Post extends React.Component {
     this.registerComment = this.registerComment.bind(this);
     this.showMoreActions = this.showMoreActions.bind(this);
     this.hideMoreActions = this.hideMoreActions.bind(this);
+    this.promptDelete = this.promptDelete.bind(this);
+    this.removeDeleteDialog = this.removeDeleteDialog.bind(this);
+    this.deletePost = this.deletePost.bind(this);
+
+    console.log('props', this);
   }
 
   componentDidMount() {
     this._isMounted = true;
     // Update post's reference time
+    if (this.props.preview === true) {
+      this.props.pageSwitch('post', true);
+    }
+
     this.getAuthor().then(() => {
       this.updatePostDateTimeRef = setInterval(() => {
         if (this._isMounted) {
@@ -127,6 +138,62 @@ class Post extends React.Component {
     }));
   }
 
+  promptDelete() {
+    this.setState(() => ({
+      promptDelete: true,
+    }));
+  }
+
+  removeDeleteDialog() {
+    this.setState(() => ({
+      promptDelete: false,
+    }));
+  }
+
+  deletePost() {
+    const { post } = this.state;
+    if (!this.state.deleting) {
+      this.setState(() => ({
+        deleting: true,
+      }));
+      const { fetchRequest } = this.props;
+
+      const deletePost = (delay) => {
+        this.setState(() => ({
+
+        }));
+        setTimeout(() => {
+          if (this._isMounted) {
+            this.props.onDelete(post);
+          }
+        }, delay);
+      };
+
+      const prepDelete = () => {
+        this.setState((prevState) => ({
+          post: {
+            ...prevState.post,
+            willDelete: true,
+          },
+        }));
+      };
+
+      fetchRequest({
+        endpoint: `https://akintomiwa-capstone-backend.herokuapp.com/${post.type}s/${post.id}`,
+        method: 'delete',
+      }).then(() => {
+        let delay = 0;
+        if (!this.props.preview) {
+          delay = 500; // <== css animation time
+          prepDelete();
+        }
+        deletePost(delay);
+      }).catch(() => {
+        lib.popMessage("sorry, we couldn't comploete your request pleas try again");
+      });
+    }
+  }
+
   render() {
     const currentPage = this.props.getCurrentPage();
 
@@ -152,13 +219,30 @@ class Post extends React.Component {
     }
     const { post } = this.state;
     if (post.author !== null) {
-      const content = post.type === 'gif' ? <img className="item" src={post.url} alt="" /> : <div className="item">{post.article}</div>;
+      const content = post.type === 'gif'
+        ? <img className="item" src={post.url} alt="" />
+        : <div className="item">{post.article}</div>;
+
+      const deleteDialog = this.state.promptDelete ? (
+        <div className="prompt">
+          <div className="prompt-bk" />
+          <div className="prompt-fk">
+            <p>are you sure you want to delete this post?</p>
+            <div className="actions">
+              <button type="submit" className="btn btn-danger" onClick={this.deletePost}>yes</button>
+              <button type="submit" className="btn btn-negative" onClick={this.removeDeleteDialog}>no</button>
+            </div>
+          </div>
+        </div>
+      ) : '';
+
+
+      const isNew = post.isNew && post.isNew === true ? ' new' : '';
+      const view = this.props.preview ? ' view' : '';
+      const remove = post.willDelete ? ' remove' : '';
+      const deleting = this.state.deleting ? ' deleting' : '';
       return (
-        <div
-          className={`post ${post.isNew && post.isNew === true ? 'new' : ''} ${currentPage === 'post' ? 'view' : ''}`}
-          id={post.id}
-          data-type={post.type}
-        >
+        <div className={`post${isNew}${view}${remove}${deleting}`}>
           <div onClick={this.viewPost}>
             <div className="head">
               <div className="user-image">
@@ -192,6 +276,7 @@ class Post extends React.Component {
                 {...this.props}
                 showMoreActions={this.state.showMoreActions}
                 hideMoreActions={this.hideMoreActions}
+                promptDelete={this.promptDelete}
               />
             </div>
             <div className="body">
@@ -203,6 +288,7 @@ class Post extends React.Component {
             {comments}
           </div>
           <AddComment {...this.props} registerComment={this.registerComment} />
+          {deleteDialog}
         </div>
       );
     }
@@ -211,11 +297,17 @@ class Post extends React.Component {
 }
 
 Post.propTypes = {
+  preview: PropTypes.bool,
   post: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
   getCurrentPage: PropTypes.func.isRequired,
-
+  pageSwitch: PropTypes.func.isRequired,
+  fetchRequest: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+Post.defaultProps = {
+  preview: false,
 };
 
 export default Post;

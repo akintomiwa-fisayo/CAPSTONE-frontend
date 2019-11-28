@@ -17,6 +17,7 @@ class Feed extends React.Component {
     this.setPosts = this.setPosts.bind(this);
     this.registerPost = this.registerPost.bind(this);
     this.getPosts = this.getPosts.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +65,24 @@ class Feed extends React.Component {
     });
   }
 
+  deletePost(post) {
+    // find post and update(prep for delete)
+    const { posts } = this.state;
+    const newPosts = [];
+
+    for (let i = 0; i < posts.length; i += 1) {
+      if (posts[i].id !== post.id) {
+        newPosts.push(posts[i]);
+      }
+    }
+
+    this.setState(() => ({
+      posts: newPosts,
+    }));
+
+    lib.popMessage(`${post.type} deleted successfully`);
+  }
+
   render() {
     return (
       <div id="feedPosts">
@@ -72,6 +91,7 @@ class Feed extends React.Component {
           {...this.props}
           setPosts={this.setPosts}
           getPosts={this.getPosts}
+          deletePost={this.deletePost}
         />
       </div>
     );

@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 class MoreActions extends React.Component {
   constructor(props) {
     super(props);
+    this.moreActions = null;
     this.editPost = this.editPost.bind(this);
-    this.deletePost = this.editPost.bind(this);
     this.focusMoreActions = this.focusMoreActions.bind(this);
     this.blurMoreActions = this.blurMoreActions.bind(this);
+    this.promptDelete = this.promptDelete.bind(this);
   }
 
   componentDidMount() {
@@ -16,23 +17,27 @@ class MoreActions extends React.Component {
     }
   }
 
-  editPost(e) {
-    e.stopPropagation();
+  editPost(event) {
+    event.stopPropagation();
     const { post } = this.props;
     this.props.history.push(`/post/${post.type}/${post.id}/edit`);
   }
 
-  deletePost() {
-
-  }
-
   // eslint-disable-next-line class-methods-use-this
   focusMoreActions(moreActions) {
+    this.moreActions = moreActions;
     if (moreActions) moreActions.focus();
   }
 
   blurMoreActions(event) {
     event.target.blur();
+    this.props.hideMoreActions();
+  }
+
+  promptDelete(event) {
+    event.stopPropagation();
+    this.props.promptDelete();
+    this.moreActions.blur();
     this.props.hideMoreActions();
   }
 
@@ -53,7 +58,7 @@ class MoreActions extends React.Component {
       );
 
       deletePost = (
-        <span className="action" onClick={this.deletePost}>
+        <span className="action" onClick={this.promptDelete}>
           <span className="fa fa-trash icon" />
           delete
         </span>
@@ -85,6 +90,7 @@ MoreActions.propTypes = {
   history: PropTypes.object.isRequired,
   showMoreActions: PropTypes.bool.isRequired,
   hideMoreActions: PropTypes.func.isRequired,
+  promptDelete: PropTypes.func.isRequired,
 };
 
 export default MoreActions;

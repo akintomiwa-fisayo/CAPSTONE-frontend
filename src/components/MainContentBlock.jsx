@@ -52,7 +52,6 @@ class MainContentBlock extends React.Component {
     }));
   }
 
-
   render() {
     const { pageComp } = this.state;
     const backBtn = this.state.backBtn ? (
