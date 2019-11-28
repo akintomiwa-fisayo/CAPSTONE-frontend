@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Report from './Report';
 import '../css/report.css';
+import '../css/reports.css';
 import lib from '../js/lib';
 
 
@@ -48,9 +49,32 @@ class Reports extends React.Component {
           loading: false,
         }));
       }
+    }).catch(() => {
+      // No report found
+      if (this._isMounted === true) {
+        this.setState(() => ({
+          loading: false,
+        }));
+      }
     });
   }
 
+  removeReport(id) {
+    const { reports } = this.state;
+    const newReports = [];
+
+    for (let i = 0; i < reports.length; i += 1) {
+      if (reports[i].reportId !== id) {
+        newReports.push(reports[i]);
+      }
+    }
+
+    this.setState(() => ({
+      reports: newReports,
+    }));
+
+    lib.popMessage('Report attended to');
+  }
 
   render() {
     if (this.state.loading) {
@@ -62,8 +86,16 @@ class Reports extends React.Component {
     }
 
     if (this.props.sessionUser.isAdmin) {
-      const reports = [];
+      if (this.state.reports.length === 0) {
+        return (
+          <div className="no-reports">
+            <span>there are no reports to show</span>
+          </div>
+        );
+      }
+
       const reportsArr = this.state.reports;
+      const reports = [];
       for (let i = 0; i < reportsArr.length; i += 1) {
         reports.push(<Report
           {...this.props}
