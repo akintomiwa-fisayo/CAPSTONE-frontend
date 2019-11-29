@@ -1,16 +1,16 @@
 @import (reference) './general.less';
 @import (reference) './maincontentblock.less';
 
+.fullWidth {
+  position: relative;
+  width: calc(100% + (@mainContentPadding * 2));
+  margin-left: -@mainContentPadding;
+} 
+
 #pageContent[data-page="application"]{
   #mainContentBlock[data-comp="profile"]{
     .container{
       padding-top: 0;
-
-      .fullWidth {
-        position: relative;
-        width: calc(100% + (@mainContentPadding * 2));
-        margin-left: -@mainContentPadding;
-      } 
 
       @coverImageHeight: 18em;
       @passportWidth: 11vw;

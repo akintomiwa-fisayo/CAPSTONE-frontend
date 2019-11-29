@@ -1,10 +1,10 @@
-#pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container {
-  padding-top: 0;
-}
-#pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container .fullWidth {
+.fullWidth {
   position: relative;
   width: calc(100% + (3em * 2));
   margin-left: -3em;
+}
+#pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container {
+  padding-top: 0;
 }
 #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #coverImage {
   position: relative;
