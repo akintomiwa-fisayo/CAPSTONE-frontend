@@ -17,19 +17,22 @@ class Posts extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+    const registerPosts = (posts) => {
+      if (this._isMounted === true) {
+        // save posts
+        this.props.setPosts(posts);
+        this.setState(() => ({ loading: false }));
+      }
+    };
 
     // Get all posts
     const { fetchRequest } = this.props;
     fetchRequest({
       url: 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/feeds',
     }).then((posts) => {
-      if (this._isMounted === true) {
-        // save posts
-        this.props.setPosts(posts);
-        this.setState(() => ({ loading: false }));
-      }
+      registerPosts(posts);
     }).catch(() => {
-      this.props.setPosts([]);
+      registerPosts([]);
     });
   }
 
@@ -53,13 +56,14 @@ class Posts extends React.Component {
       />);
     }
 
-    if (posts.length === 0) {
+    if (!this.state.loading && posts.length === 0) {
       return (
         <div className="empty-posts-tab">
           <span> there are no posts to show </span>
         </div>
       );
     }
+
     return (
       <div id="posts" className={this.state.loading ? 'loading' : ''}>
         {posts}

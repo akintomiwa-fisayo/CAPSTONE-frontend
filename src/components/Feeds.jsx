@@ -6,7 +6,7 @@ import lib from '../js/lib';
 import Posts from './Posts';
 import SharePost from './SharePost';
 
-class Feed extends React.Component {
+class Feeds extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,7 +97,7 @@ class Feed extends React.Component {
     );
   }
 }
-Feed.propTypes = {
+Feeds.propTypes = {
   pageSwitch: PropTypes.func.isRequired,
   getUser: PropTypes.func.isRequired,
   getPost: PropTypes.func.isRequired,
@@ -105,4 +105,4 @@ Feed.propTypes = {
   sessionUser: PropTypes.object.isRequired,
 };
 
-export default Feed;
+export default Feeds;

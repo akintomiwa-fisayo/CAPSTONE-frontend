@@ -5,7 +5,7 @@ class Feed extends React.Component {
   render() {
     return (
       <div id="updatesBlock">
-        <h2 className="header">Public annoucements</h2>
+        <h2 className="header">Notice board</h2>
         <div className="note" data-importance="4">
           <div className="container">
             <div className="date-time">november 12, 9:30am</div>
