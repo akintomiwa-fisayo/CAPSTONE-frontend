@@ -78,7 +78,7 @@ class ViewPost extends React.Component {
     }
 
     if (this.state.post === null) {
-      return <Error />;
+      return <Error {...this.props} />;
     }
 
     return (

@@ -156,7 +156,7 @@
   margin: 1.2em 0;
 }
 #mainContentBlock[data-comp=createUser] .container #regForm button .icon {
-  margin-left: 1em;
+  margin-right: 1em;
 }
 #mainContentBlock[data-comp=createUser] .container #regForm button.disabled {
   cursor: not-allowed;

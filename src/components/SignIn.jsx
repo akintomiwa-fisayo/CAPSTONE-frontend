@@ -5,7 +5,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import lib from '../js/lib';
 import '../css/signin.css';
-import pageBk from '../images/lion.jpg';
+import pageBk from '../images/coverimage.jpg';
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -166,7 +166,7 @@ class SignIn extends React.Component {
       <div id="pageContent" data-page="signin">
         <img id="pageBK" src={pageBk} alt="" />
         <div id="siteLogoHolder">
-          <span id="siteLogo" className="dark">ignite</span>
+          <span id="siteLogo">ignite</span>
         </div>
         <div id="contentHolder">
           <div id="signInForm">

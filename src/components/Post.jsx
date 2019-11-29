@@ -241,7 +241,7 @@ class Post extends React.Component {
     if (post.author !== null) {
       const { state } = this;
       const content = post.type === 'gif'
-        ? <img className="item" src={post.url} alt="" />
+        ? <img className="item" src={post.url} alt={post.title} />
         : <div className="item">{post.article}</div>;
 
       const deleteDialog = state.promptDelete ? (

@@ -40,10 +40,6 @@ class UserDetails extends React.Component {
               <td>{user.gender}</td>
             </tr>
             <tr>
-              <td>email</td>
-              <td>{user.email}</td>
-            </tr>
-            <tr>
               <td>address</td>
               <td>{user.address}</td>
             </tr>

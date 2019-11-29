@@ -18,20 +18,19 @@ class Posts extends React.Component {
   componentDidMount() {
     this._isMounted = true;
 
-    const fetchPosts = () => {
-      // Get all posts
-      const { fetchRequest } = this.props;
-      fetchRequest({
-        url: 'https://akintomiwa-capstone-backend.herokuapp.com/feed',
-      }).then((posts) => {
-        if (this._isMounted === true) {
-          // save posts
-          this.props.setPosts(posts);
-          this.setState(() => ({ loading: false }));
-        }
-      });
-    };
-    fetchPosts();
+    // Get all posts
+    const { fetchRequest } = this.props;
+    fetchRequest({
+      url: 'https://akintomiwa-capstone-backend.herokuapp.com/feed',
+    }).then((posts) => {
+      if (this._isMounted === true) {
+        // save posts
+        this.props.setPosts(posts);
+        this.setState(() => ({ loading: false }));
+      }
+    }).catch(() => {
+      this.props.setPosts([]);
+    });
   }
 
   componentWillUnmount() {
@@ -52,6 +51,14 @@ class Posts extends React.Component {
         key={postsArr[i].id}
         onDelete={this.onDelete}
       />);
+    }
+
+    if (posts.length === 0) {
+      return (
+        <div className="empty-posts-tab">
+          <span> there are no posts to show </span>
+        </div>
+      );
     }
     return (
       <div id="posts" className={this.state.loading ? 'loading' : ''}>

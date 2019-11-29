@@ -4,7 +4,7 @@ import React from 'react';
 import { NavLink, Route, Switch } from 'react-router-dom';
 import '../css/feed.css';
 import '../css/userprofile.css';
-import sample from '../images/lion.jpg';
+import sample from '../images/coverimage.jpg';
 import lib from '../js/lib';
 import UserArticles from './UserArticles';
 import UserGifs from './UserGifs';
@@ -30,6 +30,7 @@ class UserProfile extends React.Component {
     this.setState(() => ({
       profileLoading: false,
     }));
+    window.addEventListener('scroll', this.parallaxScroll);
   }
 
   componentWillUnmount() {
@@ -87,7 +88,7 @@ class UserProfile extends React.Component {
             <img src={user.passportUrl} alt="m" />
           </div>
           <div id="userPreviewInfo">
-            <h1 className="user-name">{user.firstName} {user.lastName}</h1>
+            <h2 className="user-name">{user.firstName} {user.lastName}</h2>
             <p className="info">#{user.id}</p>
             <p className="info">{jobRoleText} in {departmentText}</p>
             <p className="info" title={lib.getRelativeTime(user.hiredOn, false)}>hired {lib.getRelativeTime(user.hiredOn)}</p>

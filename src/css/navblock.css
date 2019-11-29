@@ -13,7 +13,7 @@
 }
 #pageContent[data-page="application"] #navBlock .links {
   display: block;
-  padding: 2em 3vw 1em 7vw;
+  padding: 2em 3vw 1em 8vw;
 }
 #pageContent[data-page="application"] #navBlock .links .link {
   display: block;
@@ -46,7 +46,7 @@
   margin: 0 1.2em;
 }
 #pageContent[data-page="application"] #navBlock #accountPreference {
-  padding: 1.3em 3vw 1.3em 7vw;
+  padding: 1.3em 3vw 1.3em 8vw;
 }
 #pageContent[data-page="application"] #navBlock #accountPreference .label {
   display: block;

@@ -11,6 +11,7 @@
 .report {
   padding: 1.5em 0;
   padding-bottom: 0px;
+  cursor: initial;
 }
 .report .head {
   display: inline-flex;
