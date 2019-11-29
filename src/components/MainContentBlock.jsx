@@ -101,7 +101,7 @@ class MainContentBlock extends React.Component {
               )}
             />
             <Route
-              path="/feed"
+              path="/feeds"
               render={(props) => (
                 <Feed
                   {...this.props}

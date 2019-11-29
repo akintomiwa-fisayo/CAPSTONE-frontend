@@ -58,7 +58,7 @@ class SignIn extends React.Component {
         fetch('https://akintomiwa-capstone-backend.herokuapp.com/api/v1/auth/signin', {
           method: 'POST',
           body: JSON.stringify({
-            email: email.value,
+            username: email.value,
             password: password.value,
           }),
           headers: {
