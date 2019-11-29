@@ -331,8 +331,8 @@ class CreateUser extends React.Component {
         </div>
 
         <button type="submit" className={`btn btn-success ${this.state.submitting ? 'disabled' : ''}`} onClick={this.createUser}>
-          create user
           <span className="fas fa-user-plus icon" />
+          create user
         </button>
       </div>
 

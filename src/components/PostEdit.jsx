@@ -151,7 +151,7 @@ class PostEdit extends React.Component {
 
   render() {
     if (!this.state.isOwner) {
-      return (<Error />);
+      return (<Error {...this.props} />);
     }
 
     const { post } = this.props;

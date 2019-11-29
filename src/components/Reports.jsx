@@ -112,7 +112,7 @@ class Reports extends React.Component {
       );
     }
 
-    return <Error />;
+    return <Error {...this.props} />;
   }
 }
 

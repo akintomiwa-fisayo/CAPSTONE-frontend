@@ -87,11 +87,11 @@ class Report extends React.Component {
           <div className="report-content">
             <div className="head">
               <div className="user-image">
-                <a href="man">
+                <a href="/">
                   <img src={reportedComment.author.passportUrl} alt={`${reportedComment.author.firstName} ${reportedComment.author.lastName}`} />
                 </a>
               </div>
-              <a href="man" className="user-name">{`${reportedComment.author.firstName} ${reportedComment.author.lastName}`}</a>
+              <a href="/" className="user-name">{`${reportedComment.author.firstName} ${reportedComment.author.lastName}`}</a>
             </div>
             <div className="">{reportedComment.comment}</div>
           </div>
