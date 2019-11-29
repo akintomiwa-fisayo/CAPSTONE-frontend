@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import lib from '../js/lib';
 import '../css/createuser.css';
+import Error from './Error';
 
 const $ = (query) => document.querySelector(query);
 const defaultStates = {
@@ -15,7 +16,6 @@ const defaultStates = {
   password: '',
   gender: '',
   address: '',
-  departments: {},
   emailError: '',
   passwordError: '',
 };
@@ -23,7 +23,10 @@ const defaultStates = {
 class CreateUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...defaultStates, loading: true };
+    this.state = {
+      ...defaultStates,
+      departments: props.companyDeptStruc,
+    };
 
     this._isMounted = false;
     this.fetchRequest = this.props.fetchRequest;
@@ -38,19 +41,9 @@ class CreateUser extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.props.pageSwitch('createUser');
-
-    // Get departments and jobRoles in the company
-    this.fetchRequest({
-      url: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
-    }).then((data) => {
-      if (this._isMounted) {
-        this.setState(() => ({
-          departments: data,
-          loading: false,
-        }));
-      }
-    });
+    if (this.props.sessionUser.isAdmin) {
+      this.props.pageSwitch('createUser');
+    }
   }
 
   componentWillUnmount() {
@@ -253,8 +246,8 @@ class CreateUser extends React.Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return (<div><span className="fa fa-spinner fa-spin loader" /></div>);
+    if (!this.props.sessionUser.isAdmin) {
+      return <Error />;
     }
 
     const departmentsArr = [];
@@ -273,7 +266,6 @@ class CreateUser extends React.Component {
       });
     }
 
-
     return (
       <div id="regForm">
         <h2 id="regFormLabel">Create a new user account</h2>
@@ -283,7 +275,7 @@ class CreateUser extends React.Component {
             <p className="far fa-image" />
             <p>pick passport</p>
           </div>
-          <input type="file" className="form-element" name="passport" id="regPassportPicker" accept="image/jpeg" onChange={this.onDisplayChange} />
+          <input type="file" className="form-element" name="passport" id="regPassportPicker" accept="image/jpeg,image/jpg" onChange={this.onDisplayChange} />
         </div>
 
         <div className="input-group">
@@ -349,6 +341,8 @@ class CreateUser extends React.Component {
 }
 
 CreateUser.propTypes = {
+  sessionUser: PropTypes.object.isRequired,
+  companyDeptStruc: PropTypes.object.isRequired,
   pageSwitch: PropTypes.func.isRequired,
   fetchRequest: PropTypes.func.isRequired,
 };

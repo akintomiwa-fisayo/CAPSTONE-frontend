@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import lib from '../js/lib';
 import Post from './Post';
 import PostEdit from './PostEdit';
+import Error from './Error';
 
 class ViewPost extends React.Component {
   constructor(props) {
@@ -28,7 +29,9 @@ class ViewPost extends React.Component {
       pst.articleId = this.props.match.params.id;
     } else {
       pst = false;
-      lib.popMessage('remember to put error handler here TOO', 20000);
+      this.setState(() => ({
+        post: null,
+      }));
     }
 
     if (pst) {
@@ -39,12 +42,15 @@ class ViewPost extends React.Component {
           }));
         }
       }).catch((error) => {
-        if (error.status === 404) {
-        // Call Error handler for when post is not foud
-          lib.popMessage('remember to put error handler here', 20000);
-        } else {
-          this.props.history.push('/');
-          lib.popMessage('sorry we couldn\'t your request please try again');
+        if (this._isMounted) {
+          if (error.status === 404) {
+            this.setState(() => ({
+              post: null,
+            }));
+          } else {
+            this.props.history.push('/');
+            lib.popMessage('sorry we couldn\'t complete your request please try again');
+          }
         }
       });
     }
@@ -70,6 +76,11 @@ class ViewPost extends React.Component {
       return (<div><span className="fa fa-spinner fa-spin loader" /></div>
       );
     }
+
+    if (this.state.post === null) {
+      return <Error />;
+    }
+
     return (
       <div>
         <Switch>
