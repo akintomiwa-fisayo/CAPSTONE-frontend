@@ -7,25 +7,6 @@ import Comment from './Comment';
 import MoreActions from './PostMoreAction';
 import ReportContent from './ReportContent';
 
-
-/*  const articlePost = {
-  id: 112,
-  createdOn: '2019-11-24T15:14:27.390Z',
-  authorId: 1035,
-  title: 'the title ',
-  article: 'the content',
-  type: 'article',
-};
-const gifPost = {
-  id: 104,
-  createdOn: '2019-11-24T04:51:15.524Z',
-  authorId: 1035,
-  title: 'senior web developer',
-  url: 'https://res.cloudinary.com/capstone-backend/image/upload/v1574571074/xmgm4og246uwjq0g4bgd.gif',
-  type: 'gif',
-}; */
-
-
 class Post extends React.Component {
   constructor(props) {
     super(props);
@@ -180,7 +161,7 @@ class Post extends React.Component {
       };
 
       fetchRequest({
-        url: `https://akintomiwa-capstone-backend.herokuapp.com/${post.type}s/${post.id}`,
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/${post.type}s/${post.id}`,
         method: 'delete',
       }).then(() => {
         let delay = 0;

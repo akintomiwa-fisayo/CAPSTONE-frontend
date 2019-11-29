@@ -90,11 +90,11 @@ class ReportContent extends React.Component {
       const { content } = this.props;
       let url = '';
       if (['gif', 'article'].indexOf(content.type) !== -1) {
-        url = `https://akintomiwa-capstone-backend.herokuapp.com/${content.type}s/${content.id}/flag`;
+        url = `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/${content.type}s/${content.id}/flag`;
       } else {
         // Content is definitely comment
         const { post } = this.props;
-        url = `https://akintomiwa-capstone-backend.herokuapp.com/${post.type}s/${post.id}/comment/${content.commentId}/flag`;
+        url = `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/${post.type}s/${post.id}/comment/${content.commentId}/flag`;
       }
 
       this.props.fetchRequest({

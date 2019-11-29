@@ -222,7 +222,7 @@ class CreateUser extends React.Component {
         form.append('address', state.address);
 
         this.fetchRequest({
-          url: 'https://akintomiwa-capstone-backend.herokuapp.com/auth/create-user',
+          url: 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/auth/create-user',
           method: 'POST',
           body: form,
         }).then(() => {

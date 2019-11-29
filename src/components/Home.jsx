@@ -67,7 +67,7 @@ class Home extends React.Component {
     return new Promise((resolve) => {
       // Get departments and jobRoles in the company
       this.fetchRequest({
-        url: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
+        url: 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/jobs',
       }).then((deptStruc) => {
         resolve(deptStruc);
       });
@@ -101,7 +101,7 @@ class Home extends React.Component {
     return new Promise((resolve) => {
       const sessionUserToken = localStorage.getItem('sessionUserToken');
       if (!lib.isEmpty(userId) && !lib.isEmpty(sessionUserToken)) {
-        fetch(`https://akintomiwa-capstone-backend.herokuapp.com/users/${userId}`, {
+        fetch(`https://akintomiwa-capstone-backend.herokuapp.com/api/v1/users/${userId}`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${sessionUserToken}`,

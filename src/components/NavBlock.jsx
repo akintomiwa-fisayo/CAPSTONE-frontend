@@ -39,7 +39,7 @@ class NavBlock extends React.Component {
           {reports}
           <NavLink
             className="link"
-            to="/feed"
+            to="/feeds"
             isActive={(match, location) => {
               if (!match) {
                 if (['', '/'].indexOf(location.pathname.toLowerCase()) !== -1) {
@@ -51,7 +51,7 @@ class NavBlock extends React.Component {
             }}
           >
             <span className="icon fas fa-layer-group" />
-            feed
+            feeds
           </NavLink>
           <NavLink className="link" to="/profile">
             <span className="icon fa fa-user-circle" />

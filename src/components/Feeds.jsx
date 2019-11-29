@@ -22,7 +22,7 @@ class Feed extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
-    this.props.pageSwitch('feed');
+    this.props.pageSwitch('feeds');
   }
 
   componentWillUnmount() {

@@ -124,7 +124,7 @@ class PostEdit extends React.Component {
         if (type === 'article') body.article = state.article;
 
         this.props.fetchRequest({
-          url: `https://akintomiwa-capstone-backend.herokuapp.com/${type}s/${id}`,
+          url: `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/${type}s/${id}`,
           method: 'patch',
           body: JSON.stringify(body),
           headers: {
