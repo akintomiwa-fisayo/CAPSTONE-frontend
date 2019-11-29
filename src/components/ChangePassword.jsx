@@ -144,7 +144,7 @@ class ChangePassword extends React.Component {
         this.setState(() => ({ submitting: true }));
 
         this.props.fetchRequest({
-          url: 'https://akintomiwa-capstone-backend.herokuapp.com/auth/password',
+          url: 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/auth/password',
           method: 'patch',
           body: `{
             "oldPassword" : "${password.value}",

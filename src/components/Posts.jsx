@@ -21,7 +21,7 @@ class Posts extends React.Component {
     // Get all posts
     const { fetchRequest } = this.props;
     fetchRequest({
-      url: 'https://akintomiwa-capstone-backend.herokuapp.com/feed',
+      url: 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/feeds',
     }).then((posts) => {
       if (this._isMounted === true) {
         // save posts

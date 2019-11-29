@@ -22,7 +22,7 @@ class UserArticles extends React.Component {
     this._isMounted = true;
     this.props.mountProfileView('articles');
     this.fetchRequest({
-      url: `https://akintomiwa-capstone-backend.herokuapp.com/users/${this.props.sessionUser.id}/articles`,
+      url: `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/users/${this.props.sessionUser.id}/articles`,
     }).then((articles) => {
       if (this._isMounted) {
         this.setState(() => ({ articles, loading: false }));

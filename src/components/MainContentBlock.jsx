@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Reports from './Reports';
 import CreateUser from './CreateUser';
-import Feed from './Feed';
+import Feed from './Feeds';
 import ViewPost from './ViewPost';
 import Error from './Error';
 import lib from '../js/lib';
@@ -32,7 +32,7 @@ class MainContentBlock extends React.Component {
         endpoint: pst.type === 'gif' ? 'gifs' : 'articles',
       };
       fetchRequest({
-        url: `https://akintomiwa-capstone-backend.herokuapp.com/${post.endpoint}/${post.id}`,
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/${post.endpoint}/${post.id}`,
       }).then((Post) => {
         resolve(Post);
       }).catch((error) => {

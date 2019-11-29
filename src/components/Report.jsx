@@ -58,7 +58,7 @@ class Report extends React.Component {
       };
 
       this.props.fetchRequest({
-        url: `https://akintomiwa-capstone-backend.herokuapp.com/reports/${this.state.report.reportId}`,
+        url: `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/reports/${this.state.report.reportId}`,
         method: 'patch',
         body: `{
         "action": "${action}"

@@ -22,7 +22,7 @@ class UserGifs extends React.Component {
     this._isMounted = true;
     this.props.mountProfileView('gifs');
     this.fetchRequest({
-      url: `https://akintomiwa-capstone-backend.herokuapp.com/users/${this.props.sessionUser.id}/gifs`,
+      url: `https://akintomiwa-capstone-backend.herokuapp.com/api/v1/users/${this.props.sessionUser.id}/gifs`,
     }).then((gifs) => {
       if (this._isMounted) {
         this.setState(() => ({ gifs, loading: false }));

@@ -203,14 +203,14 @@ class SharePost extends React.Component {
           form = new FormData();
           form.append('title', post.title);
           form.append('image', post.image);
-          url = 'https://akintomiwa-capstone-backend.herokuapp.com/gifs';
+          url = 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/gifs';
         } else {
           // If post type is article
           form = `{
             "title":"${post.title}",
             "article":"${post.article}"
           }`;
-          url = 'https://akintomiwa-capstone-backend.herokuapp.com/articles';
+          url = 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/articles';
           contentType = 'application/json';
         }
 

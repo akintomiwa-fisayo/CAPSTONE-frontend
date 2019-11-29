@@ -41,7 +41,7 @@ class Reports extends React.Component {
   loadReports() {
     // Get all reports
     this.fetchRequest({
-      url: 'https://akintomiwa-capstone-backend.herokuapp.com/reports',
+      url: 'https://akintomiwa-capstone-backend.herokuapp.com/api/v1/reports',
     }).then((reports) => {
       if (this._isMounted === true) {
         // save reports
