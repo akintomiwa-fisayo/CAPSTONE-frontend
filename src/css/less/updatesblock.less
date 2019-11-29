@@ -16,6 +16,7 @@
     padding: @pagePaddingTop @pagePaddingLeft;
     padding-left: @mainContentPadding;
     text-align: left;
+    overflow: auto;
 
   
     .header{
@@ -65,6 +66,16 @@
         }
       }
 
+    }
+  }
+
+  @media only screen and (max-width: @tbl-breakPoint){
+    #updatesBlock{
+      width: @updatesBlockWidth;
+      height: 100vh;
+      padding: @pagePaddingTop @tbl-pagePaddingLeft;
+      padding-left: @tbl-pagePaddingLeft;
+      text-align: left;
     }
   }
 }

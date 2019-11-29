@@ -144,4 +144,20 @@
 
     }
   }
+
+  @media only screen and (max-width: @tbl-breakPoint){
+    #mainContentBlock[data-comp="profile"]{
+      .container{
+        @imagesBorder: solid 3px @color;
+  
+        #coverImage{
+          border-bottom: @imagesBorder;  
+        }
+  
+        #passport{
+          border: @imagesBorder;  
+        }
+      }
+    }
+  }
 }

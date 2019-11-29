@@ -9,7 +9,8 @@
 #pageContent[data-page="application"] #mainContentBlock .container,
 #pageContent[data-page="application"] #mainContentBlock #contentReportDialog {
   width: 100%;
-  padding-bottom: 3em;
+  padding-bottom: 1em;
+  padding-top: 1em;
   padding-left: calc(26vw + 3em);
   padding-right: calc(33vw + 3em);
 }
@@ -21,8 +22,6 @@
   justify-content: space-between;
   align-items: center;
   background: #ebe7f8;
-  padding-top: 1em;
-  padding-bottom: 0.4em;
   border-bottom: solid 1px #ccc;
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .page {
@@ -70,7 +69,7 @@
   align-items: center;
 }
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .name {
-  margin-right: 1em;
+  margin: 0 1em 0 0;
   text-transform: capitalize;
   color: #6e6e6e;
   color: #1c123a;
@@ -235,4 +234,97 @@
 #pageContent[data-page="application"] #mainContentBlock #contentReportDialog.hide .content {
   transform: scale(2.2);
   opacity: 0;
+}
+@media only screen and (max-width: 1230px) {
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader,
+  #pageContent[data-page="application"] #mainContentBlock .container,
+  #pageContent[data-page="application"] #mainContentBlock #contentReportDialog {
+    padding-left: calc(26vw + 1.5em);
+    padding-right: calc(33vw + 1.5em);
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #ebe7f8;
+    border-bottom: solid 1px #ccc;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .page {
+    display: inline-flex;
+    align-items: center;
+    margin: 0px;
+    font-size: 1.6em;
+    line-height: 1;
+    text-transform: capitalize;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back {
+    width: 1.8em;
+    position: relative;
+    font-size: 68%;
+    margin-right: 0.6em;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 300ms ease-out;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back > :nth-child(1) {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back:after {
+    display: block;
+    content: "";
+    padding-top: 100%;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back:hover {
+    background: #dbd4f2;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .icon {
+    font-size: 1.6em;
+    color: #beb1e7;
+    color: #c7c7c7;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info {
+    display: flex;
+    align-items: center;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .name {
+    margin-right: 1em;
+    text-transform: capitalize;
+    color: #6e6e6e;
+    color: #1c123a;
+    font-weight: 600;
+    text-align: right;
+    width: min-content;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .passport {
+    overflow: hidden;
+    display: flex;
+    width: 2.8em;
+    height: 2.8em;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+    padding: 2px;
+    border: solid 2px #1c123a;
+    margin: 0;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .passport img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+    border-radius: 100%;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentReportDialog .container {
+    padding: 0 6%;
+  }
 }

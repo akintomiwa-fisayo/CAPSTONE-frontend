@@ -162,3 +162,17 @@
   cursor: not-allowed;
   filter: brightness(0.7);
 }
+@media only screen and (max-width: 1230px) {
+  #mainContentBlock[data-comp=createUser] .container #regForm {
+    width: 85%;
+  }
+  #mainContentBlock[data-comp=createUser] .container #regForm #regFormLabel {
+    margin: 0 0 1em;
+    white-space: unset;
+  }
+  #mainContentBlock[data-comp=createUser] .container #regForm #regDisplay {
+    width: 18vw;
+    height: 18vw;
+    margin-bottom: 2em;
+  }
+}

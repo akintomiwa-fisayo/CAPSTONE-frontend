@@ -112,3 +112,11 @@
 #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container .empty-profile-tab::first-letter {
   text-transform: capitalize;
 }
+@media only screen and (max-width: 1230px) {
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #coverImage {
+    border-bottom: solid 3px #1c123a;
+  }
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #passport {
+    border: solid 3px #1c123a;
+  }
+}

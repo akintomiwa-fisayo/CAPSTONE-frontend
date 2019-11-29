@@ -2,6 +2,7 @@
 
 @dpMarginBottom: 1.7vw;
 @dpWidth: 12vw;
+@tbl-dpWidth: 18vw;
 
 #mainContentBlock[data-comp=createUser]{
   .container{
@@ -193,5 +194,25 @@
       }
     }
 
+  }
+
+  @media only screen and (max-width: @tbl-breakPoint){
+    .container{
+      #regForm{
+        width: 85%;
+
+        #regFormLabel{
+          margin: 0 0 1em;
+          white-space: unset;
+        } 
+
+        #regDisplay{
+          width: @tbl-dpWidth;
+          height: @tbl-dpWidth;
+          margin-bottom: 2em;
+        }
+  
+      }
+    }
   }
 }
