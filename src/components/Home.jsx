@@ -19,6 +19,7 @@ class Home extends React.Component {
     this._isMounted = false;
     this.getUser = this.getUser.bind(this);
     this.fetchRequest = this.fetchRequest.bind(this);
+    this.validateAdmin = this.validateAdmin.bind(this);
   }
 
   componentDidMount() {
@@ -28,9 +29,12 @@ class Home extends React.Component {
       if (this._isMounted) {
         this.getCompanyDeptStruc().then((deptStruc) => {
           if (this._isMounted) {
-            const isAdmin = deptStruc !== false;
             this.setState(() => ({
               companyDeptStruc: deptStruc,
+            }));
+
+            const isAdmin = this.validateAdmin(user);
+            this.setState(() => ({
               sessionUser: {
                 ...user,
                 isAdmin,
@@ -43,45 +47,29 @@ class Home extends React.Component {
     });
   }
 
+  validateAdmin(user) {
+    let isAdmin = false;
+    const userDept = this.state.companyDeptStruc[user.department];
+    const { jobRoles } = userDept;
+    for (let i = 0; i < jobRoles.length; i += 1) {
+      if (jobRoles[i].id === user.jobRole) {
+        if (jobRoles[i].title === 'admin') {
+          isAdmin = true;
+        }
+        break;
+      }
+    }
+
+    return isAdmin;
+  }
+
   getCompanyDeptStruc() {
     return new Promise((resolve) => {
-      const sessionUserToken = localStorage.getItem('sessionUserToken');
-      const retry = () => {
-        setTimeout(() => {
-          lib.popMessage('retrying to connect to server');
-          this.getCompanyDeptStruc().then(resolve);
-        }, 5000);
-      };
       // Get departments and jobRoles in the company
-      fetch('https://akintomiwa-capstone-backend.herokuapp.com/jobs', {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${sessionUserToken}`,
-        },
-      }).then((res) => {
-        if (res.status === 200) {
-          return res.json();
-        }
-
-        if (res.status !== 401) {
-          if (res.status === 500) {
-            lib.popMessage('oops! there was a server error');
-            retry();
-          } else if (!navigator.onLine) {
-            lib.popMessage("can't connect to serve because you are offline, will retry in 5 seconds");
-            retry();
-          } else {
-            lib.popMessage('something went terribly wrong, please try again');
-          }
-        }
-        return false;
-      }).then((res) => {
-        if (res !== false) {
-          const deptStruc = res.data;
-          resolve(deptStruc);
-        } else {
-          resolve(false);
-        }
+      this.fetchRequest({
+        url: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
+      }).then((deptStruc) => {
+        resolve(deptStruc);
       });
     });
   }

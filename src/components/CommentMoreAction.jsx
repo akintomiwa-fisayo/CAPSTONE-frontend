@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import lib from '../js/lib';
 
 class CommentMoreActions extends React.Component {
   constructor(props) {
@@ -36,9 +37,13 @@ class CommentMoreActions extends React.Component {
 
   render() {
     const { showMoreActions } = this.props;
-    if (!showMoreActions) {
+    const { moreActionEl } = this.props;
+    if (!showMoreActions || !moreActionEl) {
       return (<div />);
     }
+
+    const cord = lib.getCordinates(moreActionEl);
+    const width = moreActionEl.offsetWidth;
 
     return (
       <button
@@ -46,6 +51,7 @@ class CommentMoreActions extends React.Component {
         className="more-actions-dialog"
         ref={this.focusMoreActions}
         onBlur={this.blurMoreActions}
+        style={{ top: `${cord.top}px`, left: `${cord.left + width}px` }}
       >
         <span className="action" onClick={this.revealReportDialog}>
           <span className="fas fa-flag-checkered icon" />
@@ -58,15 +64,14 @@ class CommentMoreActions extends React.Component {
 
 
 CommentMoreActions.propTypes = {
-  // comment: PropTypes.object.isRequired,
-  // post: PropTypes.object.isRequired,
-  // sessionUser: PropTypes.object.isRequired,
-  // history: PropTypes.object.isRequired,
+  moreActionEl: PropTypes.object,
   showMoreActions: PropTypes.bool.isRequired,
   hideMoreActions: PropTypes.func.isRequired,
-  // promptDelete: PropTypes.func.isRequired,
   showReportDialog: PropTypes.func.isRequired,
   focusForReport: PropTypes.func.isRequired,
 };
 
+CommentMoreActions.defaultProps = {
+  moreActionEl: false,
+};
 export default CommentMoreActions;

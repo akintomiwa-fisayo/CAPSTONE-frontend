@@ -8,12 +8,12 @@ import sample from '../images/lion.jpg';
 import lib from '../js/lib';
 import UserArticles from './UserArticles';
 import UserGifs from './UserGifs';
+import UserDetails from './UserDetails';
 
 class UserProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      departments: {},
       profileLoading: true,
       profileView: 'articles',
     };
@@ -27,20 +27,9 @@ class UserProfile extends React.Component {
   componentDidMount() {
     this._isMounted = true;
     this.props.pageSwitch('profile');
-
-    // Get departments with jobroles
-    this.fetchRequest({
-      url: 'https://akintomiwa-capstone-backend.herokuapp.com/jobs',
-    }).then((data) => {
-      if (this._isMounted) {
-        this.setState(() => ({
-          departments: data,
-          profileLoading: false,
-        }));
-        this.parallaxScroll();
-        window.addEventListener('scroll', this.parallaxScroll);
-      }
-    });
+    this.setState(() => ({
+      profileLoading: false,
+    }));
   }
 
   componentWillUnmount() {
@@ -77,10 +66,10 @@ class UserProfile extends React.Component {
     }
 
     const user = this.props.sessionUser;
-
-    const departmentText = this.state.departments[user.department].name;
+    const deptStruc = this.props.companyDeptStruc;
+    const departmentText = deptStruc[user.department].name;
     let jobRoleText = '';
-    const userDept = this.state.departments[user.department].jobRoles;
+    const userDept = deptStruc[user.department].jobRoles;
     for (let i = 0; i < userDept.length; i += 1) {
       if (userDept[i].id === user.jobRole) {
         jobRoleText = userDept[i].title;
@@ -99,6 +88,7 @@ class UserProfile extends React.Component {
           </div>
           <div id="userPreviewInfo">
             <h1 className="user-name">{user.firstName} {user.lastName}</h1>
+            <p className="info">#{user.id}</p>
             <p className="info">{jobRoleText} in {departmentText}</p>
             <p className="info" title={lib.getRelativeTime(user.hiredOn, false)}>hired {lib.getRelativeTime(user.hiredOn)}</p>
           </div>
@@ -135,6 +125,17 @@ class UserProfile extends React.Component {
         </div>
         <div>
           <Switch>
+            <Route
+              path="/profile/details"
+              render={() => (
+                <UserDetails
+                  {...this.props}
+                  sessionUser={{ ...this.props.sessionUser, departmentText, jobRoleText }}
+
+                />
+              )}
+            />
+
             <Route
               path="/profile/gifs"
               render={(props) => (
@@ -179,6 +180,7 @@ UserProfile.propTypes = {
   history: PropTypes.object.isRequired,
   location: PropTypes.object.isRequired,
   sessionUser: PropTypes.object.isRequired,
+  companyDeptStruc: PropTypes.object.isRequired,
 };
 
 export default UserProfile;

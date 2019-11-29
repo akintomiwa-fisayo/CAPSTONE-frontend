@@ -143,6 +143,8 @@ const lib = {
     }
     const date = d2.getDate() + 1;
     const minutes = d2.getMinutes();
+    let minutesDbl = `${minutes}`;
+    minutesDbl = minutesDbl.length === 1 ? `0${minutesDbl}` : minutesDbl;
     const day = lib.getWeekDay(d2.getDay());
     if (relative) {
       const diffInMilliseconds = d1 - d2;
@@ -154,17 +156,17 @@ const lib = {
           if (diffInHours >= 24) { // 24 hours make in a day
             const diffInDays = Math.floor(diffInHours / 24);
             if (diffInDays >= 7) { // 7 day make in a week
-              relativeTime = `${day} ${month} ${date} ${year} at ${hour}:${minutes} ${hourPref}`;
+              relativeTime = `${day} ${month} ${date} ${year} at ${hour}:${minutesDbl} ${hourPref}`;
             } else if (diffInDays === 1) {
-              relativeTime = `yesterday at ${hour}:${minutes} ${hourPref}`;
+              relativeTime = `yesterday at ${hour}:${minutesDbl} ${hourPref}`;
             } else {
-              relativeTime = `last ${day} at ${hour}:${minutes} ${hourPref}`;
+              relativeTime = `last ${day} at ${hour}:${minutesDbl} ${hourPref}`;
             }
           } else relativeTime = `${diffInHours}hr${diffInHours > 1 ? 's' : ''} ago`;
         } else relativeTime = `${diffInMinutes}min${diffInMinutes > 1 ? 's' : ''} ago`;
       } else relativeTime = 'just now';
     } else {
-      relativeTime = `${day} ${month} ${date} ${year} at ${hour}:${minutes} ${hourPref}`;
+      relativeTime = `${day} ${month} ${date} ${year} at ${hour}:${minutesDbl} ${hourPref}`;
     }
 
     return relativeTime;

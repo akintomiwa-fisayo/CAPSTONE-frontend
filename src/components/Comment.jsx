@@ -20,6 +20,7 @@ class Comment extends React.Component {
 
     };
     this._isMounted = false;
+    this.moreActionEl = null;
     this.updateCommentDatetimeRef = null;
     this.showMoreActions = this.showMoreActions.bind(this);
     this.hideMoreActions = this.hideMoreActions.bind(this);
@@ -118,7 +119,7 @@ class Comment extends React.Component {
                   <span className="author-name">{`${comment.author.firstName} ${comment.author.lastName}`}</span>
                   <span className="content">{comment.comment}</span>
                 </div>
-                <span className="more-action" onClick={this.showMoreActions}>
+                <span className="more-action" onClick={this.showMoreActions} ref={(el) => { this.moreActionEl = el; }}>
                   <span>•</span>
                   <span>•</span>
                   <span>•</span>
@@ -130,6 +131,7 @@ class Comment extends React.Component {
                   hideMoreActions={this.hideMoreActions}
                   focusForReport={this.focusForReport}
                   showReportDialog={this.showReportDialog}
+                  moreActionEl={this.moreActionEl}
                 />
               </div>
             </div>
