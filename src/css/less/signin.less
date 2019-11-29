@@ -83,7 +83,7 @@
 			
 			.form{
 				position: relative;
-				padding: 40px; 
+				padding: 2em; 
 				background: rgba(255, 255, 255, .2); 
 				z-index: 1;
 
@@ -143,6 +143,32 @@
 }
 
 
-@media only screen and (max-width:  767px) {
+@media only screen and (max-width:  1230px) {
+	#pageContent[data-page="signin"]{
+		#contentHolder{
+			#signInForm{
+				width: 40vw
+			}
+		}
+		
+	}
+}
+
+@media only screen and (max-width:  768px) {
+	#pageContent[data-page="signin"]{
+		#siteLogoHolder{
+			width: 100vw;
+			height: auto;
+		}
+
+		#contentHolder{
+			#signInForm{
+				width: 80vw
+			}
+		}
+
+		
+	}
+
 
 }

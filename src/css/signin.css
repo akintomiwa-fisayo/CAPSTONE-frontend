@@ -73,7 +73,7 @@
 }
 #pageContent[data-page="signin"] #contentHolder #signInForm .form {
   position: relative;
-  padding: 40px;
+  padding: 2em;
   background: rgba(255, 255, 255, 0.2);
   z-index: 1;
 }
@@ -118,4 +118,18 @@
 #pageContent[data-page="signin"] #contentHolder #signInForm .form #signInBtn.disabled {
   cursor: not-allowed;
   filter: brightness(0.7);
+}
+@media only screen and (max-width: 1230px) {
+  #pageContent[data-page="signin"] #contentHolder #signInForm {
+    width: 40vw;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="signin"] #siteLogoHolder {
+    width: 100vw;
+    height: auto;
+  }
+  #pageContent[data-page="signin"] #contentHolder #signInForm {
+    width: 80vw;
+  }
 }

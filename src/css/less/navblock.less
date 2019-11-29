@@ -113,4 +113,28 @@
       }
     }
   }
+
+  @media only screen and (max-width: @tbl-breakPoint){
+    #navBlock{  
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+      .links{
+        width: 100%;
+        display: block;
+        padding : 2em @tbl-pagePaddingLeft 1em @tbl-pagePaddingLeft;
+      }
+
+      hr{
+        width: calc(100% - @tbl-pagePaddingLeft);
+        padding: 0 @tbl-pagePaddingLeft;
+        margin: 0;
+      }
+
+      #accountPreference{
+        padding: 1.3em @tbl-pagePaddingLeft;  
+      }
+    }
+  }
 }

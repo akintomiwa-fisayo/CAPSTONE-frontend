@@ -3,11 +3,15 @@
 @siteColor : #6747c7;
 @siteColorLight : lighten(@siteColor, 5%);
 @color: darken(@siteColor, 38%);
+@tbl-breakPoint: 1230px;
+@mbl-breakPoint: 768px;
 
 @pagePaddingTop: 1em; 
-@pagePaddingLeft: 8vw;
+@tbl-pagePaddingTop: 1em; 
 
-@tbl-pagePaddingLeft: 4vw;
+@pagePaddingLeft: 8vw;
+@tbl-pagePaddingLeft: 3vw;
+
 @pageBKColor: lighten(@siteColor, 44%);
 
 @blockSeperatorColor: #ccc;
@@ -75,7 +79,9 @@
 	top: auto; 
 	bottom: 0px; 
 	left: 0;
-	padding: 2vw;
+	padding: 2em;
+	padding-left: 0;
+	margin-left: @pagePaddingLeft;
 	//box-shadow: 0 0 5px #dbdbdb;
 	
 	.message{
@@ -106,6 +112,13 @@
 			padding-bottom: $padding-top;
 
 		}
+	}
+
+	@media only screen and (max-width: @tbl-breakPoint){
+		min-width: 20vw; 
+		max-width: 30vw; 	
+		margin-left: @tbl-pagePaddingLeft;
+
 	}
 
 }
@@ -337,6 +350,14 @@
 		background: linear-gradient(145deg, @siteColor ,@color); 
 		background-clip: text; 
 	}
+
+	@media only screen and (max-width:  @tbl-breakPoint) {
+		font-size: 1.6em;	
+	}
+
+	@media only screen and (max-width:  @mbl-breakPoint) {
+		font-size: 2em;	
+	}
 }
 
 #customScrollBar(@scrollbarWidth : 10px){
@@ -362,7 +383,6 @@
 			background-color: rgb(117, 117, 117);
 	}
 }
-
 
 .loader{
 	margin: auto;

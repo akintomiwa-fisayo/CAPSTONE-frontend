@@ -59,3 +59,8 @@
 .add-comment.disabled {
   opacity: 0.5;
 }
+@media only screen and (max-width: 1230px) {
+  .add-comment .comment-input .submit-comment {
+    color: #1c123a;
+  }
+}

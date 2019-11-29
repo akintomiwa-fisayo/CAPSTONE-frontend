@@ -1,13 +1,16 @@
 @import (reference) 'general.less';
 
 @mainContentPadding: 3em;
+@tbl-mainContentPadding: 1.5em;    
+
 #pageContent[data-page="application"]{
   
   #mainContentBlock{
     
     #contentHeader, .container, #contentReportDialog{
       width: 100%;
-      padding-bottom: @mainContentPadding;
+      padding-bottom: @pagePaddingTop;
+      padding-top: @pagePaddingTop;
       padding-left: calc(@navBlockWidth + @mainContentPadding);
       padding-right: calc(@updatesBlockWidth + @mainContentPadding);
     }
@@ -20,8 +23,6 @@
       justify-content: space-between;
       align-items: center;
       background: @mainContentHeaderBk;
-      padding-top: @pagePaddingTop;
-      padding-bottom: .4em;
       border-bottom: @blockSeperator;
 
       .page{
@@ -75,7 +76,7 @@
         align-items: center;
 
         .name{
-          margin-right: 1em;
+          margin: 0 1em 0 0;
           text-transform: capitalize;
           color: #6e6e6e;
           color: @color;
@@ -237,6 +238,116 @@
       }
       
     }  
+  }
+
+	@media only screen and (max-width:  @tbl-breakPoint) {
+
+    #mainContentBlock{
+    
+      #contentHeader, .container, #contentReportDialog{
+        padding-left: calc(@navBlockWidth + @tbl-mainContentPadding);
+        padding-right: calc(@updatesBlockWidth + @tbl-mainContentPadding);
+      }
+
+      #contentHeader{
+        position: sticky;
+        top: 0px;
+        z-index: 1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: @mainContentHeaderBk;
+        border-bottom: @blockSeperator;
+  
+        .page{
+          display: inline-flex;
+          align-items: center;
+          margin: 0px;
+          font-size: 1.6em;
+          line-height: 1;
+          text-transform: capitalize;
+  
+          .go-back{
+            width: 1.8em;
+            position: relative;
+            font-size: 68%;
+            margin-right: .6em;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background 300ms ease-out;
+  
+            >:nth-child(1){
+              position: absolute;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              height: 100%;
+              left: 0;
+              top: 0;
+            }
+  
+            &:after{
+              display: block;
+              content: "";
+              padding-top: 100%;
+            }
+  
+            &:hover{
+              background: darken(@mainContentHeaderBk, 5%);
+            }
+          }
+        }
+  
+        .icon{
+          font-size: 1.6em;
+          color: lighten(@color, 65%);
+          color: darken(white, 22%);
+        }
+  
+        .user-info{
+          display: flex;
+          align-items: center;
+  
+          .name{
+            margin-right: 1em;
+            text-transform: capitalize;
+            color: #6e6e6e;
+            color: @color;
+            font-weight: 600;
+            text-align: right;
+            width: min-content;
+          }
+        
+          .passport{
+            overflow: hidden;
+            display: flex;
+            width: 2.8em;
+            height: $width;
+            justify-content: center;
+            align-items: center;
+            border-radius: 100%;
+            padding: 2px;
+            border: solid 2px @color;
+            margin: 0;
+            
+            img{
+              width: 100%;
+              height: 100%;
+              object-position: center;
+              object-fit: cover;
+              border-radius: 100%;
+            }
+          }
+        }
+      }
+
+      #contentReportDialog{
+        .container{
+          padding: 0 6%;
+        }
+      }
+    }
   }
   
 }
