@@ -4,6 +4,7 @@ import Report from './Report';
 import '../css/report.css';
 import '../css/reports.css';
 import lib from '../js/lib';
+import Error from './Error';
 
 
 class Reports extends React.Component {
@@ -110,8 +111,8 @@ class Reports extends React.Component {
         </div>
       );
     }
-    lib.popMessage('remember to handle error here');
-    return null;
+
+    return <Error />;
   }
 }
 

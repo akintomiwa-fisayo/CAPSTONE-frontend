@@ -56,8 +56,6 @@ class AddComment extends React.Component {
           'Content-Type': 'application/json',
         },
       }).then((response) => {
-        // save this.state
-
         this.setState(() => (defaultState));
 
         if (this.props.post.comments) {
