@@ -86,6 +86,10 @@
             display: none;
           }
         }
+        
+        .success-msg{
+          display: none;
+        }
 
         .form-element{
           color: white;
@@ -135,6 +139,12 @@
       #accountPreference{
         padding: 1.3em @tbl-pagePaddingLeft;  
       }
+    }
+  }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+    #navBlock{
+      display: none;
     }
   }
 }

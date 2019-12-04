@@ -19,8 +19,18 @@ class CommentMoreActions extends React.Component {
 
   // eslint-disable-next-line class-methods-use-this
   focusMoreActions(moreActions) {
-    this.moreActions = moreActions;
-    if (moreActions) moreActions.focus();
+    if (moreActions) {
+      moreActions.focus();
+      this.moreActions = moreActions;
+      const { moreActionEl } = this.props;
+      const cord = lib.getCordinates(moreActionEl);
+      const moreActionWdth = moreActions.offsetWidth;
+      let left = cord.left + moreActionEl.offsetWidth;
+
+      const deviceWidth = document.body.clientWidth;
+      left = left + moreActionWdth > deviceWidth ? deviceWidth - moreActionWdth : left;
+      moreActions.style.left = `${left}px`;
+    }
   }
 
   blurMoreActions(event) {
@@ -42,16 +52,14 @@ class CommentMoreActions extends React.Component {
       return (<div />);
     }
 
-    const cord = lib.getCordinates(moreActionEl);
-    const width = moreActionEl.offsetWidth;
+    const view = this.props.preview ? ' view' : '';
 
     return (
       <button
         type="button"
-        className="more-actions-dialog"
+        className={`more-actions-dialog${view}`}
         ref={this.focusMoreActions}
         onBlur={this.blurMoreActions}
-        style={{ top: `${cord.top}px`, left: `${cord.left + width}px` }}
       >
         <span className="action" onClick={this.revealReportDialog}>
           <span className="fas fa-flag-checkered icon" />
@@ -69,6 +77,8 @@ CommentMoreActions.propTypes = {
   hideMoreActions: PropTypes.func.isRequired,
   showReportDialog: PropTypes.func.isRequired,
   focusForReport: PropTypes.func.isRequired,
+  preview: PropTypes.bool.isRequired,
+
 };
 
 CommentMoreActions.defaultProps = {

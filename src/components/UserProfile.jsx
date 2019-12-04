@@ -118,10 +118,6 @@ class UserProfile extends React.Component {
               <span>gifs</span>
               <div />
             </NavLink>
-            <div className="link ">
-              <span>team</span>
-              <div />
-            </div>
           </div>
         </div>
         <div>
@@ -132,7 +128,6 @@ class UserProfile extends React.Component {
                 <UserDetails
                   {...this.props}
                   sessionUser={{ ...this.props.sessionUser, departmentText, jobRoleText }}
-
                 />
               )}
             />

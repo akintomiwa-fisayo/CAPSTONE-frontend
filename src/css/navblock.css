@@ -71,6 +71,9 @@
 #pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .error.hide {
   display: none;
 }
+#pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .success-msg {
+  display: none;
+}
 #pageContent[data-page="application"] #navBlock #accountPreference #changePassForm .form-element {
   color: white;
   margin-bottom: 1.4em;
@@ -109,5 +112,10 @@
   }
   #pageContent[data-page="application"] #navBlock #accountPreference {
     padding: 1.3em 3vw;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] #navBlock {
+    display: none;
   }
 }

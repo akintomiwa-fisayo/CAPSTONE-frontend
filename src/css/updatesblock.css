@@ -56,3 +56,8 @@
     text-align: left;
   }
 }
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] #updatesBlock {
+    display: none;
+  }
+}

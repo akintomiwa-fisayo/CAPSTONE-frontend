@@ -6,6 +6,7 @@ import MainContentBlock from './MainContentBlock';
 import UpdatesBlock from './UpdatesBlock';
 import lib from '../js/lib';
 import '../css/home.css';
+import MobileNavBlock from './MobileNavBlock';
 
 class Home extends React.Component {
   constructor(props) {
@@ -206,6 +207,11 @@ class Home extends React.Component {
             companyDeptStruc={this.state.companyDeptStruc}
           />
           <UpdatesBlock />
+          <MobileNavBlock
+            {...this.props}
+            sessionUser={this.state.sessionUser}
+            fetchRequest={this.fetchRequest}
+          />
         </div>
       );
     }

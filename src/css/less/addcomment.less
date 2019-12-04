@@ -4,6 +4,7 @@
 
 @commentContentGap: 5%;
 .add-comment{
+  @com-userImageWidth: (@userImageWidth * .7);
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
@@ -12,7 +13,7 @@
   overflow: hidden;
   border-top: @contentBorder;
   transition: box-shadow 500ms ease-in;
-  grid-auto-columns: @userImageWidth (100% - @userImageWidth);
+  grid-auto-columns: @com-userImageWidth (100% - @com-userImageWidth);
 
   .user-image{
     width: 100% !important;
@@ -70,10 +71,20 @@
   }
 
   @media only screen and (max-width: @tbl-breakPoint){
-    
+    @com-userImageWidth: (@mbl-userImageWidth * .7);
+
+    padding: @mbl-contentPadding;
+    grid-auto-columns: @com-userImageWidth (100% - @com-userImageWidth);
+
     .comment-input{
+      
+      input{
+        padding: .8em 0;
+        
+      }
 
       .submit-comment{
+        font-size: 1.2em;
         color: @color;
       }
     }

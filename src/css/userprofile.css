@@ -120,3 +120,32 @@
     border: solid 3px #1c123a;
   }
 }
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] .fullWidth {
+    width: 100%;
+    margin: 0;
+  }
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #coverImage {
+    width: 100%;
+    margin: 0;
+    height: 14em;
+    border-bottom: solid 3px #1c123a;
+  }
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #passport {
+    width: 38vw;
+    margin-top: -19vw;
+    margin-left: 1em;
+    border: solid 3px #1c123a;
+  }
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #userPreviewInfo {
+    padding: 0 1em;
+  }
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #userPreviewInfo .user-name {
+    margin: 0.4em 0 0;
+  }
+  #pageContent[data-page="application"] #mainContentBlock[data-comp="profile"] .container #profileHeader {
+    width: 100%;
+    margin: 0;
+    padding: 0 1em;
+  }
+}

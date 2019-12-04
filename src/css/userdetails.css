@@ -17,3 +17,12 @@
 #userDetails table tbody tr:nth-of-type(even) {
   background: #e5dff5;
 }
+@media only screen and (max-width: 768px) {
+  #userDetails table {
+    width: 100%;
+    margin-left: 0;
+  }
+  #userDetails table tbody tr td {
+    padding: 0.8em 1em;
+  }
+}

@@ -135,7 +135,7 @@ class ReportContent extends React.Component {
     return (
       <div id="contentReportDialog" onClick={this.hideReportDialog}>
         <div className="container">
-          <div className="form content" onClick={this.preventHide}>
+          <div className="content" onClick={this.preventHide}>
             <span className="cancel fas fa-times" onClick={this.hideReportDialog} />
             <h1 className="header">create a report on this {content.type}</h1>
 

@@ -1,0 +1,180 @@
+#pageContent[data-page="application"] #mobileNavBlock {
+  position: fixed;z-index: 2;top: 0;left: 0;background: white;width: 26vw;height: 100vh;padding-top: 1em;text-align: center;background: linear-gradient(205deg, #3e2781, #6747c7);border-right: solid 1px #ccc;
+}
+#pageContent[data-page="application"] #mobileNavBlock .links {
+  display: block;padding: 2em 3vw 1em 8vw;
+}
+#pageContent[data-page="application"] #mobileNavBlock .links .link {
+  display: block;padding: 0.8em 1.2em;color: white;text-decoration: none;font-size: 1.1em;font-weight: 800;text-transform: capitalize;text-align: left;border-radius: 9999px;margin-bottom: 0.6em;transition: background 0.2s linear, border-left-color 0.2s linear;
+}
+#pageContent[data-page="application"] #mobileNavBlock .links .link .icon {
+  font-size: 1.3em;font-weight: 600;margin-right: 0.8em;
+}
+#pageContent[data-page="application"] #mobileNavBlock .links .link:hover,
+#pageContent[data-page="application"] #mobileNavBlock .links .link.active {
+  border-left-color: white;background: #3e2781;
+}
+#pageContent[data-page="application"] #mobileNavBlock hr {
+  border: none;margin: 0 auto;border-bottom: solid 1px #2b1b5a;width: 90%;margin: 0 1.2em;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference {
+  padding: 1.3em 3vw 1.3em 8vw;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference .label {
+  display: block;font-size: 1em;font-weight: 700;width: 100%;padding: 0px;text-align: left;text-transform: capitalize;margin-bottom: 1em;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm {
+  background: #3e2781;border-radius: 0.5em;padding: 1.2em;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm .error {
+  color: #ff516c;font-weight: 600;margin: 0 0 0.8em;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm .error.hide {
+  display: none;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm .success-msg {
+  color: #35c48d;font-weight: 600;margin: 0 0 0.8em;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm .form-element {
+  color: white;margin-bottom: 1.4em;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm .form-element input {
+  color: inherit;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm .form-element .error {
+  color: #ff516c;font-weight: 600;margin: 0;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm button {
+  width: 100%;font-weight: 600;
+}
+#pageContent[data-page="application"] #mobileNavBlock #accountPreference #changePassForm button.disabled {
+  cursor: not-allowed;filter: brightness(0.7);
+}
+@media only screen and (max-width: 1230px) {
+  #pageContent[data-page="application"] #mobileNavBlock {
+    display: flex;flex-direction: column;align-items: center;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .links {
+    width: 100%;display: block;padding: 2em 3vw 1em 3vw;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock hr {
+    width: calc(100% - 3vw);padding: 0 3vw;margin: 0;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock #accountPreference {
+    padding: 1.3em 3vw;
+  }
+}@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] #mobileNavBlock {
+    display: none;
+  }
+}#pageContent[data-page="application"] #mobileNavBlock {
+  display: none;
+  height: auto;
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] #mobileNavBlock {
+    position: sticky;
+    display: flex;
+    width: 100%;
+    padding: 0px;
+    top: auto;
+    bottom: 0;
+    height: 4em;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .links {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .links .link {
+    margin: 0;
+    height: auto;
+    padding: 0;
+    font-size: 1em;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .links .link .icon {
+    margin: 0;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .links .link.active,
+  #pageContent[data-page="application"] #mobileNavBlock .links .link:focus,
+  #pageContent[data-page="application"] #mobileNavBlock .links .link:hover {
+    color: #1c123a;
+    background: none;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .more-options {
+    position: absolute;
+    width: auto;
+    top: auto;
+    bottom: 100%;
+    left: auto;
+    right: 0;
+    background: linear-gradient(45deg, #6747c7, #3e2781);
+    border-radius: 2vw;
+    box-shadow: 0px 0px 5vw rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    font-size: 1em;
+    border: none;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .more-options .option {
+    color: white;
+    padding: 0.6em 1.2em;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .more-options:focus {
+    border: none;
+    outline: none;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock #updatesBlock {
+    width: 100vw;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock #updatesBlock .cancel-holder {
+    width: 100%;
+    text-align: right;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock #updatesBlock .cancel-holder .cancel {
+    padding: 0 1em;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .change-password-holder {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .change-password-holder .cancel {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0;
+    z-index: 9;
+    padding: 1em;
+    color: white;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .change-password-holder #changePassForm {
+    background: white;
+    width: 90%;
+    padding: 1.6em;
+    border-radius: 3vw;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .change-password-holder #changePassForm .error {
+    color: #d9534f;
+    font-weight: 600;
+    margin-top: 0;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .change-password-holder #changePassForm .success-msg {
+    color: #35c48d;
+    font-weight: 600;
+    margin: 0 0 0.8em;
+  }
+  #pageContent[data-page="application"] #mobileNavBlock .change-password-holder #changePassForm button {
+    width: 100%;
+  }
+}

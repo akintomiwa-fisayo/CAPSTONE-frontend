@@ -1,6 +1,9 @@
 @import (reference) './general.less';
 
+@import (reference) './maincontentblock.less';
+
 @contentPadding: 1.5em;
+@mbl-contentPadding: @mbl-mainContentPadding;
 @contentBorderColor: @blockSeperatorColor;
 @contentBorderWidth: 1px;
 @contentBorder: solid @contentBorderWidth @contentBorderColor;
@@ -23,6 +26,13 @@
       &::first-letter{
         text-transform: capitalize;
       }
+    }
+  }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+
+    .container{
+      padding: 0px !important;
     }
   }
 }

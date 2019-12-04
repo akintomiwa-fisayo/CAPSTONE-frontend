@@ -14,6 +14,7 @@
   .post-comment{
     padding: 1em @contentPadding;
     border-top: @contentBorder;
+    position: relative;
     
     >:nth-child(1){
       display: grid;
@@ -70,7 +71,11 @@
           padding-left: .5em;
           opacity: 0;
           transition: opacity 200ms linear;
-    
+        }
+
+        .more-actions-dialog.view:extend(.post .head .more-actions-dialog all){
+          margin-left: 0;
+      
         }
   
       }      
@@ -85,10 +90,24 @@
     }
   }
 
-  .more-actions-dialog{
-    .post>.head>.more-actions-dialog;
-    margin-left: 0;
+  @media only screen and (max-width: @mbl-breakPoint){
+    
+    .post-comment{
+      
+      >:nth-child(1){
+             
+        .comment-details-container{
+          .more-action{
+            opacity: 1;
+          }
 
+          .more-actions-dialog.view{
+            top: 4em;
+            margin-left: -@mbl-contentPadding;
+          }
+        }
+      }
+    }
   }
   
 }

@@ -10,7 +10,7 @@
   overflow: hidden;
   border-top: solid 1px #ccc;
   transition: box-shadow 500ms ease-in;
-  grid-auto-columns: 10% 90%;
+  grid-auto-columns: 7% 93%;
 }
 .add-comment .user-image {
   width: 100% !important;
@@ -60,7 +60,15 @@
   opacity: 0.5;
 }
 @media only screen and (max-width: 1230px) {
+  .add-comment {
+    padding: 1em;
+    grid-auto-columns: 10.5% 89.5%;
+  }
+  .add-comment .comment-input input {
+    padding: 0.8em 0;
+  }
   .add-comment .comment-input .submit-comment {
+    font-size: 1.2em;
     color: #1c123a;
   }
 }

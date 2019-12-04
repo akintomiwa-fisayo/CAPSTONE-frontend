@@ -160,4 +160,49 @@
       }
     }
   }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+    .fullWidth {
+      width: 100%;
+      margin: 0;
+    } 
+    
+    #mainContentBlock[data-comp="profile"]{
+      .container{
+        
+        
+        @imagesBorder: solid 3px @color;
+        @coverImageHeight: 14em;
+        @passportWidth: 38vw;
+
+        #coverImage{
+          .fullWidth;
+          height: @coverImageHeight;
+          border-bottom: @imagesBorder;
+
+        }
+        
+        #passport{
+          width: @passportWidth;
+          margin-top: -$width / 2;
+          margin-left: @mbl-mainContentPadding;
+          border: @imagesBorder;  
+        }
+
+        #userPreviewInfo{
+          padding: 0 @mbl-mainContentPadding;
+          
+          .user-name{
+            margin: .4em 0 0;
+          }          
+        }
+        
+        #profileHeader{
+          .fullWidth;
+          padding: 0 @mbl-mainContentPadding;
+        }
+      }
+    }
+  }
+
 }

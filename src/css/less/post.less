@@ -2,6 +2,7 @@
 @import (reference) './feed.less';
 
 @userImageWidth: 10%;
+@mbl-userImageWidth: 15%;
 .post{
   position: relative;
   background: white;
@@ -52,10 +53,8 @@
     display: inline-flex;
     width: 100%;
     text-align: left;
-    //background: yellow;
     padding: @contentPadding;
     padding-bottom: .8em;
-    //border-bottom: solid 1px @userActivityBorderColor;
 
     >:nth-child(2){
       display: flex;
@@ -350,5 +349,28 @@
 
   &.report-focused{
     border: solid 3px @color-error;
+  }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+    margin: 0;
+
+    .user-image{
+      width: @mbl-userImageWidth;
+    }
+
+    .head{
+      padding: @mbl-contentPadding;
+
+      .more-actions-dialog{
+        left: auto;
+        right: 0;
+        top: 3em;
+        margin-right: @mbl-contentPadding !important;
+      }
+    }
+
+    .body{
+      padding: 0 @mbl-contentPadding;
+    }
   }
 }

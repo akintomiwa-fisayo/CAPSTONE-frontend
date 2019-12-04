@@ -28,7 +28,10 @@ const defaultState = {
 class ChangePassword extends React.Component {
   constructor(props) {
     super(props);
-    this.state = defaultState;
+    this.state = {
+      ...defaultState,
+      success: false,
+    };
 
     this._isMounted = false;
     this.regFieldInput = this.regFieldInput.bind(this);
@@ -125,7 +128,7 @@ class ChangePassword extends React.Component {
             ...prevState.conPassword,
             invalid: 'invalid',
           },
-          error: 'password needs to be atleast 8 character long',
+          error: 'password needs to be atleast 8 characters long',
         }));
       } else if (newPassword.value !== conPassword.value) {
         this.setState((prevState) => ({
@@ -156,7 +159,10 @@ class ChangePassword extends React.Component {
         }).then((res) => {
           const { token: newToken } = res;
           if (this._isMounted) {
-            this.setState(() => defaultState);
+            this.setState(() => ({
+              ...defaultState,
+              success: true,
+            }));
           }
           localStorage.setItem('sessionUserToken', newToken);
           lib.popMessage('password changed successfully');
@@ -183,11 +189,13 @@ class ChangePassword extends React.Component {
     }
   }
 
+
   render() {
+    const success = this.state.success ? <p className="success-msg">password changed successfully</p> : '';
     return (
       <div id="changePassForm">
         <p className={`error${this.state.error === false ? ' hide' : ''}`}>{this.state.error}</p>
-
+        {success}
         <div
           className={`${this.state.password.state} ${this.state.password.focused} ${this.state.password.invalid} hero-input form-element`}
           onClick={this.clickTofocusField}

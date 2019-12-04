@@ -59,6 +59,32 @@
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .page .go-back:hover {
   background: #dbd4f2;
 }
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .site-logo {
+  font-family: 'logo', sans-serif !important;
+  font-size: 1.8vw;
+  color: white;
+  line-height: 1;
+  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+  display: none;
+}
+#pageContent[data-page="application"] #mainContentBlock #contentHeader .site-logo.dark {
+  font-weight: 600;
+  padding: 0.1em;
+  -webkit-text-fill-color: transparent;
+  background: #6747c7;
+  background: linear-gradient(145deg, #6747c7, #1c123a);
+  background-clip: text;
+}
+@media only screen and (max-width: 1230px) {
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .site-logo {
+    font-size: 1.6em;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .site-logo {
+    font-size: 2em;
+  }
+}
 #pageContent[data-page="application"] #mainContentBlock #contentHeader .icon {
   font-size: 1.6em;
   color: #beb1e7;
@@ -326,5 +352,62 @@
   }
   #pageContent[data-page="application"] #mainContentBlock #contentReportDialog .container {
     padding: 0 6%;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"] #mainContentBlock {
+    min-height: 100vh;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader,
+  #pageContent[data-page="application"] #mainContentBlock .container,
+  #pageContent[data-page="application"] #mainContentBlock #contentReportDialog {
+    padding: 0;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    padding: 1em 1em;
+    height: 4em;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .page {
+    font-size: 1.3em;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info {
+    justify-content: flex-end;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .name {
+    display: none;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader .user-info .passport {
+    width: 2.5em;
+    height: 2.5em;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentHeader:before {
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    content: "\f0e7";
+    font-size: 6vw;
+    color: white;
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentReportDialog {
+    padding: 1em;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentReportDialog .container .content {
+    border-radius: 2.5vw;
+  }
+  #pageContent[data-page="application"] #mainContentBlock #contentReportDialog .container .content .header {
+    font-size: 1.6em;
   }
 }

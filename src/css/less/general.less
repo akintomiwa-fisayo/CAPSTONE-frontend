@@ -14,6 +14,10 @@
 
 @pageBKColor: lighten(@siteColor, 44%);
 
+@mbl-pageHeaderHeight: 4em;
+@mbl-navbarHeight : @mbl-pageHeaderHeight;
+
+
 @blockSeperatorColor: #ccc;
 @blockSeperator: solid 1px @blockSeperatorColor;
 
@@ -118,7 +122,10 @@
 		min-width: 20vw; 
 		max-width: 30vw; 	
 		margin-left: @tbl-pagePaddingLeft;
+	}
 
+	@media only screen and (max-width: @mbl-breakPoint){
+		display: none;
 	}
 
 }
@@ -390,6 +397,15 @@
 	text-align: center;
 	font-size: 2vw;
 	padding: 1em;
+
+	
+	@media only screen and (max-width: @mbl-breakPoint){
+		display: inline-block;
+		font-size: 8vw;
+		left: 38vw;
+		position: relative;
+
+	}
 
 }
 
