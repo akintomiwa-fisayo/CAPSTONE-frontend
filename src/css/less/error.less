@@ -1,20 +1,29 @@
+@import (reference) './general.less';
+@import (reference) './maincontentblock.less';
+
 #errorPage{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  
   .icon{
     font-size: 5em;
   }
-
+  
   h1{
     margin: 1.8em 0 .2em;
   }
-
+  
   p{
+    text-align: center;
     font-weight: 600;
     font-size: 1.2em;
     margin-bottom: 2em;
+  }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+    padding: @mbl-mainContentPadding;
+    text-align: center;
   }
 }
