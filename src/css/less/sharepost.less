@@ -313,4 +313,56 @@
   &.focused:extend(.form-element:focus){
     box-shadow: 0px 0px 1.3em rgba(0, 0, 0, .15);
   }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+    .head{
+      padding: @mbl-contentPadding;
+
+      .label{
+        font-size: 1.3em;
+      }
+    }
+
+    .content{
+  
+      .form-element[name=title]{
+        padding-left: @mbl-contentPadding;
+        padding-right: @mbl-contentPadding;
+      }
+
+      @contentHeight: 8em; 
+      #postGifContainer{
+
+        #postGifBlock{
+          height: @contentHeight;
+          
+          .bk{
+            .icon{
+              font-size: @contentHeight * .45;
+            }
+          }
+        }
+      }
+    
+
+      #postArticleContainer{
+        #postArticleBlock{
+          height: @contentHeight;
+          padding: .6em @mbl-contentPadding;
+
+        }
+      }
+    }
+
+    .bottom{
+      padding: .6em @mbl-contentPadding;
+
+      button[type=submit]{
+
+        >:nth-child(1){
+          min-width: 6em;
+        }
+      }
+    }
+  }
 }

@@ -2,13 +2,167 @@
 .report .body .report-content {
   position: relative;background: white;padding: 0px;border: solid 1px #ccc;border-radius: 0.5vw;margin-top: 2em;transition: box-shadow 500ms ease-in, opacity 500ms ease-in;cursor: pointer;
 }
+.report .user-image {
+  position: relative;width: 10%;height: min-content;border-radius: 100px;overflow: hidden;transition: all 0.3s;
+}
+.report .user-image a {
+  width: 100%;height: 100%;border-radius: inherit;position: absolute;
+}
+.report .user-image a img {
+  border-radius: inherit;width: 100%;height: 100%;object-fit: cover;
+}
+.report .user-image:hover {
+  border-color: #1c123a;
+}
+.report .user-image:after {
+  display: block;content: "";padding-top: 100%;
+}
+.report .head {
+  position: relative;display: inline-flex;width: 100%;text-align: left;padding: 1.5em;padding-bottom: 0.8em;
+}
+.report .head > :nth-child(2) {
+  display: flex;flex-direction: column;justify-content: center;padding: 0px 1em;width: 100%;
+}
+.report .head > :nth-child(2) * {
+  margin: 0px;
+}
+.report .head > :nth-child(2) .user-name,
 .report .body .report-content .head .user-name {
   display: block;font-size: 100%;font-weight: 700;text-decoration: underline white;text-transform: capitalize;width: max-content;color: inherit;overflow: hidden;text-overflow: ellipsis;transition: all 0.3s;
 }
+.report .head > :nth-child(2) .user-name:hover {
+  text-decoration: underline #555;
+}
+.report .head > :nth-child(2) .date-time {
+  font-size: 90%;
+}
+.report .head .more-action {
+  font-weight: 600;white-space: nowrap;height: max-content;cursor: pointer;background: none;border: none;outline: none;
+}
+.report .head .more-action span {
+  color: #888;transition: all 0.3s;cursor: pointer;
+}
+.report .head .more-action span:nth-child(1) {
+  padding-left: 0.33em;
+}
+.report .head .more-action span:nth-child(2) {
+  margin: 0px 0.28em;
+}
+.report .head .more-action:hover span {
+  color: #1c123a;
+}
+.report .head .more-action:hover span:nth-child(1) {
+  padding-left: 0;
+}
+.report .head .more-action:hover span:nth-child(2) {
+  margin: 0px 0.445em;
+}
+.report .head .more-action.fa-trash-alt {
+  font-size: 120%;color: #d0d0d0;
+}
+.report .head .more-action.fa-trash-alt:hover {
+  color: inherit;
+}
+.report .head .more-actions-dialog {
+  background: white;position: absolute;z-index: 3;left: 100%;font-size: 1em;margin-left: -1.5em;padding: 0;border-radius: 1em;border: solid 1px #ccc;overflow: hidden;text-align: left;outline: none;box-shadow: 0px 0.3em 0.8em rgba(0, 0, 0, 0.1);
+}
+.report .head .more-actions-dialog .action {
+  padding: 0.6em 1em;background: white;width: max-content;display: block;min-width: 8em;text-transform: capitalize;opacity: 0.8;cursor: pointer;
+}
+.report .head .more-actions-dialog .action .icon {
+  margin-right: 0.6em;
+}
+.report .head .more-actions-dialog .action:hover {
+  background: #f7f7f7;opacity: 1;
+}
+.report .head .more-actions-dialog.hide {
+  z-index: -3;
+}
+.report .body {
+  display: block;padding: 0 1.5em;
+}
+.report .body .title,
 .report .body .report-content .title {
   width: 100%;padding: 0px;text-transform: capitalize;margin: 0.4em 0 0.8em;color: #787878;font-weight: 600;/*align stuffs at center*/display: -webkit-flex;-webkit-flex-wrap: wrap;-webkit-flex-direction: row;-webkit-align-items: center;display: flex;flex-wrap: wrap;flex-direction: row;align-items: center;
 }
-.report {
+.report .body .title::first-letter {
+  text-transform: capitalize;
+}
+.report .body .content {
+  display: flex;width: 100%;border-radius: 1%;overflow: hidden;
+}
+.report .body .content .item {
+  height: 100%;width: 100%;object-fit: contain;border-color: red;margin: 0;
+}
+.report .body .content .item::first-letter {
+  text-transform: capitalize;
+}
+.report .view-comment {
+  margin-top: 1em;padding: 0.8em 1.5em;width: 100%;text-align: center;border: none;border-top: solid 1px #ccc;outline: none;cursor: pointer;background: none;transition: background 300ms ease-in, color 300ms ease-in;font-size: 1em;font-weight: 600;color: #666;
+}
+.report .view-comment .icon {
+  margin-right: 1em;font-weight: 500;font-size: 1.2em;
+}
+.report .view-comment:hover {
+  background: #f5f3fb;color: #444;
+}
+.report .prompt {
+  position: absolute;z-index: 0;width: 100%;height: 100%;top: 0px;left: 0px;border-radius: inherit;overflow: hidden;display: flex;flex-wrap: wrap;flex-direction: row;align-items: center;
+}
+.report .prompt .prompt-bk {
+  position: absolute;z-index: -1;width: inherit;height: inherit;opacity: 0.95;top: 0px;background: white;
+}
+.report .prompt .prompt-fk {
+  position: relative;width: inherit;height: auto;padding: 1.5em;text-align: center;font-size: 1.2em;justify-content: space-evenly;
+}
+.report .prompt .prompt-fk p {
+  font-weight: 600;margin: 0 0 2.5em;
+}
+.report .prompt .prompt-fk p::first-letter {
+  text-transform: capitalize;
+}
+.report .prompt .prompt-fk .actions {
+  display: flex;justify-content: space-evenly;
+}
+.report .prompt .prompt-fk .actions button {
+  text-transform: capitalize;min-width: 30%;border-radius: 99px;border: none;font-weight: 600;
+}
+.report .prompt .prompt-fk .btn-default {
+  background: #f7f7f7;
+}
+.report .prompt .prompt-fk .btn-default:hover {
+  background: #e0e0e0;
+}
+.report.remove {
+  opacity: 0;
+}
+.report.new {
+  box-shadow: 0px 0px 1.2em #c8bceb;
+}
+.report.deleting .prompt .prompt-fk .actions button {
+  opacity: 0.5;cursor: not-allowed;
+}
+.report.report-focused {
+  border: solid 3px #ff516c;
+}
+@media only screen and (max-width: 768px) {
+  .report,
+  .report .body .report-content {
+    margin: 0;
+  }
+  .report .user-image {
+    width: 15%;
+  }
+  .report .head {
+    padding: 1em;
+  }
+  .report .head .more-actions-dialog {
+    left: auto;right: 0;top: 3em;margin-right: 1em !important;
+  }
+  .report .body {
+    padding: 0 1em;
+  }
+}.report {
   padding: 1.5em 0;
   padding-bottom: 0px;
   cursor: initial;

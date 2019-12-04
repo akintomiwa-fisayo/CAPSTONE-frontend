@@ -3,6 +3,7 @@
 @dpMarginBottom: 1.7vw;
 @dpWidth: 12vw;
 @tbl-dpWidth: 18vw;
+@mbl-dpWidth: 46vw;
 
 #mainContentBlock[data-comp=createUser]{
   .container{
@@ -210,6 +211,33 @@
           width: @tbl-dpWidth;
           height: @tbl-dpWidth;
           margin-bottom: 2em;
+        }
+  
+      }
+    }
+  }
+
+  @media only screen and (max-width: @mbl-breakPoint){
+    .container{
+      #regForm{
+        padding: 1em 0;
+
+        #regDisplay{
+          width: @mbl-dpWidth;
+          height: @mbl-dpWidth;
+          margin-bottom: 2em;
+
+          .overlay{
+            font-size: 1.2em;
+
+            >:nth-child(1){
+              font-size: @mbl-dpWidth * .45;
+            }
+          }
+          
+          &:before{
+            font-size: @mbl-dpWidth * .45;
+          }
         }
   
       }

@@ -290,6 +290,7 @@ class Post extends React.Component {
                 promptDelete={this.promptDelete}
                 showReportDialog={this.showReportDialog}
                 focusForReport={this.focusForReport}
+                preview
               />
             </div>
             <div className="body">

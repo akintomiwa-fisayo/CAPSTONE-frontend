@@ -1,10 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import '../css/updatesblock.css';
 
-class Feed extends React.Component {
+class UpdatesBlock extends React.Component {
   render() {
+    const cancel = this.props.preview
+      ? (
+        <div className="cancel-holder">
+          <span className="cancel fas fa-times" onClick={() => { this.props.onCancel(); }} />
+        </div>
+      ) : '';
     return (
-      <div id="updatesBlock">
+      <div id="updatesBlock" style={this.props.styles}>
+        {cancel}
         <h2 className="header">Notice board</h2>
         <div className="note" data-importance="4">
           <div className="container">
@@ -43,4 +51,14 @@ class Feed extends React.Component {
   }
 }
 
-export default Feed;
+UpdatesBlock.propTypes = {
+  styles: PropTypes.object,
+  preview: PropTypes.bool,
+  onCancel: PropTypes.func,
+};
+UpdatesBlock.defaultProps = {
+  styles: {},
+  preview: false,
+  onCancel: () => {},
+};
+export default UpdatesBlock;

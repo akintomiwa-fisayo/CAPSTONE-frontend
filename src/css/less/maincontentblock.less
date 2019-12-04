@@ -2,6 +2,7 @@
 
 @mainContentPadding: 3em;
 @tbl-mainContentPadding: 1.5em;    
+@mbl-mainContentPadding: 1em;    
 
 #pageContent[data-page="application"]{
   
@@ -63,6 +64,11 @@
             background: darken(@mainContentHeaderBk, 5%);
           }
         }
+      }
+
+      .site-logo{
+        #siteLogo;
+        display: none;
       }
 
       .icon{
@@ -349,5 +355,79 @@
       }
     }
   }
+
+  @media only screen and (max-width:  @mbl-breakPoint) {
+    #mainContentBlock{
+      min-height: 100vh;
+    
+      #contentHeader, .container, #contentReportDialog{
+        padding: 0;
+        
+      }
+      
+      #contentHeader{
+        display: grid;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr 1fr;
+        justify-content: space-between;
+        padding: @pagePaddingTop @mbl-mainContentPadding;
+        height: @mbl-pageHeaderHeight;
+
+        .page{
+          font-size: 1.3em;
+        }
+    
+        .user-info{
+          justify-content: flex-end;
+  
+          .name{
+            display: none;
+          }
+
+          .passport{
+            width: 2.5em;
+            height: $width;
+          }
+        }
+
+        &:before{
+          position: absolute;
+          width: 100%;
+          justify-content: center;
+          text-align: center;
+          content: "\f0e7";
+          font-size: 6vw;
+          color: white;
+          
+          font-weight: 900;
+          font-family: "Font Awesome 5 Free";
+          -moz-osx-font-smoothing: grayscale;
+          -webkit-font-smoothing: antialiased;
+          font-style: normal;
+          font-variant: normal;
+          text-rendering: auto;
+          line-height: 1;
+        }
+      }
+
+      #contentReportDialog{
+        padding: 1em;
+
+        .container{
+          .content{
+            border-radius: 2.5vw;
+            
+            .header{
+              font-size: 1.6em;
+            
+            }
+
+          }
+        }
+      }
+
+    }
+  }
+
   
 }

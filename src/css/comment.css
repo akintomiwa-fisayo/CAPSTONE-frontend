@@ -1,4 +1,23 @@
-.post.view {
+.post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view {
+  background: white;position: absolute;z-index: 3;left: 100%;font-size: 1em;margin-left: -1.5em;padding: 0;border-radius: 1em;border: solid 1px #ccc;overflow: hidden;text-align: left;outline: none;box-shadow: 0px 0.3em 0.8em rgba(0, 0, 0, 0.1);
+}
+.post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view .action {
+  padding: 0.6em 1em;background: white;width: max-content;display: block;min-width: 8em;text-transform: capitalize;opacity: 0.8;cursor: pointer;
+}
+.post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view .action .icon {
+  margin-right: 0.6em;
+}
+.post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view .action:hover {
+  background: #f7f7f7;opacity: 1;
+}
+.post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view.hide {
+  z-index: -3;
+}
+@media only screen and (max-width: 768px) {
+  .post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view {
+    left: auto;right: 0;top: 3em;margin-right: 1em !important;
+  }
+}.post.view {
   cursor: unset;
   margin-top: 0 !important;
 }
@@ -8,6 +27,7 @@
 .post.view .post-comment {
   padding: 1em 1.5em;
   border-top: solid 1px #ccc;
+  position: relative;
 }
 .post.view .post-comment > :nth-child(1) {
   display: grid;
@@ -87,45 +107,21 @@
 .post.view .post-comment > :nth-child(1) .comment-details-container .more-action.fa-trash-alt:hover {
   color: inherit;
 }
+.post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view {
+  margin-left: 0;
+}
 .post.view .post-comment > :nth-child(2) {
   padding-left: calc((10% + 5%) + 1em);
 }
 .post.view .post-comment.report-focused {
   background: #ff516c;
 }
-.post.view .more-actions-dialog {
-  background: white;
-  position: absolute;
-  z-index: 3;
-  left: 100%;
-  font-size: 1em;
-  margin-left: -1.5em;
-  padding: 0;
-  border-radius: 1em;
-  border: solid 1px #ccc;
-  overflow: hidden;
-  text-align: left;
-  outline: none;
-  box-shadow: 0px 0.3em 0.8em rgba(0, 0, 0, 0.1);
-  margin-left: 0;
-}
-.post.view .more-actions-dialog .action {
-  padding: 0.6em 1em;
-  background: white;
-  width: max-content;
-  display: block;
-  min-width: 8em;
-  text-transform: capitalize;
-  opacity: 0.8;
-  cursor: pointer;
-}
-.post.view .more-actions-dialog .action .icon {
-  margin-right: 0.6em;
-}
-.post.view .more-actions-dialog .action:hover {
-  background: #f7f7f7;
-  opacity: 1;
-}
-.post.view .more-actions-dialog.hide {
-  z-index: -3;
+@media only screen and (max-width: 768px) {
+  .post.view .post-comment > :nth-child(1) .comment-details-container .more-action {
+    opacity: 1;
+  }
+  .post.view .post-comment > :nth-child(1) .comment-details-container .more-actions-dialog.view {
+    top: 4em;
+    margin-left: -1em;
+  }
 }

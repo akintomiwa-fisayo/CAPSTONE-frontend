@@ -176,3 +176,22 @@
     margin-bottom: 2em;
   }
 }
+@media only screen and (max-width: 768px) {
+  #mainContentBlock[data-comp=createUser] .container #regForm {
+    padding: 1em 0;
+  }
+  #mainContentBlock[data-comp=createUser] .container #regForm #regDisplay {
+    width: 46vw;
+    height: 46vw;
+    margin-bottom: 2em;
+  }
+  #mainContentBlock[data-comp=createUser] .container #regForm #regDisplay .overlay {
+    font-size: 1.2em;
+  }
+  #mainContentBlock[data-comp=createUser] .container #regForm #regDisplay .overlay > :nth-child(1) {
+    font-size: 20.7vw;
+  }
+  #mainContentBlock[data-comp=createUser] .container #regForm #regDisplay:before {
+    font-size: 20.7vw;
+  }
+}

@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.8em 2em;
+  padding: 0.8em 1.5em;
 }
 #sharePost .head .label {
   margin: 0;
@@ -34,8 +34,8 @@
   box-shadow: none;
   border: none;
   border-radius: 0;
-  padding-left: 2em;
-  padding-right: 2em;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
   border-top: solid 1px #ccc;
   border-bottom: dashed 2px #f7f7f7;
 }
@@ -64,7 +64,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2em;
+  padding: 1.5em;
   align-items: center;
   border-radius: inherit;
   text-shadow: 0px 0px 3px white;
@@ -98,7 +98,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.2);
   color: #757575;
-  padding: 2em;
+  padding: 1.5em;
   transition: all 0.25s linear;
   border: dashed 2px transparent;
   border-radius: 2px;
@@ -161,7 +161,7 @@
   position: relative;
   overflow: hidden;
   margin: 0;
-  padding: 1em 2em;
+  padding: 1em 1.5em;
   height: 12em;
   border: none;
   border-bottom: solid 1px #ccc;
@@ -175,7 +175,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.6em 2em;
+  padding: 0.6em 1.5em;
   margin: 0;
 }
 #sharePost .bottom .button {
@@ -202,14 +202,39 @@
   border: none;
 }
 #sharePost .bottom .button.btn-success {
-  border-color: #35c48d;
+  border-color: #2a9c70;
   background: #35c48d;
+  color: white;
 }
 #sharePost .bottom .button.btn-success:hover,
 #sharePost .bottom .button.btn-success:active,
 #sharePost .bottom .button.btn-success:focus {
-  border-color: #35c48d !important;
-  background-color: #2dc188 !important;
+  border-color: #258862 !important;
+  background-color: #2a9c70 !important;
+  color: white !important;
+}
+#sharePost .bottom .button.btn-danger {
+  border-color: #c9302c;
+  background: #d9534f;
+  color: white;
+}
+#sharePost .bottom .button.btn-danger:hover,
+#sharePost .bottom .button.btn-danger:active,
+#sharePost .bottom .button.btn-danger:focus {
+  border-color: #b52b27 !important;
+  background-color: #c9302c !important;
+  color: white !important;
+}
+#sharePost .bottom .button.btn-warning {
+  border-color: #ec971f;
+  background: #f0ad4e;
+  color: white;
+}
+#sharePost .bottom .button.btn-warning:hover,
+#sharePost .bottom .button.btn-warning:active,
+#sharePost .bottom .button.btn-warning:focus {
+  border-color: #df8a13 !important;
+  background-color: #ec971f !important;
   color: white !important;
 }
 #sharePost .bottom .button.btn-negative {
@@ -268,14 +293,39 @@
   font-weight: 600;
 }
 #sharePost .bottom .post-types .post-type.btn-success {
-  border-color: #35c48d;
+  border-color: #2a9c70;
   background: #35c48d;
+  color: white;
 }
 #sharePost .bottom .post-types .post-type.btn-success:hover,
 #sharePost .bottom .post-types .post-type.btn-success:active,
 #sharePost .bottom .post-types .post-type.btn-success:focus {
-  border-color: #35c48d !important;
-  background-color: #2dc188 !important;
+  border-color: #258862 !important;
+  background-color: #2a9c70 !important;
+  color: white !important;
+}
+#sharePost .bottom .post-types .post-type.btn-danger {
+  border-color: #c9302c;
+  background: #d9534f;
+  color: white;
+}
+#sharePost .bottom .post-types .post-type.btn-danger:hover,
+#sharePost .bottom .post-types .post-type.btn-danger:active,
+#sharePost .bottom .post-types .post-type.btn-danger:focus {
+  border-color: #b52b27 !important;
+  background-color: #c9302c !important;
+  color: white !important;
+}
+#sharePost .bottom .post-types .post-type.btn-warning {
+  border-color: #ec971f;
+  background: #f0ad4e;
+  color: white;
+}
+#sharePost .bottom .post-types .post-type.btn-warning:hover,
+#sharePost .bottom .post-types .post-type.btn-warning:active,
+#sharePost .bottom .post-types .post-type.btn-warning:focus {
+  border-color: #df8a13 !important;
+  background-color: #ec971f !important;
   color: white !important;
 }
 #sharePost .bottom .post-types .post-type.btn-negative {
@@ -339,14 +389,39 @@
   padding: 2px;
 }
 #sharePost .bottom button[type=submit].btn-success {
-  border-color: #35c48d;
+  border-color: #2a9c70;
   background: #35c48d;
+  color: white;
 }
 #sharePost .bottom button[type=submit].btn-success:hover,
 #sharePost .bottom button[type=submit].btn-success:active,
 #sharePost .bottom button[type=submit].btn-success:focus {
-  border-color: #35c48d !important;
-  background-color: #2dc188 !important;
+  border-color: #258862 !important;
+  background-color: #2a9c70 !important;
+  color: white !important;
+}
+#sharePost .bottom button[type=submit].btn-danger {
+  border-color: #c9302c;
+  background: #d9534f;
+  color: white;
+}
+#sharePost .bottom button[type=submit].btn-danger:hover,
+#sharePost .bottom button[type=submit].btn-danger:active,
+#sharePost .bottom button[type=submit].btn-danger:focus {
+  border-color: #b52b27 !important;
+  background-color: #c9302c !important;
+  color: white !important;
+}
+#sharePost .bottom button[type=submit].btn-warning {
+  border-color: #ec971f;
+  background: #f0ad4e;
+  color: white;
+}
+#sharePost .bottom button[type=submit].btn-warning:hover,
+#sharePost .bottom button[type=submit].btn-warning:active,
+#sharePost .bottom button[type=submit].btn-warning:focus {
+  border-color: #df8a13 !important;
+  background-color: #ec971f !important;
   color: white !important;
 }
 #sharePost .bottom button[type=submit].btn-negative {
@@ -400,14 +475,39 @@
   color: #6747c7;
 }
 #sharePost .bottom button[type=submit] > :nth-child(1).btn-success {
-  border-color: #35c48d;
+  border-color: #2a9c70;
   background: #35c48d;
+  color: white;
 }
 #sharePost .bottom button[type=submit] > :nth-child(1).btn-success:hover,
 #sharePost .bottom button[type=submit] > :nth-child(1).btn-success:active,
 #sharePost .bottom button[type=submit] > :nth-child(1).btn-success:focus {
-  border-color: #35c48d !important;
-  background-color: #2dc188 !important;
+  border-color: #258862 !important;
+  background-color: #2a9c70 !important;
+  color: white !important;
+}
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-danger {
+  border-color: #c9302c;
+  background: #d9534f;
+  color: white;
+}
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-danger:hover,
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-danger:active,
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-danger:focus {
+  border-color: #b52b27 !important;
+  background-color: #c9302c !important;
+  color: white !important;
+}
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-warning {
+  border-color: #ec971f;
+  background: #f0ad4e;
+  color: white;
+}
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-warning:hover,
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-warning:active,
+#sharePost .bottom button[type=submit] > :nth-child(1).btn-warning:focus {
+  border-color: #df8a13 !important;
+  background-color: #ec971f !important;
   color: white !important;
 }
 #sharePost .bottom button[type=submit] > :nth-child(1).btn-negative {
@@ -470,4 +570,32 @@
 }
 #sharePost.focused {
   box-shadow: 0px 0px 1.3em rgba(0, 0, 0, 0.15);
+}
+@media only screen and (max-width: 768px) {
+  #sharePost .head {
+    padding: 1em;
+  }
+  #sharePost .head .label {
+    font-size: 1.3em;
+  }
+  #sharePost .content .form-element[name=title] {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  #sharePost .content #postGifContainer #postGifBlock {
+    height: 8em;
+  }
+  #sharePost .content #postGifContainer #postGifBlock .bk .icon {
+    font-size: 3.6em;
+  }
+  #sharePost .content #postArticleContainer #postArticleBlock {
+    height: 8em;
+    padding: 0.6em 1em;
+  }
+  #sharePost .bottom {
+    padding: 0.6em 1em;
+  }
+  #sharePost .bottom button[type=submit] > :nth-child(1) {
+    min-width: 6em;
+  }
 }

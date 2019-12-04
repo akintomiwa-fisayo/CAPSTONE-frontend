@@ -10,3 +10,8 @@
 #mainContentBlock[data-comp=feeds] .container .empty-posts-tab::first-letter {
   text-transform: capitalize;
 }
+@media only screen and (max-width: 768px) {
+  #mainContentBlock[data-comp=feeds] .container {
+    padding: 0px !important;
+  }
+}

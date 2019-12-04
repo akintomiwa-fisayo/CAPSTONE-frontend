@@ -46,3 +46,18 @@
   background: linear-gradient(145deg, #6747c7, #1c123a);
   background-clip: text;
 }
+@media only screen and (max-width: 1230px) {
+  #pageContent[data-page="application"].loading:after {
+    font-size: 1.6em;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"].loading:after {
+    font-size: 2em;
+  }
+}
+@media only screen and (max-width: 768px) {
+  #pageContent[data-page="application"].loading:after {
+    font-size: 15vw;
+  }
+}
