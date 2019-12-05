@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/CAPSTONE-frontend/static/css/main.441fd09d.chunk.css",
+    "main.css": "/CAPSTONE-frontend/static/css/main.8968ae0f.chunk.css",
     "main.js": "/CAPSTONE-frontend/static/js/main.bde1c94a.chunk.js",
     "main.js.map": "/CAPSTONE-frontend/static/js/main.bde1c94a.chunk.js.map",
     "runtime-main.js": "/CAPSTONE-frontend/static/js/runtime-main.191171a4.js",
@@ -8,16 +8,16 @@
     "static/js/2.50cddcc9.chunk.js": "/CAPSTONE-frontend/static/js/2.50cddcc9.chunk.js",
     "static/js/2.50cddcc9.chunk.js.map": "/CAPSTONE-frontend/static/js/2.50cddcc9.chunk.js.map",
     "index.html": "/CAPSTONE-frontend/index.html",
-    "precache-manifest.f45681da18a70da1fbf230f79030b4a1.js": "/CAPSTONE-frontend/precache-manifest.f45681da18a70da1fbf230f79030b4a1.js",
+    "precache-manifest.ced0994691eca70db146db11de8f4543.js": "/CAPSTONE-frontend/precache-manifest.ced0994691eca70db146db11de8f4543.js",
     "service-worker.js": "/CAPSTONE-frontend/service-worker.js",
-    "static/css/main.441fd09d.chunk.css.map": "/CAPSTONE-frontend/static/css/main.441fd09d.chunk.css.map",
+    "static/css/main.8968ae0f.chunk.css.map": "/CAPSTONE-frontend/static/css/main.8968ae0f.chunk.css.map",
     "static/media/general.css": "/CAPSTONE-frontend/static/media/SourceSansProBold.9ded577f.ttf",
     "static/media/coverimage.jpg": "/CAPSTONE-frontend/static/media/coverimage.5afb4beb.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.191171a4.js",
     "static/js/2.50cddcc9.chunk.js",
-    "static/css/main.441fd09d.chunk.css",
+    "static/css/main.8968ae0f.chunk.css",
     "static/js/main.bde1c94a.chunk.js"
   ]
 }
